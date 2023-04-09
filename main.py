@@ -49,6 +49,21 @@ pg_img:Optional[Surface] = None
 r0 = [ list(i) for i in [(50, 0), (256, 0), (256, 256), (0, 256)]]
 r1 = [ list(i) for i in [(0, 0), (256, 0), (256, 256), (0, 256)]]
 
+def keep_inside():
+    min_x = 0
+    min_y = 0
+    for x,y in r0:
+        if x < min_x:
+            min_x = x
+        if y < min_y:
+            min_y = y
+
+    for v in r0:
+        if min_x < 0:
+            v[0]-=min_x
+        if min_y < 0:
+            v[1]-=min_y
+
 def update():
     global img
     global pg_img
@@ -59,7 +74,7 @@ def update():
     new_width = width + int(round(xshift))
 
     coeffs = find_coeffs(r0,r1)
-
+    keep_inside()
     img = img.transform((int(width*1.5), int(height*1.5)), Image.PERSPECTIVE, coeffs, Image.BICUBIC)
     img.save(res)
 
@@ -69,6 +84,8 @@ def update():
 update()
 
 selected_point = 0
+
+
 
 while not cr.event_holder.should_quit:
 
