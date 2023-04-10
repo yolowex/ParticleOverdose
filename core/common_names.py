@@ -1,3 +1,5 @@
+import math
+
 import pygame as pg
 from pygame.locals import *
 from typing import Optional
