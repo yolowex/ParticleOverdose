@@ -1,5 +1,0 @@
-import pymunk
-import pymunk.pygame_util
-self._space = pymunk.Space()
-self._space.gravity = (0.0, 900.0)
-self._draw_options = pymunk.pygame_util.DrawOptions(self._screen)

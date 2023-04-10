@@ -19,8 +19,6 @@ cr.event_holder.determined_fps = 60
 cr.game = Game()
 clock = pg.time.Clock()
 
-import pymunk_test
-
 while not cr.event_holder.should_quit:
 
 
