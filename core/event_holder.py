@@ -19,10 +19,13 @@ class EventHolder :
         self.should_quit = False
         self.determined_fps = 60
         self.final_fps = 0
+        self.clock = pg.time.Clock()
 
     @property
     def delta_time( self ):
-        return 1 / (self.final_fps if self.final_fps is not 0 else 60)
+
+        delta = 1 / (self.final_fps if self.final_fps!=0 else 60)
+        return delta
 
     @property
     def mouse_rect( self ) -> FRect:
@@ -35,6 +38,9 @@ class EventHolder :
         self.mouse_released_keys = [False, False, False]
         self.mouse_focus = pg.mouse.get_focused()
         self.mouse_moved = False
+
+        self.final_fps = self.clock.get_fps()
+        self.clock.tick(self.determined_fps)
 
         for i in pg.event.get() :
             if i.type == WINDOWENTER or MOUSEMOTION :

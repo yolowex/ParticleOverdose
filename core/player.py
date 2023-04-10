@@ -15,7 +15,7 @@ class Player(JellyCube) :
 
         self.move_speed = 300
         self.gravity = 0
-        self.jump_power = -3500
+        self.jump_power = -2000
         self.remaining_jump_power = 0
 
         super(Player, self).__init__(points)
@@ -85,7 +85,7 @@ class Player(JellyCube) :
             self.center = last_center
             self.remaining_jump_power = 0
         else:
-            self.remaining_jump_power *= 0.9
+            self.remaining_jump_power -= (self.remaining_jump_power*7*cr.event_holder.delta_time)
             if abs(self.remaining_jump_power) < abs(cr.game.gravity*0.5):
                 self.remaining_jump_power = 0
 
