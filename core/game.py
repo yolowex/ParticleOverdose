@@ -1,6 +1,7 @@
 from core.common_names import *
 from core.player import Player
 import core.common_resources as cr
+from core.common_functions import *
 from core.constants import *
 
 class Game:
@@ -17,11 +18,18 @@ class Game:
         p_rect = self.inner_box
         p_rect.w = p_rect.h = p_rect.w * 0.07
         p_rect.center = self.box.center
-        self.player = Player(p_rect)
+        self.player = Player(rect_convert_polygon(p_rect))
+        self.gravity = Vector2(0,8)
+
+
+    @property
+    def delta_time( self ):
+        return 1 / cr.event_holder.final_fps
 
     # experimental
     @property
-    def inner_box( self ):
+    def inner_box( self ) -> FRect:
+
         rect = self.box.copy()
         rect.x+=self.box_width
         rect.y+=self.box_width
@@ -30,7 +38,8 @@ class Game:
         return rect
 
     def check_events( self ):
-        ...
+        self.player.gravity_request(self.gravity.copy())
+        self.player.check_events()
 
     def render( self ):
         cr.screen.fill(self.bg)

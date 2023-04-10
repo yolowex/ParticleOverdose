@@ -15,6 +15,7 @@ pg.init()
 
 cr.screen = pg.display.set_mode([800,640],SCALED | FULLSCREEN)
 cr.event_holder = EventHolder()
+cr.event_holder.should_render_debug = True
 cr.event_holder.determined_fps = 60
 cr.game = Game()
 clock = pg.time.Clock()
