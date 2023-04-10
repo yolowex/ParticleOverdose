@@ -55,8 +55,10 @@ class JellyCube:
         dx,dy = tx-px,ty-py
 
         for point in self.original_points:
-            point.x+=dx
-            point.y+=dy
+            point.x-=dx
+            point.y-=dy
+
+        print(self.o_rect)
 
 
     @property
