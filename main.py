@@ -16,7 +16,7 @@ pg.init()
 cr.screen = pg.display.set_mode([800,640],SCALED | FULLSCREEN)
 cr.event_holder = EventHolder()
 cr.event_holder.should_render_debug = True
-cr.event_holder.determined_fps = 10000
+cr.event_holder.determined_fps = 1000
 cr.game = Game()
 
 
@@ -26,5 +26,4 @@ while not cr.event_holder.should_quit:
     cr.event_holder.get_events()
     cr.game.check_events()
     cr.game.render()
-
     pg.display.update()
