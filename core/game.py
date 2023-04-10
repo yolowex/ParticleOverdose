@@ -16,7 +16,7 @@ class Game:
             self.box_width = 1
 
         p_rect = self.inner_box
-        p_rect.w = p_rect.h = p_rect.w * 0.3
+        p_rect.w = p_rect.h = p_rect.w * 0.1
         p_rect.center = self.box.center
         self.player = Player(rect_convert_polygon(p_rect))
         self.gravity = 500

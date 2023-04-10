@@ -46,6 +46,8 @@ class Player(JellyCube) :
         self.center = center
         if not cr.game.inner_box.contains(self.rect) :
             self.center = last_center
+        else:
+            super(Player, self).move(value)
 
     def jump_request( self ):
         self.remaining_jump_power = self.jump_power
@@ -78,10 +80,10 @@ class Player(JellyCube) :
             self.jump_request()
 
     def check_events( self ) :
-        super(Player, self).check_events()
         self.check_movements()
         self.check_jump()
         self.gravity_tick()
+        super(Player, self).check_events()
 
 
     def render_debug( self ) :
@@ -93,6 +95,6 @@ class Player(JellyCube) :
             self.render_debug()
 
         pg.draw.polygon(cr.screen, self.color, self.points)
-        pg.draw.polygon(cr.screen, self.color.lerp("red",0.5), self.original_points)
+        # pg.draw.polygon(cr.screen, self.color.lerp("red",0.5), self.original_points)
 
-        pg.draw.polygon(cr.screen, self.border_color, self.points, width=self.border_size)
+        # pg.draw.polygon(cr.screen, self.border_color, self.points, width=self.border_size)
