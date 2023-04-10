@@ -4,6 +4,7 @@ class JellyCube:
     def __init__(self,points:list[Vector2]):
         self.points = points
 
-
+    def check_events( self ):
+        ...
 
 

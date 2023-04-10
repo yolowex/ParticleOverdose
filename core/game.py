@@ -19,12 +19,9 @@ class Game:
         p_rect.w = p_rect.h = p_rect.w * 0.07
         p_rect.center = self.box.center
         self.player = Player(rect_convert_polygon(p_rect))
-        self.gravity = Vector2(0,8)
+        self.gravity = 500
 
 
-    @property
-    def delta_time( self ):
-        return 1 / cr.event_holder.final_fps
 
     # experimental
     @property
@@ -38,7 +35,9 @@ class Game:
         return rect
 
     def check_events( self ):
-        self.player.gravity_request(self.gravity.copy())
+        gravity = self.gravity
+        gravity *= cr.event_holder.delta_time
+        self.player.gravity_request(gravity)
         self.player.check_events()
 
     def render( self ):
