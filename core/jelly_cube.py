@@ -19,20 +19,31 @@ class JellyCube :
 
 
     def sync_points( self ) :
-        v1,v0 = self.point_rel_value,self.point_rel_value*0.5
+        v0 = self.point_rel_value * 3
 
         if not self.is_moving:
-            v1 *= 2
+            v0 *= 4
 
+        # let's just ignore jumping for now
         for a, b, c in zip(self.points, self.original_points, range(len(self.points))) :
-            cv = v1
-            if c <= 1 : cv = v0
-            self.points[c] = a.lerp(b, cv)
+            if c > 1 :
+                self.points[c] = b.copy()
+                continue
+
+            cv = v0
+            ax,ay = a.x,a.y
+            bx,by = b.x,b.y
+            dx,dy = bx-ax,by-ay
+
+            a.x += dx * self.point_rel_value
+            a.y += dy * self.point_rel_value * 2
+
+
 
 
     def check_events( self ) :
-        self.is_moving = self.is_falling = False
         self.sync_points()
+        self.is_moving = self.is_falling = False
 
 
     @property

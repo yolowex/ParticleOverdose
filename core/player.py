@@ -45,7 +45,6 @@ class Player(JellyCube) :
 
 
     def move( self, value: Vector2 ) :
-        self.is_moving = True
         # print(self.original_points[0],self.points[0])
         last_center = self.center
         center = last_center.copy()
@@ -54,6 +53,8 @@ class Player(JellyCube) :
         self.center = center
         if not self.is_in_box() :
             self.center = last_center
+        else:
+            self.is_moving = True
 
 
     def jump_request( self ) :
