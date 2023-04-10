@@ -21,6 +21,10 @@ class EventHolder :
         self.final_fps = 0
 
     @property
+    def delta_time( self ):
+        return 1 / (self.final_fps if self.final_fps is not 0 else 60)
+
+    @property
     def mouse_rect( self ) -> FRect:
         return FRect(self.mouse_pos.x - 1, self.mouse_pos.y - 1,2,2)
 
