@@ -47,20 +47,16 @@ class JellyCube:
 
         return FRect(min_x, min_y, max_x - min_x, max_y - min_y)
 
+    def sync_o_points_by_point( self,index ):
+        point = self.points[index]
+        target = self.original_points[index]
+        px,py = point
+        tx,ty = target
+        dx,dy = tx-px,ty-py
 
-    @property
-    def o_center( self ) :
-        return Vector2(self.o_center)
-
-
-    @o_center.setter
-    def o_center( self, new_center: Vector2 ) :
-        last_center = Vector2(self.o_rect.center)
-        diff = Vector2(new_center.x - last_center.x, new_center.y - last_center.y)
-
-        for point in self.original_points :
-            point.x += diff.x
-            point.y += diff.y
+        for point in self.original_points:
+            point.x+=dx
+            point.y+=dy
 
 
     @property
@@ -76,6 +72,7 @@ class JellyCube:
         for point in self.points :
             point.x += diff.x
             point.y += diff.y
+        print(self.o_rect)
 
-        self.o_center = new_center
+        self.sync_o_points_by_point(2)
 

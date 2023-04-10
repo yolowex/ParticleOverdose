@@ -93,6 +93,6 @@ class Player(JellyCube) :
             self.render_debug()
 
         pg.draw.polygon(cr.screen, self.color, self.points)
-        pg.draw.polygon(cr.screen, self.color, self.original_points)
+        pg.draw.polygon(cr.screen, self.color.lerp("red",0.5), self.original_points)
 
         pg.draw.polygon(cr.screen, self.border_color, self.points, width=self.border_size)
