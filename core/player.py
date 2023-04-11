@@ -28,7 +28,7 @@ class Player(JellyCube) :
         super(Player, self).__init__(points)
         points = [i.copy() for i in points]
 
-        self.sprite.transform_by_points(points)
+        self.sprite.transform_by_points(points,self.rect)
 
 
     @property
@@ -115,7 +115,7 @@ class Player(JellyCube) :
             self.jump_request()
 
     def check_events( self ) :
-        # self.sprite.transform_by_points(self.points)
+        self.sprite.transform_by_points(self.points,self.rect)
         self.check_movements()
         self.check_jump()
         self.gravity_tick()
@@ -128,11 +128,12 @@ class Player(JellyCube) :
 
 
     def render( self ) :
-        cr.screen.blit(self.sprite.transformed_surface,self.rect)
 
         if cr.event_holder.should_render_debug :
             self.render_debug()
         pg.draw.polygon(cr.screen, self.color, self.points)
+
+        cr.screen.blit(self.sprite.transformed_surface,self.rect)
         # pg.draw.polygon(cr.screen, self.color.lerp("red",0.5), self.original_points)
 
         # pg.draw.polygon(cr.screen, self.border_color, self.points, width=self.border_size)

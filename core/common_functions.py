@@ -60,7 +60,7 @@ def rotate_point(origin, point, angle):
 def percent(All,part):
     return (100/All) * part
 
-def find_co_effs(pa, pb):
+def find_co_effs(pb, pa):
     matrix = []
     for p1, p2 in zip(pa, pb):
         matrix.append([p1[0], p1[1], 1, 0, 0, 0, -p2[0]*p1[0], -p2[0]*p1[1]])

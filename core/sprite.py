@@ -37,13 +37,12 @@ class Sprite :
         self.transformed_surface = pg.transform.scale(self.raw_surface, (new_w, new_h))
 
 
-    def transform_by_points( self, points ) :
+    def transform_by_points( self, points,points_rect:FRect ) :
         points = shift_points_to_origin(points)
-        print(points)
         co_effs = find_co_effs(rect_convert_polygon(FRect(self.raw_surface.get_rect())),
                             points)
 
-        width, height = self.raw_surface.get_size()
+        width, height = int(points_rect.w),int(points_rect.h)
         self.transformed_surface= self.raw_pil_image.transform((width, height), Image.PERSPECTIVE, co_effs,
             Image.NEAREST)
 
