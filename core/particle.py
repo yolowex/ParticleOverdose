@@ -51,7 +51,13 @@ class Particle:
         diff = [t.x - self.pos.x,t.y - self.pos.y]
         unit = self.move_unit * 0.5
         x = abs(diff[0]) / unit
-        diff = [diff[0] / x,diff[1] / x]
+        if x == 0:
+            x = 1
+        y = abs(diff[0]) / unit
+        if y == 0 :
+            y = 1
+
+        diff = [diff[0] / x,diff[1] / y]
 
         self.power -= 1000 * cr.event_holder.delta_time
 

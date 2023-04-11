@@ -50,16 +50,7 @@ class Player(JellyCube) :
 
 
     def move( self,value:Vector2 ):
-        angle = random.randint(30,60)
-        if value.x > 0:
-            angle = - angle
-
-        size = random.uniform(1,4)
-
-        self.particles.append(Particle(Vector2(self.center),size,angle))
-        if len(self.particles) > self.maximum_particles:
-            self.particles.pop(0)
-
+        self.manage_movement_particles(value)
         last_center = self.center
         center = last_center.copy()
         center.x += value.x * cr.event_holder.delta_time
@@ -126,6 +117,7 @@ class Player(JellyCube) :
         self.check_movements()
         self.check_jump()
         self.gravity_tick()
+        self.manage_shake_particles()
         for particle in self.particles:
             particle.check_events()
         super(Player, self).check_events()
@@ -148,3 +140,28 @@ class Player(JellyCube) :
 
         pg.draw.polygon(cr.screen, self.border_color, self.points, width=self.border_size)
 
+
+
+    def manage_movement_particles( self,value ):
+        angle = random.randint(30, 60)
+        if value.x > 0 :
+            angle = - angle
+
+        size = random.uniform(1, 4)
+
+        self.particles.append(Particle(Vector2(self.center), size, angle))
+        if len(self.particles) > self.maximum_particles :
+            self.particles.pop(0)
+
+    def manage_shake_particles( self ):
+        if not self.is_shaking:
+            return
+
+        angle = random.randint(15, 60)
+        if random.randint(0,1) :
+            angle = - angle
+
+        size = random.uniform(1, 4)
+        self.particles.append(Particle(Vector2(self.center), size, angle))
+        if len(self.particles) > self.maximum_particles :
+            self.particles.pop(0)
