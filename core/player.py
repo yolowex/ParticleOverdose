@@ -3,6 +3,7 @@ import core.common_resources as cr
 from core.constants import *
 from core.jelly_cube import JellyCube
 from core.particle import Particle
+from core.face import Face
 
 class Player(JellyCube) :
 
@@ -13,6 +14,7 @@ class Player(JellyCube) :
         if self.border_size < 1 :
             self.border_size = 1
 
+        self.face = Face()
         self.move_speed = 300
         self.gravity = 0
         self.jump_power = 0
@@ -23,9 +25,13 @@ class Player(JellyCube) :
 
         self.maximum_particles = 1000
         self.particles = []
+        self.facing = RIGHT
 
         super(Player, self).__init__(points)
 
+
+    def init( self ):
+        self.face.init()
 
     @property
     def jump_power_per_second( self ):
@@ -50,6 +56,11 @@ class Player(JellyCube) :
 
 
     def move( self,value:Vector2 ):
+        if value.x < 0:
+            self.facing = LEFT
+        elif value.x > 0:
+            self.facing = RIGHT
+
         self.manage_movement_particles(value)
         last_center = self.center
         center = last_center.copy()
@@ -142,6 +153,8 @@ class Player(JellyCube) :
 
         pg.draw.polygon(cr.screen, self.border_color, self.points, width=self.border_size)
 
+        self.face.render()
+
 
 
     def add_particle( self,source:Vector2,angle,size ):
@@ -165,14 +178,14 @@ class Player(JellyCube) :
         if not self.is_shaking:
             return
 
-        for _ in range(random.randint(1,2)):
-            angle = random.randint(15, 60)
-            if random.randint(0,1) :
-                angle = - angle
 
-            size = random.uniform(1, 4)
+        angle = random.randint(15, 60)
+        if random.randint(0,1) :
+            angle = - angle
 
-            self.add_particle(Vector2(self.center),angle,size)
+        size = random.uniform(1, 4)
+
+        self.add_particle(Vector2(self.center),angle,size)
 
     def manage_jump_particles( self ):
         if not self.is_jumping:
