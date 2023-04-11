@@ -2,7 +2,12 @@ import pygame as pg
 
 class Sprite:
 
-    def __init__(self,path:str):
+    def __init__(self,path:str=None,data=None):
+        if path is None:
+            self.raw_surface = data[0]
+            self.transformed_surface = data[1]
+            return
+
         self.raw_surface  = pg.image.load(path)
         self.transformed_surface = self.raw_surface.copy()
 
@@ -11,6 +16,10 @@ class Sprite:
         b = self.transformed_surface.get_size()
 
         return [b[0]/a[0],b[1]/a[1]]
+
+
+    def copy( self):
+        return Sprite(data=[self.raw_surface,self.transformed_surface])
 
 
     def transform( self,new_w,new_h ):
