@@ -45,7 +45,8 @@ class Particle:
         self.move()
 
     def move( self ):
-        if self.power < 0 : return
+        if self.power <= 0 : return
+        last_center = self.pos.copy()
 
         t = self.target_point
         diff = [t.x - self.pos.x,t.y - self.pos.y]
@@ -64,7 +65,9 @@ class Particle:
         self.pos.x += diff[0]
         self.pos.y += diff[1]
 
-
+        if not cr.game.inner_box.contains(self.rect):
+            self.pos = last_center
+            self.power = 0
 
     def render( self ):
         pg.draw.rect(cr.screen,self.color,self.rect)

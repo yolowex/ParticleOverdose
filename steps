@@ -7,5 +7,7 @@ add player particles
 add wall jump
 add enemies
 
+add particles                               Done
+
 create maps with ldtk
 load maps in game
