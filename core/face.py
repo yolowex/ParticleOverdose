@@ -12,6 +12,8 @@ class Face:
         self.eye_left: Optional[Sprite]  = None
         self.mouth_left: Optional[Sprite]  = None
 
+        self.eye = "none"
+        self.mouth = "none"
 
 
     def init( self ):
@@ -20,13 +22,15 @@ class Face:
         self.update_face(eye,mouth)
 
 
-
     def update_face( self,new_eye=None,new_mouth=None ):
-        if new_eye is not None:
+
+        if new_eye is not None and new_eye!=self.eye:
+            self.eye = new_eye
             self.eye_right = cr.right_eye_sprite_dict[new_eye]
             self.eye_left = cr.left_eye_sprite_dict[new_eye]
 
-        if new_mouth is not None:
+        if new_mouth is not None and new_mouth!=self.mouth:
+            self.mouth = new_mouth
             self.mouth_right = cr.right_mouth_sprite_dict[new_mouth]
             self.mouth_left = cr.left_mouth_sprite_dict[new_mouth]
 

@@ -23,7 +23,7 @@ class Player(JellyCube) :
         self.min_jump_power = -1500
         self.remaining_jump_power = 0
 
-        self.maximum_particles = 1000
+        self.maximum_particles = 350
         self.particles = []
         self.facing = RIGHT
 
@@ -75,7 +75,6 @@ class Player(JellyCube) :
 
     def jump_request( self ):
         self.is_jumping = True
-        self.face.update_face(new_mouth="talk_1")
         self.remaining_jump_power = self.jump_power
 
     def check_jump( self ):
@@ -89,11 +88,12 @@ class Player(JellyCube) :
             self.remaining_jump_power = 0
             self.is_jumping = False
             self.is_falling = True
-
         else:
             self.remaining_jump_power -= (self.remaining_jump_power*7*cr.event_holder.delta_time)
             if abs(self.remaining_jump_power) < abs(cr.game.gravity*0.5):
                 self.remaining_jump_power = 0
+
+            if abs(self.remaining_jump_power) < abs(cr.game.gravity * 1) :
                 self.is_jumping = False
                 self.is_falling = True
 
@@ -117,6 +117,7 @@ class Player(JellyCube) :
 
         if K_SPACE in h_keys and abs(self.jump_power) < abs(self.max_jump_power) :
             self.is_charging = True
+
             self.jump_power += self.jump_power_per_second
             if abs(self.jump_power) > abs(self.max_jump_power):
                 self.jump_power = self.max_jump_power
@@ -125,6 +126,8 @@ class Player(JellyCube) :
             self.is_charging = False
             self.jump_request()
 
+
+
     def check_events( self ) :
         self.check_movements()
         self.check_jump()
@@ -132,6 +135,7 @@ class Player(JellyCube) :
         self.manage_shake_particles()
         self.manage_jump_particles()
         self.manage_fall_particles()
+        self.update_face()
         for particle in self.particles:
             particle.check_events()
         super(Player, self).check_events()
@@ -212,3 +216,17 @@ class Player(JellyCube) :
         size = random.uniform(1, 4)
 
         self.add_particle(Vector2(self.center), angle, size)
+
+
+    def update_face( self ):
+
+        if self.is_charging:
+            self.face.update_face(new_eye="silly",new_mouth="talk_1")
+        elif self.is_falling:
+            self.face.update_face(new_eye="jump",new_mouth="talk_3")
+        elif self.is_moving:
+            self.face.update_face(new_eye="angry",new_mouth="smirk_1")
+        elif self.is_shaking and not self.is_jumping:
+            self.face.update_face(new_eye="dead",new_mouth="hoo_hoo")
+        elif not self.is_moving:
+            self.face.update_face(new_eye="angry",new_mouth="smirk_0")

@@ -2,6 +2,10 @@ from core.common_names import *
 from core.common_functions import *
 import core.common_resources as cr
 
+"""
+this needs to be optimized!!
+
+"""
 class Particle:
     def __init__(self,pos:Vector2,size:float,angle:int=0):
         self.pos = pos
@@ -51,6 +55,9 @@ class Particle:
         t = self.target_point
         diff = [t.x - self.pos.x,t.y - self.pos.y]
         unit = self.move_unit * 0.5
+        # hit an error here
+        if unit == 0:
+            return
         x = abs(diff[0]) / unit
         if x == 0:
             x = 1
