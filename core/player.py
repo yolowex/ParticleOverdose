@@ -31,6 +31,9 @@ class Player(JellyCube) :
         self.sprite.transform_by_points(points,self.rect)
 
 
+    def calculate_every_jelly_frame( self ):
+        ...
+
     @property
     def jump_power_per_second( self ):
         return self.max_jump_power * cr.event_holder.delta_time * 0.5

@@ -47,6 +47,8 @@ class JellyCube:
             new_point = rotate_point(self.o_rect.center,o_point,self.top_points_angle)
             point.x,point.y = new_point
 
+
+
     def check_size_change( self ):
         lys = []
 
