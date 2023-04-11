@@ -6,7 +6,8 @@ class Sprite :
 
     def __init__( self, path: str ) :
         self.raw_surface = pg.image.load(path)
-        self.pil_image = Image.open(path)
+        self.raw_pil_image = Image.open(path)
+        self.transformed_pil_image = self.raw_pil_image.copy()
         self.transformed_surface = self.raw_surface.copy()
 
 
@@ -38,13 +39,13 @@ class Sprite :
 
     def transform_by_points( self, points ) :
         points = shift_points_to_origin(points)
+        print(points)
         co_effs = find_co_effs(rect_convert_polygon(FRect(self.raw_surface.get_rect())),
-                            rect_convert_polygon(FRect([0,0,500,500])))
+                            points)
 
         width, height = self.raw_surface.get_size()
-        self.pil_image = self.pil_image.transform((width, height), Image.PERSPECTIVE, co_effs,
-            Image.BICUBIC)
-        self.pil_image.save("./res.png")
+        self.transformed_surface= self.raw_pil_image.transform((width, height), Image.PERSPECTIVE, co_effs,
+            Image.NEAREST)
 
-        self.transformed_surface = image_to_surface(self.pil_image)
+        self.transformed_surface = image_to_surface(self.transformed_surface)
         # self.transformed_surface = self.raw_surface.copy()

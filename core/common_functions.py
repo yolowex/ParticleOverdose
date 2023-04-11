@@ -1,10 +1,29 @@
 from core.common_names import *
 import numpy
 
+
+def keep_inside(r0) :
+    min_x = 0
+    min_y = 0
+
+    for x, y in r0 :
+        if x < min_x :
+            min_x = x
+        if y < min_y :
+            min_y = y
+
+    for v in r0 :
+        if min_x < 0 :
+            v[0] -= min_x
+        if min_y < 0 :
+            v[1] -= min_y
+
+    return r0
+
 def rect_convert_polygon( rect: FRect ) :
     return [Vector2(i) for i in
         [[rect.x, rect.y], [rect.x + rect.w, rect.y], [rect.x + rect.w, rect.y + rect.h],
-            [rect.x , rect.y + rect.h],]]
+            [rect.x , rect.y + rect.h]]]
 
 def image_to_surface(image:Image) -> Surface:
     mode = image.mode

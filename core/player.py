@@ -23,8 +23,12 @@ class Player(JellyCube) :
         self.min_jump_power = -1500
         self.remaining_jump_power = 0
 
+
+
         super(Player, self).__init__(points)
-        self.sprite.transform_by_points(self.points)
+        points = [i.copy() for i in points]
+
+        self.sprite.transform_by_points(points)
 
 
     @property
@@ -111,6 +115,7 @@ class Player(JellyCube) :
             self.jump_request()
 
     def check_events( self ) :
+        # self.sprite.transform_by_points(self.points)
         self.check_movements()
         self.check_jump()
         self.gravity_tick()
