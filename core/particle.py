@@ -9,13 +9,23 @@ class Particle:
         self.color = random_color()
         self.angle = angle
         self.gravity = 0
-        self.lerp_power = 0.07
+        self.power = 1000
 
     @property
     def top_pos( self ):
         pos = self.pos.copy()
-        pos.y -= cr.screen.get_height() * 0.1
+        x = 1000 - cr.event_holder.final_fps
+        if x < 0:
+            x = 0
+
+        x+=50
+
+        pos.y -= x
         return pos
+
+    @property
+    def move_unit( self ):
+        return self.power * cr.event_holder.delta_time
 
     @property
     def target_point( self ):
@@ -30,17 +40,25 @@ class Particle:
 
 
     def check_events( self ):
+
         self.gravity_tick()
         self.move()
 
     def move( self ):
-        if not self.lerp_power:
-            return
+        if self.power < 0 : return
 
-        self.pos = self.pos.lerp(self.target_point,self.lerp_power)
-        # self.lerp_power -= 0.001
-        if self.lerp_power < 0 or self.lerp_power > 1:
-            self.lerp_power = 0
+        t = self.target_point
+        diff = [t.x - self.pos.x,t.y - self.pos.y]
+        unit = self.move_unit * 0.5
+        x = abs(diff[0]) / unit
+        diff = [diff[0] / x,diff[1] / x]
+
+        self.power -= 1000 * cr.event_holder.delta_time
+
+        self.pos.x += diff[0]
+        self.pos.y += diff[1]
+
+
 
     def render( self ):
         pg.draw.rect(cr.screen,self.color,self.rect)

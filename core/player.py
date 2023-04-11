@@ -21,7 +21,7 @@ class Player(JellyCube) :
         self.min_jump_power = -1500
         self.remaining_jump_power = 0
 
-        self.maximum_particles = 300
+        self.maximum_particles = 1000
         self.particles = []
 
         super(Player, self).__init__(points)
@@ -54,7 +54,9 @@ class Player(JellyCube) :
         if value.x > 0:
             angle = - angle
 
-        self.particles.append(Particle(Vector2(self.center),2,angle))
+        size = random.uniform(1,4)
+
+        self.particles.append(Particle(Vector2(self.center),size,angle))
         if len(self.particles) > self.maximum_particles:
             self.particles.pop(0)
 
@@ -138,10 +140,11 @@ class Player(JellyCube) :
         if cr.event_holder.should_render_debug :
             self.render_debug()
 
+        for particle in self.particles:
+            particle.render()
+
         pg.draw.polygon(cr.screen, self.color, self.points)
         # pg.draw.polygon(cr.screen, self.color.lerp("red",0.5), self.original_points)
 
         pg.draw.polygon(cr.screen, self.border_color, self.points, width=self.border_size)
 
-        for particle in self.particles:
-            particle.render()
