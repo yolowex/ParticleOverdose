@@ -19,7 +19,7 @@ class Player(JellyCube) :
         self.gravity = 0
         self.jump_power = 0
 
-        self.max_jump_power = -3000
+        self.max_jump_power = -5000
         self.min_jump_power = -1500
         self.remaining_jump_power = 0
 
@@ -35,7 +35,7 @@ class Player(JellyCube) :
 
     @property
     def jump_power_per_second( self ):
-        return self.max_jump_power * cr.event_holder.delta_time * 0.5
+        return self.min_jump_power * cr.event_holder.delta_time
 
 
     def gravity_tick( self ) :

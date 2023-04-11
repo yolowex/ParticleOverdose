@@ -46,3 +46,4 @@ class Sprite:
 
     def flip( self,flip_x=False,flip_y=False ):
         self.transformed_surface = pg.transform.flip(self.transformed_surface,flip_x, flip_y)
+        return self
