@@ -67,7 +67,7 @@ class Particle:
 
         if not cr.game.inner_box.contains(self.rect):
             self.pos = last_center
-            self.power = 0
+            self.angle -= 180
 
     def render( self ):
         pg.draw.rect(cr.screen,self.color,self.rect)
