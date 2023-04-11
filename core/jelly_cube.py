@@ -17,6 +17,9 @@ class JellyCube:
         self.points = [i.copy() for i in points]
         self.top_points_angle = 0
         self.is_moving = False
+        self.is_charging = False
+        self.is_jumping = False
+        self.is_falling = False
 
     @property
     def height_scale( self ):
@@ -36,36 +39,39 @@ class JellyCube:
         h_keys = cr.event_holder.held_keys
 
         self.check_angle_change()
-
-        if K_w in h_keys:
-
-            for point in self.original_points[:2]:
-                point.y -= 1000 * cr.event_holder.delta_time
-                self.rotate_points()
-
-            if self.o_rect.height > self.max_height:
-                for point_t,point_b in zip(self.original_points[:2],self.original_points[2::1]) :
-                    point_t.y = point_b.y - self.max_height
-                    self.rotate_points()
-
-        if K_s in h_keys:
-            for point in self.original_points[:2]:
-                point.y += 1000 * cr.event_holder.delta_time
-                self.rotate_points()
-
-            if self.o_rect.height < self.min_height :
-                for point_t, point_b in zip(self.original_points[:2], self.original_points[2 ::-1]) :
-                    print(point_t,point_b)
-                    point_t.y = point_b.y - self.min_height
-                    self.rotate_points()
-
-        self.is_moving = False
+        self.check_size_change()
 
     def rotate_points( self ):
 
         for point,o_point in zip(self.points[:2],self.original_points[:2]):
             new_point = rotate_point(self.o_rect.center,o_point,self.top_points_angle)
             point.x,point.y = new_point
+
+    def check_size_change( self ):
+        lys = []
+
+        if self.is_charging:
+            m = 1
+        elif self.is_jumping :
+            m = -4
+        elif self.is_falling :
+            m = -2
+        else:
+            if self.o_rect.height > self.original_height:
+                m = 4
+            else:
+                return
+
+
+        for point in self.original_points[:2] :
+            lys.append(point.copy())
+
+            point.y += 100 * cr.event_holder.delta_time * m
+            self.rotate_points()
+
+        if not self.min_height <= self.o_rect.height <= self.max_height :
+            for point, ly in zip(self.original_points[:2], lys) :
+                point.x, point.y = ly.x, ly.y
 
     def check_angle_change( self ):
 
