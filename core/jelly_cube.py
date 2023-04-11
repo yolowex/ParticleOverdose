@@ -20,6 +20,7 @@ class JellyCube:
         self.is_charging = False
         self.is_jumping = False
         self.is_falling = False
+        self.is_shaking = False
 
     @property
     def height_scale( self ):
@@ -36,6 +37,7 @@ class JellyCube:
         return 60 * cr.event_holder.delta_time
 
     def check_events( self ):
+        self.is_shaking = False
         h_keys = cr.event_holder.held_keys
 
         self.check_angle_change()
@@ -76,6 +78,7 @@ class JellyCube:
     def check_angle_change( self ):
 
         if not self.is_moving:
+
             a = self.top_points_angle
             p = self.angle_change_power
             self.jelly_swing_scale -= cr.event_holder.delta_time * 0.7
@@ -93,6 +96,8 @@ class JellyCube:
 
         if self.angle_change_power != 0:
             self.top_points_angle += self.angle_change_power
+            self.is_shaking = True and not self.is_moving
+
             if self.top_points_angle < self.min_angle:
                 self.top_points_angle = self.min_angle
             if self.top_points_angle > self.max_angle:
