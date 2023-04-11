@@ -16,3 +16,8 @@ def rotate_point(origin, point, angle):
     qx = ox + math.cos(angle) * (px - ox) - math.sin(angle) * (py - oy)
     qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
     return Vector2(qx, qy)
+
+
+def percent(All,part):
+    return (100/All) * part
+

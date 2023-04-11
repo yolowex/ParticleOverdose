@@ -6,7 +6,7 @@ class JellyCube:
     def __init__(self,points:list[Vector2]):
         self.original_points = points
 
-        self.min_height = self.o_rect.height / 2
+        self.min_height = self.o_rect.height * 0.5
         self.original_height = self.o_rect.height
         self.max_height = self.o_rect.height * 2
         self.angle_change_power = 0
@@ -19,6 +19,16 @@ class JellyCube:
         self.is_moving = False
 
     @property
+    def height_scale( self ):
+        a = percent(self.max_height-self.min_height,self.o_rect.height-self.min_height)
+        a*=0.01
+        if a<0:
+            a = 0
+        if a>1:
+            a = 1
+        return a
+
+    @property
     def angle_speed(self):
         return 60 * cr.event_holder.delta_time
 
@@ -28,35 +38,26 @@ class JellyCube:
         self.check_angle_change()
 
         if K_w in h_keys:
-            lys = []
+
             for point in self.original_points[:2]:
-                lys.append(point.y)
                 point.y -= 1000 * cr.event_holder.delta_time
                 self.rotate_points()
 
             if self.o_rect.height > self.max_height:
-                for point,ly in zip(self.original_points[:2],lys) :
-                    point.y = ly
+                for point_t,point_b in zip(self.original_points[:2],self.original_points[2::1]) :
+                    point_t.y = point_b.y - self.max_height
                     self.rotate_points()
 
         if K_s in h_keys:
-            lys = []
             for point in self.original_points[:2]:
-                lys.append(point.y)
                 point.y += 1000 * cr.event_holder.delta_time
                 self.rotate_points()
 
-            if self.o_rect.height < self.min_height:
-                for point,ly in zip(self.original_points[:2],lys) :
-                    point.y = ly
+            if self.o_rect.height < self.min_height :
+                for point_t, point_b in zip(self.original_points[:2], self.original_points[2 ::-1]) :
+                    print(point_t,point_b)
+                    point_t.y = point_b.y - self.min_height
                     self.rotate_points()
-
-
-        # if not self.is_moving:
-        #     self.top_points_angle -= (abs(self.top_points_angle) / self.top_points_angle
-        #                                 if self.top_points_angle!=0 else 1) \
-        #                                     * self.angle_speed * 2
-        #     self.rotate_points()
 
         self.is_moving = False
 
@@ -96,13 +97,17 @@ class JellyCube:
 
 
     def move( self,value:Vector2 ):
+        hs = self.height_scale
+        if hs < 0.5:
+            hs = 0.5
+
         self.is_moving = True
         if value.x > 0:
-            self.angle_change_power = - self.angle_speed * 4
-            self.jelly_swing_scale = 0.5
+            self.angle_change_power = - self.angle_speed * 10 * hs
+            self.jelly_swing_scale = hs
         if value.x < 0:
-            self.angle_change_power = self.angle_speed * 4
-            self.jelly_swing_scale = 0.5
+            self.angle_change_power = self.angle_speed * 10 * hs
+            self.jelly_swing_scale = hs
 
         self.rotate_points()
 
