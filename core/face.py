@@ -8,7 +8,7 @@ class Face:
 
     def __init__( self ):
         self.eye_right = Sprite("./assets/face/angry_eye.png")
-        self.mouth_right = Sprite("./assets/face/smirk_0.png")
+        self.mouth_right = Sprite("./assets/face/smirk_1.png")
         self.eye_left = Sprite("./assets/face/angry_eye.png")
         self.mouth_left = Sprite("./assets/face/smirk_0.png")
 
