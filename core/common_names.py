@@ -1,4 +1,5 @@
 import math
+import random
 
 import pygame as pg
 from pygame.locals import *

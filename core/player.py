@@ -2,7 +2,7 @@ from core.common_names import *
 import core.common_resources as cr
 from core.constants import *
 from core.jelly_cube import JellyCube
-
+from core.particle import Particle
 
 class Player(JellyCube) :
 
@@ -20,6 +20,9 @@ class Player(JellyCube) :
         self.max_jump_power = -3000
         self.min_jump_power = -1500
         self.remaining_jump_power = 0
+
+        self.maximum_particles = 300
+        self.particles = []
 
         super(Player, self).__init__(points)
 
@@ -42,9 +45,19 @@ class Player(JellyCube) :
 
     def gravity_request( self, gravity: float ) :
         self.gravity = gravity
+        for particle in self.particles:
+            particle.gravity_request(gravity)
 
 
     def move( self,value:Vector2 ):
+        angle = random.randint(30,60)
+        if value.x > 0:
+            angle = - angle
+
+        self.particles.append(Particle(Vector2(self.center),2,angle))
+        if len(self.particles) > self.maximum_particles:
+            self.particles.pop(0)
+
         last_center = self.center
         center = last_center.copy()
         center.x += value.x * cr.event_holder.delta_time
@@ -111,6 +124,8 @@ class Player(JellyCube) :
         self.check_movements()
         self.check_jump()
         self.gravity_tick()
+        for particle in self.particles:
+            particle.check_events()
         super(Player, self).check_events()
         self.is_moving = False
 
@@ -126,4 +141,7 @@ class Player(JellyCube) :
         pg.draw.polygon(cr.screen, self.color, self.points)
         # pg.draw.polygon(cr.screen, self.color.lerp("red",0.5), self.original_points)
 
-        # pg.draw.polygon(cr.screen, self.border_color, self.points, width=self.border_size)
+        pg.draw.polygon(cr.screen, self.border_color, self.points, width=self.border_size)
+
+        for particle in self.particles:
+            particle.render()

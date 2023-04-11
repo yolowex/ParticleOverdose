@@ -21,3 +21,5 @@ def rotate_point(origin, point, angle):
 def percent(All,part):
     return (100/All) * part
 
+def random_color() -> Color:
+    return Color([random.randint(0,255) for _ in range(3)])
