@@ -7,7 +7,11 @@ class JellyCube:
         self.original_points = points
 
         self.min_height = self.o_rect.height / 2
+        self.original_height = self.o_rect.height
         self.max_height = self.o_rect.height * 2
+        self.angle_change_power = 0
+        self.jelly_swing_scale = 1
+
         self.min_angle = -45
         self.max_angle = 45
         self.points = [i.copy() for i in points]
@@ -21,18 +25,7 @@ class JellyCube:
     def check_events( self ):
         h_keys = cr.event_holder.held_keys
 
-        if K_q in h_keys:
-            la = self.top_points_angle
-            self.top_points_angle -= self.angle_speed
-            if self.top_points_angle < self.min_angle:
-                self.top_points_angle = la
-            self.rotate_points()
-        if K_e in h_keys:
-            la = self.top_points_angle
-            self.top_points_angle += self.angle_speed
-            if self.top_points_angle > self.max_angle:
-                self.top_points_angle = la
-            self.rotate_points()
+        self.check_angle_change()
 
         if K_w in h_keys:
             lys = []
@@ -59,11 +52,11 @@ class JellyCube:
                     self.rotate_points()
 
 
-        if not self.is_moving:
-            self.top_points_angle -= (abs(self.top_points_angle) / self.top_points_angle
-                                        if self.top_points_angle!=0 else 1) \
-                                            * self.angle_speed * 2
-            self.rotate_points()
+        # if not self.is_moving:
+        #     self.top_points_angle -= (abs(self.top_points_angle) / self.top_points_angle
+        #                                 if self.top_points_angle!=0 else 1) \
+        #                                     * self.angle_speed * 2
+        #     self.rotate_points()
 
         self.is_moving = False
 
@@ -73,19 +66,43 @@ class JellyCube:
             new_point = rotate_point(self.o_rect.center,o_point,self.top_points_angle)
             point.x,point.y = new_point
 
+    def check_angle_change( self ):
+
+        if not self.is_moving:
+            a = self.top_points_angle
+            p = self.angle_change_power
+            self.jelly_swing_scale -= cr.event_holder.delta_time * 0.7
+
+            if a <= self.min_angle * self.jelly_swing_scale and p < 0:
+                self.angle_change_power = abs(self.angle_change_power)
+
+            if a >= self.max_angle * self.jelly_swing_scale and p > 0:
+                self.angle_change_power = - abs(self.angle_change_power)
+
+            if self.jelly_swing_scale < 0.01:
+                self.angle_change_power = 0
+                self.top_points_angle = 0
+                self.rotate_points()
+
+        if self.angle_change_power != 0:
+            self.top_points_angle += self.angle_change_power
+            if self.top_points_angle < self.min_angle:
+                self.top_points_angle = self.min_angle
+            if self.top_points_angle > self.max_angle:
+                self.top_points_angle = self.max_angle
+
+            self.rotate_points()
+
+
 
     def move( self,value:Vector2 ):
         self.is_moving = True
         if value.x > 0:
-            la = self.top_points_angle
-            self.top_points_angle -= self.angle_speed * 2
-            if self.top_points_angle < self.min_angle :
-                self.top_points_angle = la
+            self.angle_change_power = - self.angle_speed * 4
+            self.jelly_swing_scale = 0.5
         if value.x < 0:
-            la = self.top_points_angle
-            self.top_points_angle += self.angle_speed * 2
-            if self.top_points_angle > self.max_angle :
-                self.top_points_angle = la
+            self.angle_change_power = self.angle_speed * 4
+            self.jelly_swing_scale = 0.5
 
         self.rotate_points()
 
