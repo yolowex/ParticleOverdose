@@ -118,6 +118,10 @@ class Player(JellyCube) :
             self.jump_request()
 
     def check_events( self ) :
+        if K_F2 in cr.event_holder.pressed_keys:
+            print("total sprites: ",len(self.sprite.transform_point_dict))
+            print("sprites size: ",self.sprite.transform_point_dict.__sizeof__() , "BYTES")
+
         self.sprite.transform_by_points(self.points,self.rect)
         self.check_movements()
         self.check_jump()

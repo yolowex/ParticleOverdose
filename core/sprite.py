@@ -43,7 +43,6 @@ class Sprite :
         points = shift_points_to_origin(points)
         points_rect = Rect(points_rect)
         key = "".join(str(i.x)+"-"+(str(i.y))+"-" for i in points)
-        print(int(cr.event_holder.final_fps),len(self.transform_point_dict))
         if key in self.transform_point_dict:
             self.transformed_surface = self.transform_point_dict[key]
 
