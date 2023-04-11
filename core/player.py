@@ -120,7 +120,11 @@ class Player(JellyCube) :
     def check_events( self ) :
         if K_F2 in cr.event_holder.pressed_keys:
             print("total sprites: ",len(self.sprite.transform_point_dict))
-            print("sprites size: ",self.sprite.transform_point_dict.__sizeof__() , "BYTES")
+            total_size = self.sprite.transform_point_dict.__sizeof__()
+            for x in self.sprite.transform_point_dict.values():
+                total_size += x.__sizeof__()
+
+            print("sprites size: ",total_size/(1000*1000) , "MG")
 
         self.sprite.transform_by_points(self.points,self.rect)
         self.check_movements()

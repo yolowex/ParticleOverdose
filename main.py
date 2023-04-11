@@ -30,6 +30,12 @@ points = rect_convert_polygon(rect)
 def update():
     sprite.transform_by_points(points,cr.game.player.rect)
 
+font = pg.font.SysFont("monospace",15)
+
+def fps_text():
+    text = f"FPS: {round(cr.event_holder.final_fps)}"
+    return font.render(text,False,"white")
+
 while not cr.event_holder.should_quit:
     if K_F3 in cr.event_holder.pressed_keys:
         cr.event_holder.should_render_debug = not cr.event_holder.should_render_debug
@@ -54,5 +60,8 @@ while not cr.event_holder.should_quit:
 
     cr.game.check_events()
     cr.game.render()
+    if cr.event_holder.should_render_debug:
+        cr.screen.blit(fps_text(),[0,0])
+
 
     pg.display.update()
