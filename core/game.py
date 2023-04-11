@@ -25,6 +25,24 @@ class Game:
     def init( self ):
         self.player.init()
 
+        r_mouth = list(cr.right_mouth_sprite_dict.values())
+        l_mouth = list(cr.left_mouth_sprite_dict.values())
+        mouth = r_mouth + l_mouth
+        for sprite in mouth:
+            sprite.transform_by_width(self.player.rect.w * 0.5)
+            if sprite in l_mouth:
+                sprite.flip(flip_x = True)
+
+        r_eye = list(cr.right_eye_sprite_dict.values())
+        l_eye = list(cr.left_eye_sprite_dict.values())
+        eye = r_eye + l_eye
+        for sprite in eye:
+            sprite.transform_by_width(self.player.rect.w * 0.5)
+            if sprite in l_eye:
+                sprite.flip(flip_x=True)
+
+
+
     # experimental
     @property
     def inner_box( self ) -> FRect:

@@ -7,19 +7,28 @@ from core.constants import *
 class Face:
 
     def __init__( self ):
-        self.eye_right = Sprite("./assets/face/angry_eye.png")
-        self.mouth_right = Sprite("./assets/face/smirk_1.png")
-        self.eye_left = Sprite("./assets/face/angry_eye.png")
-        self.mouth_left = Sprite("./assets/face/smirk_0.png")
+        self.eye_right: Optional[Sprite] = None
+        self.mouth_right: Optional[Sprite]  = None
+        self.eye_left: Optional[Sprite]  = None
+        self.mouth_left: Optional[Sprite]  = None
+
 
 
     def init( self ):
-        self.eye_right.transform_by_width(cr.game.player.rect.w*.5)
-        self.mouth_right.transform_by_width(cr.game.player.rect.w*.5)
-        self.eye_left.transform_by_width(cr.game.player.rect.w * .5)
-        self.eye_left.flip(True)
-        self.mouth_left.transform_by_width(cr.game.player.rect.w * .5)
-        self.mouth_left.flip(True)
+        eye = "angry"
+        mouth = "smirk_0"
+        self.update_face(eye,mouth)
+
+
+
+    def update_face( self,new_eye=None,new_mouth=None ):
+        if new_eye is not None:
+            self.eye_right = cr.right_eye_sprite_dict[new_eye]
+            self.eye_left = cr.left_eye_sprite_dict[new_eye]
+
+        if new_mouth is not None:
+            self.mouth_right = cr.right_mouth_sprite_dict[new_mouth]
+            self.mouth_left = cr.left_mouth_sprite_dict[new_mouth]
 
 
     @property

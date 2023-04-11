@@ -26,7 +26,7 @@ mouth_dict = {
 
 
 right_eye_sprite_dict = {key:Sprite(face_root+path) for key,path in eye_dict.items()}
-right_mouse_sprite_dict = {key:Sprite(face_root+path) for key,path in mouth_dict.items()}
+right_mouth_sprite_dict = {key:Sprite(face_root + path) for key,path in mouth_dict.items()}
 
-left_eye_sprite_dict = {key:sprite.copy().flip(flip_x=True) for key,sprite in right_eye_sprite_dict.items()}
-left_mouse_sprite_dict = {key:sprite.flip(flip_x=True) for key,sprite in right_mouse_sprite_dict.items()}
+left_eye_sprite_dict = {key:sprite.copy()for key,sprite in right_eye_sprite_dict.items()}
+left_mouth_sprite_dict = {key:sprite.copy()for key,sprite in right_mouth_sprite_dict.items()}

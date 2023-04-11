@@ -75,6 +75,7 @@ class Player(JellyCube) :
 
     def jump_request( self ):
         self.is_jumping = True
+        self.face.update_face(new_mouth="talk_1")
         self.remaining_jump_power = self.jump_power
 
     def check_jump( self ):
