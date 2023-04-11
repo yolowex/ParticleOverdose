@@ -2,6 +2,7 @@ from core.common_names import *
 import core.common_resources as cr
 from core.constants import *
 from core.jelly_cube import JellyCube
+from core.sprite import Sprite
 
 
 class Player(JellyCube) :
@@ -10,6 +11,7 @@ class Player(JellyCube) :
         self.color = WHITE
         self.border_color = BLACK.lerp(WHITE, 0.5)
         self.border_size = 1
+        self.sprite = Sprite("./26.jpeg")
         if self.border_size < 1 :
             self.border_size = 1
 
@@ -22,6 +24,7 @@ class Player(JellyCube) :
         self.remaining_jump_power = 0
 
         super(Player, self).__init__(points)
+        self.sprite.transform_by_points(self.points)
 
 
     @property
@@ -120,9 +123,10 @@ class Player(JellyCube) :
 
 
     def render( self ) :
+        cr.screen.blit(self.sprite.transformed_surface,self.rect)
+
         if cr.event_holder.should_render_debug :
             self.render_debug()
-
         pg.draw.polygon(cr.screen, self.color, self.points)
         # pg.draw.polygon(cr.screen, self.color.lerp("red",0.5), self.original_points)
 

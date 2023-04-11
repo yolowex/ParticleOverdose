@@ -14,6 +14,19 @@ def image_to_surface(image:Image) -> Surface:
     surface = pg.image.fromstring(data, size, mode)
     return surface
 
+def shift_points_to_origin(points:list[Vector2]):
+    min_x = min([i.x for i in points])
+    min_y = min([i.y for i in points])
+
+    res_points = [i.copy() for i in points]
+    for point in res_points:
+        point.x -= min_x
+        point.y -= min_y
+
+    return res_points
+
+
+
 
 def rotate_point(origin, point, angle):
     angle = math.radians(angle)
