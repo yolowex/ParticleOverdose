@@ -21,6 +21,9 @@ cr.game = Game()
 cr.game.init()
 
 
+font = pg.font.SysFont('monospace',30)
+fps_text = lambda: font.render(f"FPS :{int(cr.event_holder.final_fps)}",True,"white")
+
 while not cr.event_holder.should_quit:
     if K_F3 in cr.event_holder.pressed_keys:
         cr.event_holder.should_render_debug = not cr.event_holder.should_render_debug
@@ -28,5 +31,8 @@ while not cr.event_holder.should_quit:
     cr.event_holder.get_events()
     cr.game.check_events()
     cr.game.render()
+
+    if cr.event_holder.should_render_debug or True:
+        cr.screen.blit(fps_text(),(0,0))
 
     pg.display.update()
