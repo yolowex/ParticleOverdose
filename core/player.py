@@ -139,10 +139,10 @@ class Player(JellyCube) :
         self.manage_jump_particles()
         self.manage_fall_particles()
         self.update_face()
-        print('total particles :',len(self.particles))
+
         for particle,c in zip(self.particles[::-1],range(len(self.particles))[::-1]):
             if particle.destroy_time is not None:
-                if particle.destroy_time + self.particles_age < now():
+                if particle.destroy_time + particle.age < now():
                     self.particles.pop(c)
 
             particle.check_events()
@@ -172,7 +172,8 @@ class Player(JellyCube) :
 
 
     def add_particle( self,source:Vector2,angle,size ):
-        self.particles.append(Particle(source, size, angle))
+        age = random.uniform(0,7)
+        self.particles.append(Particle(source, size, angle,age))
         if len(self.particles) > self.maximum_particles :
             self.particles.pop(0)
 

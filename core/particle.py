@@ -8,13 +8,14 @@ this needs to be optimized!!
 
 """
 class Particle:
-    def __init__(self,pos:Vector2,size:float,angle:int=0):
+    def __init__(self,pos:Vector2,size:float,angle:int=0,age:float=5):
         self.pos = pos
         self.size = size
         self.color = random_color()
         self.angle = angle
         self.gravity = 0
         self.power = 1000
+        self.age = age
         self.destroy_time = None
 
     @property
