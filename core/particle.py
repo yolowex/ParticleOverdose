@@ -87,7 +87,7 @@ class Particle:
         if self.destroy_time is not None:
             color = GRAY
 
-        pg.draw.rect(cr.screen,color,self.rect)
+        pg.draw.rect(cr.surface,color,self.rect)
 
 
     def gravity_tick( self ) :

@@ -91,5 +91,5 @@ class Face:
             eye = self.eye_left
             mouth = self.mouth_left
 
-        cr.screen.blit(eye.transformed_surface,self.eye_rect)
-        cr.screen.blit(mouth.transformed_surface,self.mouth_rect)
+        cr.surface.blit(eye.transformed_surface,self.eye_rect)
+        cr.surface.blit(mouth.transformed_surface,self.mouth_rect)

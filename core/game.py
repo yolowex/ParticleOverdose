@@ -9,7 +9,7 @@ class Game:
     def __init__(self):
         self.bg = WHITE
 
-        s = cr.screen.get_size()
+        s = cr.surface.get_size()
         # experimental
         self.box = FRect(s[0]*0.1,s[1]*0.1,s[0]*0.8,s[1]*0.8)
         self.box_width = int(s[0]*0.01)
@@ -64,8 +64,8 @@ class Game:
         self.player.check_events()
 
     def render( self ):
-        cr.screen.fill(self.bg)
-        pg.draw.rect(cr.screen,BLACK,self.box,width=self.box_width)
-        pg.draw.rect(cr.screen,BLACK.lerp(WHITE,0.9),self.inner_box)
+        cr.surface.fill(self.bg)
+        pg.draw.rect(cr.surface,BLACK,self.box,width=self.box_width)
+        pg.draw.rect(cr.surface,BLACK.lerp(WHITE,0.9),self.inner_box)
         self.player.render()
         self.level.render()

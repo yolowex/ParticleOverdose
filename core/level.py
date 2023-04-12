@@ -21,4 +21,4 @@ class Level:
         for tile in self.tiles:
             surface = self.tileset.tiles[tile['t']]
             px = tile['px']
-            cr.screen.blit(surface,[cp.x+px[0],cp.y+px[1]])
+            cr.surface.blit(surface,[cp.x + px[0], cp.y + px[1]])

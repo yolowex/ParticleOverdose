@@ -14,6 +14,7 @@ res = "./pic_res.png"
 pg.init()
 
 cr.screen = pg.display.set_mode([900, 640], SCALED | FULLSCREEN)
+cr.surface = cr.screen.copy()
 cr.event_holder = EventHolder()
 cr.event_holder.should_render_debug = False
 cr.event_holder.determined_fps = 1000
@@ -32,11 +33,16 @@ while not cr.event_holder.should_quit :
     cr.game.render()
 
     if cr.event_holder.should_render_debug :
-        cr.screen.blit(fps_text(), (0, 0))
+        cr.surface.blit(fps_text(), (0, 0))
 
-    p = cr.game.player.center
-    cr.screen.scroll(-int(p.x) + int(cr.screen.get_width() * .5),
-        -int(p.y) + int(cr.screen.get_height() * .8))
+    p = cr.game.player.center.copy()
+    p.x = -int(p.x) + int(cr.surface.get_width() * .5)
+    p.y = -int(p.y) + int(cr.surface.get_height() * .8)
+
+    # cr.surface.scroll(-int(p.x) + int(cr.surface.get_width() * .5),
+    #     -int(p.y) + int(cr.surface.get_height() * .8))
+    cr.screen.fill([0,0,0,0])
+    cr.screen.blit(cr.surface,p)
     pg.display.update()
 
     # pg.image.save(cr.screen, "./dump.jpg")

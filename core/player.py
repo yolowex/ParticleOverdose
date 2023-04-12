@@ -153,7 +153,7 @@ class Player(JellyCube) :
 
 
     def render_debug( self ) :
-        pg.draw.rect(cr.screen, "purple", self.rect)
+        pg.draw.rect(cr.surface, "purple", self.rect)
 
 
     def render( self ) :
@@ -163,10 +163,10 @@ class Player(JellyCube) :
         for particle in self.particles:
             particle.render()
 
-        pg.draw.polygon(cr.screen, self.color, self.points)
+        pg.draw.polygon(cr.surface, self.color, self.points)
         # pg.draw.polygon(cr.screen, self.color.lerp("red",0.5), self.original_points)
 
-        pg.draw.polygon(cr.screen, self.border_color, self.points, width=self.border_size)
+        pg.draw.polygon(cr.surface, self.border_color, self.points, width=self.border_size)
 
         self.face.render()
 
