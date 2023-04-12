@@ -5,7 +5,9 @@ from core.constants import *
 
 """
 this needs to be optimized!!
-
+some optimization is done.
+it still needs to be faster
+my guess is that I should use numpy
 """
 class Particle:
     def __init__(self,pos:Vector2,size:float,angle:int=0,age:float=5):
@@ -16,6 +18,8 @@ class Particle:
         self.gravity = 0
         self.power = 1000
         self.age = age
+        self.init_time = now()
+        self.absolute_age = age * 2.5
         self.destroy_time = None
 
     @property

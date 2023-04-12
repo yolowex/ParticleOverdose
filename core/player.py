@@ -163,6 +163,9 @@ class Player(JellyCube) :
                 if particle.destroy_time + particle.age < now():
                     self.particles.pop(c)
 
+            elif particle.init_time + particle.absolute_age < now():
+                self.particles.pop(c)
+
             particle.check_events()
 
         super(Player, self).check_events()

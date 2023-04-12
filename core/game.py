@@ -64,7 +64,14 @@ class Game:
     # experimental
     @property
     def inner_box_list( self ):
-        return self.level.inner_box_list
+        res = []
+        cp = cr.camera.pos
+        scr_rect = FRect(cr.screen.get_rect())
+        scr_rect.x -= cp.x
+        scr_rect.y -= cp.y
+
+        return [i for i in self.level.inner_box_list if scr_rect.colliderect(i)]
+
 
     def check_events( self ):
         gravity = self.gravity

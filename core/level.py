@@ -48,15 +48,45 @@ class Level :
 
     def render( self ) :
         cp = cr.camera.pos
-        for rect in self.inner_box_list :
-            rect = list(rect)
-            rect[0] += cp.x
-            rect[1] += cp.y
 
-            pg.draw.rect(cr.screen, WHITE.lerp('red', 0.2), rect)
-            pg.draw.rect(cr.screen, WHITE.lerp(BLACK, 0.5), rect, width=3)
 
+
+
+        rendered_tiles = 0
         for tile in self.tiles :
+
             surface = self.tileset.tiles[tile['t']].transformed_surface
-            px = tile['px']
-            cr.screen.blit(surface, [cp.x + px[0], cp.y + px[1]])
+            px = list(tile['px'])
+            px = [cp.x + px[0], cp.y + px[1]]
+            size = surface.get_size()
+            rect = FRect(px[0],px[1],size[0],size[1])
+
+            scr_rect = FRect(cr.screen.get_rect())
+            scr_rect.x -= scr_rect.w * 0.1
+            scr_rect.y -= scr_rect.h * 0.1
+            scr_rect.w += scr_rect.w * 0.2
+            scr_rect.h += scr_rect.h * 0.2
+
+            if scr_rect.contains(rect) :
+                cr.screen.blit(surface, px)
+                rendered_tiles +=1
+
+        # t = 0
+        #
+        # for rect in cr.game.inner_box_list :
+        #     rect = list(rect)
+        #     o_rect = rect.copy()
+        #
+        #     rect[0] += cp.x
+        #     rect[1] += cp.y
+        #
+        #     scr_rect = FRect(cr.screen.get_rect())
+        #     scr_rect.x -= cp.x
+        #     scr_rect.y -= cp.y
+        #
+        #     if scr_rect.colliderect(o_rect):
+        #         pg.draw.rect(cr.screen, WHITE.lerp('red', 0.2), rect)
+        #         pg.draw.rect(cr.screen, WHITE.lerp(BLACK, 0.5), rect, width=3)
+        #         t+=1
+        #
+        # print(len(cr.game.inner_box_list),t)

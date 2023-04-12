@@ -22,7 +22,8 @@ cr.game = Game()
 cr.game.init()
 
 font = pg.font.SysFont('monospace', 30)
-fps_text = lambda : font.render(f"FPS :{int(cr.event_holder.final_fps)}", True, "white")
+fps_text = lambda : font.render(f"FPS :{int(cr.event_holder.final_fps)}"
+                        f" PARTICLES: {cr.game.player.particles.__len__()}", True, "white")
 
 while not cr.event_holder.should_quit :
     if K_F3 in cr.event_holder.pressed_keys :
