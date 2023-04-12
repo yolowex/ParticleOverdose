@@ -2,6 +2,7 @@ from core.common_names import *
 import core.common_resources as cr
 from core.sprite import Sprite
 from core.constants import *
+from core.common_functions import *
 
 class Sword:
     def __init__(self):
@@ -61,7 +62,9 @@ class Sword:
 
 
     def check_events( self ):
-        ...
+        self.angle += cr.event_holder.delta_time * 50
+        if K_f in cr.event_holder.pressed_keys:
+            ...
 
     def render( self ):
         if not self.is_active:
@@ -71,10 +74,11 @@ class Sword:
         if cr.game.player.facing == RIGHT:
             sword = self.sword_left.transformed_surface
 
+        new_sword = pg.transform.rotate(sword,self.angle)
+
         rect = self.rect.copy()
         rect.x += cr.camera.x
         rect.y += cr.camera.y
-
-
-        cr.screen.blit(sword,rect)
-
+        rotated_points = get_rotated_points(rect,-self.angle)
+        cr.screen.blit(new_sword,rect)
+        pg.draw.polygon(cr.screen,"black",rotated_points,width=5)

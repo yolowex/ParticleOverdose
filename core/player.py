@@ -174,6 +174,7 @@ class Player(JellyCube) :
         self.manage_fall_particles()
         self.update_face()
         self.dev_sword_control()
+        self.sword.check_events()
 
         for particle,c in zip(self.particles[::-1],range(len(self.particles))[::-1]):
             if particle.destroy_time is not None:

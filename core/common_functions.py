@@ -31,3 +31,26 @@ def random_color() -> Color:
 
 def now():
     return pg.time.get_ticks() / 1000
+
+
+def get_rotated_points(rect:FRect,angle:float) -> list[Vector2]:
+
+    l_min_x = rect.x
+    l_min_y = rect.y
+
+    res = []
+    points = rect_convert_polygon(rect)
+    c = Vector2(rect.center)
+
+    for point in points:
+        new_point = rotate_point(c,point,angle)
+        res.append(new_point)
+
+    min_x = min([i.x for i in res])
+    min_y = min([i.y for i in res])
+
+    for point in res:
+        point.x += (l_min_x - min_x)
+        point.y += (l_min_y - min_y)
+
+    return res
