@@ -20,8 +20,8 @@ class Player(JellyCube) :
         self.gravity = 0
         self.jump_power = 0
 
-        self.max_jump_power = -5000
-        self.min_jump_power = -1500
+        self.max_jump_power = -2500
+        self.min_jump_power = -1000
         self.remaining_jump_power = 0
 
         self.maximum_particles = 500

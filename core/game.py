@@ -28,6 +28,7 @@ class Game:
         self.gravity = 500
 
 
+
     def init( self ):
         self.player.init()
 
