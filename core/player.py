@@ -149,6 +149,21 @@ class Player(JellyCube) :
             self.jump_request()
 
 
+    def dev_sword_control( self ):
+        p_keys = cr.event_holder.pressed_keys
+        if K_1 in p_keys:
+            self.sword.update_sword('evil')
+        if K_2 in p_keys:
+            self.sword.update_sword('desire')
+        if K_3 in p_keys:
+            self.sword.update_sword('light')
+        if K_4 in p_keys:
+            self.sword.update_sword('hawk')
+        if K_5 in p_keys:
+            self.sword.update_sword('blood')
+        if K_6 in p_keys:
+            self.sword.update_sword('death')
+
 
     def check_events( self ) :
         self.check_movements()
@@ -158,6 +173,7 @@ class Player(JellyCube) :
         self.manage_jump_particles()
         self.manage_fall_particles()
         self.update_face()
+        self.dev_sword_control()
 
         for particle,c in zip(self.particles[::-1],range(len(self.particles))[::-1]):
             if particle.destroy_time is not None:

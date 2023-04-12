@@ -57,6 +57,8 @@ class Sword:
             self.name = name
             self.sword_left = cr.left_sword_dict[self.name]
             self.sword_right = cr.right_sword_dict[self.name]
+            self.update_rect()
+
 
     def check_events( self ):
         ...

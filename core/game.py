@@ -49,11 +49,19 @@ class Game:
                 sprite.flip(flip_x=True)
 
 
-        for sprite in cr.right_sword_dict.values():
-            sprite.transform_by_height(self.player.rect.h)
+
+        for name,sprite in list(cr.right_sword_dict.items())+list(cr.left_sword_dict.items()):
+            m = 1.5
+            if name == 'blood':
+                m = 1.75
+            elif name == 'death':
+                m = 2.25
+
+            sprite.transform_by_height(self.player.rect.h * m)
+
 
         for sprite in cr.left_sword_dict.values():
-            sprite.transform_by_height(self.player.rect.h)
+
             sprite.flip(True)
 
 
