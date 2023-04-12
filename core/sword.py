@@ -21,12 +21,19 @@ class Sword:
 
     @property
     def grab_point( self ):
-        ptl, pbl = cr.game.player.points[0], cr.game.player.points[3]
-        ptr, pbr = cr.game.player.points[1], cr.game.player.points[2]
+        player = cr.game.player
+        ptl, pbl = player.points[0], player.points[3]
+        ptr, pbr = player.points[1], player.points[2]
 
         b = pbr.lerp(pbl,0.5)
         t = ptr.lerp(ptl,0.5)
-        c = b.lerp(t,0.5)
+        c = b.lerp(t,0.3)
+
+        if player.facing == RIGHT:
+            c.x += player.rect.w * 0.7
+        else:
+            c.x -= player.rect.w * 0.7
+
         return c
 
 
@@ -50,7 +57,7 @@ class Sword:
         if cr.game.player.facing == RIGHT:
             sword = self.sword_left.transformed_surface
 
-        new_sword = pg.transform.rotate(sword,self.angle).convert()
+        new_sword = pg.transform.rotate(sword,self.angle)
 
 
         gp = self.grab_point
