@@ -28,7 +28,6 @@ class Tileset:
 
             if not rect.x >= self.surface.get_rect().w:
                 self.tiles.append(tile)
-                pg.image.save(tile, f"./dump/{counter}.png")
                 counter += 1
 
             w_index += 1
