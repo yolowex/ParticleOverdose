@@ -35,6 +35,7 @@ class Player(JellyCube) :
 
     def init( self ):
         self.face.init()
+        print(self.rect)
 
     @property
     def jump_power_per_second( self ):

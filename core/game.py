@@ -3,6 +3,7 @@ from core.player import Player
 import core.common_resources as cr
 from core.common_functions import *
 from core.constants import *
+from core.level import Level
 
 class Game:
     def __init__(self):
@@ -15,8 +16,10 @@ class Game:
         if self.box_width<1:
             self.box_width = 1
 
+        self.level = Level()
+
         p_rect = self.inner_box
-        p_rect.w = p_rect.h = p_rect.w * 0.1
+        p_rect.w = p_rect.h = self.level.grid_size * 2
         p_rect.center = self.box.center
         self.player = Player(rect_convert_polygon(p_rect))
         self.gravity = 500
@@ -65,3 +68,4 @@ class Game:
         pg.draw.rect(cr.screen,BLACK,self.box,width=self.box_width)
         pg.draw.rect(cr.screen,BLACK.lerp(WHITE,0.9),self.inner_box)
         self.player.render()
+        self.level.render()

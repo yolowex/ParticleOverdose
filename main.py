@@ -13,7 +13,7 @@ res = "./pic_res.png"
 
 pg.init()
 
-cr.screen = pg.display.set_mode([800,640],SCALED | FULLSCREEN)
+cr.screen = pg.display.set_mode([900,640],SCALED | FULLSCREEN)
 cr.event_holder = EventHolder()
 cr.event_holder.should_render_debug = False
 cr.event_holder.determined_fps = 1000
