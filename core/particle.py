@@ -78,7 +78,12 @@ class Particle:
         self.pos.x += diff[0]
         self.pos.y += diff[1]
 
-        if not cr.game.inner_box.contains(self.rect):
+        any_ = False
+        for box in cr.game.inner_box_list :
+            if box.contains(self.rect) :
+                any_ = True
+
+        if not any_ :
             self.pos = last_center
             self.angle -= 180
 
@@ -87,7 +92,9 @@ class Particle:
         if self.destroy_time is not None:
             color = GRAY
 
-        pg.draw.rect(cr.surface,color,self.rect)
+        rect = Rect(self.rect.x+cr.camera.x,self.rect.y+cr.camera.y,self.rect.w,self.rect.h)
+
+        pg.draw.rect(cr.screen,color,rect)
 
 
     def gravity_tick( self ) :
@@ -97,7 +104,12 @@ class Particle:
         center.y += self.gravity
         self.gravity = 0
         self.pos = center
-        if not cr.game.inner_box.contains(self.rect):
+        any_ = False
+        for box in cr.game.inner_box_list:
+            if box.contains(self.rect):
+                any_ = True
+
+        if not any_:
             if self.power <= 0 :
                 self.destroy_time = now()
             self.pos = last_center

@@ -5,9 +5,14 @@ from core.ldtk.tileset import Tileset
 
 class Level:
     def __init__(self):
+        test_entities = find_layer_instance(find_level(cr.world, 'Level_0'), 'Entities')
         test_level = find_layer_instance(find_level(cr.world, 'Level_0'), 'Tiles_grid')
         self.grid_size = test_level['__gridSize']
         tileset_path = cr.levels_root + test_level['__tilesetRelPath']
+
+        self.player = find_entity(test_entities,'Player')
+        self.player_pos = self.player['px']
+        self.player_size = self.player['width'],self.player['height']
 
         self.tileset = Tileset(tileset_path, self.grid_size)
         self.tiles = test_level['autoLayerTiles']
@@ -21,4 +26,4 @@ class Level:
         for tile in self.tiles:
             surface = self.tileset.tiles[tile['t']]
             px = tile['px']
-            cr.surface.blit(surface,[cp.x + px[0], cp.y + px[1]])
+            cr.screen.blit(surface,[cp.x + px[0], cp.y + px[1]])

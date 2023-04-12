@@ -55,6 +55,9 @@ class Face:
         else:
             rect.x,rect.y = pm
 
+        rect.x += cr.camera.x
+        rect.y += cr.camera.y
+
         return rect
 
 
@@ -78,6 +81,9 @@ class Face:
         else :
             rect.x, rect.y = pm
 
+        rect.x += cr.camera.x
+        rect.y += cr.camera.y
+
         return rect
 
     def check_events( self ):
@@ -91,5 +97,5 @@ class Face:
             eye = self.eye_left
             mouth = self.mouth_left
 
-        cr.surface.blit(eye.transformed_surface,self.eye_rect)
-        cr.surface.blit(mouth.transformed_surface,self.mouth_rect)
+        cr.screen.blit(eye.transformed_surface,self.eye_rect)
+        cr.screen.blit(mouth.transformed_surface,self.mouth_rect)

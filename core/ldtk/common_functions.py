@@ -6,6 +6,11 @@ def find_level(world:dict,name:str):
             return level
 
 def find_layer_instance(level:dict,name:str):
-    for level in level['layerInstances']:
-        if level['__identifier'] == name:
-            return level
+    for layer in level['layerInstances']:
+        if layer['__identifier'] == name:
+            return layer
+
+def find_entity(entities:dict,name:str):
+    for entity in entities['entityInstances']:
+        if entity['__identifier'] == name:
+            return entity

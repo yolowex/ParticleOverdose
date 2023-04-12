@@ -49,7 +49,13 @@ class Player(JellyCube) :
         center.y += self.gravity
         self.gravity = 0
         self.center = center
-        if not cr.game.inner_box.contains(self.rect):
+
+        any_ = False
+        for box in cr.game.inner_box_list :
+            if box.contains(self.rect) :
+                any_ = True
+
+        if not any_ :
             self.center = last_center
             self.is_falling = False
 
@@ -71,7 +77,13 @@ class Player(JellyCube) :
         center.x += value.x * cr.event_holder.delta_time
         center.y += value.y * cr.event_holder.delta_time
         self.center = center
-        if not cr.game.inner_box.contains(self.rect) :
+
+        any_ = False
+        for box in cr.game.inner_box_list :
+            if box.contains(self.rect) :
+                any_ = True
+
+        if not any_ :
             self.center = last_center
         else:
             self.is_moving = True
@@ -87,7 +99,12 @@ class Player(JellyCube) :
         center.y += self.remaining_jump_power * cr.event_holder.delta_time
         self.center = center
 
-        if not cr.game.inner_box.contains(self.rect) :
+        any_ = False
+        for box in cr.game.inner_box_list :
+            if box.contains(self.rect) :
+                any_ = True
+
+        if not any_ :
             self.center = last_center
             self.remaining_jump_power = 0
             self.is_jumping = False
@@ -153,7 +170,7 @@ class Player(JellyCube) :
 
 
     def render_debug( self ) :
-        pg.draw.rect(cr.surface, "purple", self.rect)
+        pg.draw.rect(cr.screen, "purple", self.rect)
 
 
     def render( self ) :
@@ -163,10 +180,14 @@ class Player(JellyCube) :
         for particle in self.particles:
             particle.render()
 
-        pg.draw.polygon(cr.surface, self.color, self.points)
+
+        p = [i.copy() for i in self.points]
+        move_points(p,cr.camera.x,cr.camera.y)
+
+        pg.draw.polygon(cr.screen, self.color, p)
         # pg.draw.polygon(cr.screen, self.color.lerp("red",0.5), self.original_points)
 
-        pg.draw.polygon(cr.surface, self.border_color, self.points, width=self.border_size)
+        pg.draw.polygon(cr.screen, self.border_color, p, width=self.border_size)
 
         self.face.render()
 

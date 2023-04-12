@@ -9,7 +9,7 @@ class Game:
     def __init__(self):
         self.bg = WHITE
 
-        s = cr.surface.get_size()
+        s = cr.screen.get_size()
         # experimental
         self.box = FRect(s[0]*0.1,s[1]*0.1,s[0]*0.8,s[1]*0.8)
         self.box_width = int(s[0]*0.01)
@@ -19,9 +19,12 @@ class Game:
         self.level = Level()
 
         p_rect = self.inner_box
-        p_rect.w = p_rect.h = self.level.grid_size * 2
+        p_rect.w , p_rect.h = self.level.player_size
         p_rect.center = self.box.center
         self.player = Player(rect_convert_polygon(p_rect))
+        print(self.level.player_pos)
+
+        self.player.center = Vector2(self.level.player_pos)
         self.gravity = 500
 
 
@@ -57,6 +60,11 @@ class Game:
         rect.h-=self.box_width*2
         return rect
 
+    # experimental
+    @property
+    def inner_box_list( self ):
+        return [self.inner_box]
+
     def check_events( self ):
         gravity = self.gravity
         gravity *= cr.event_holder.delta_time
@@ -64,8 +72,8 @@ class Game:
         self.player.check_events()
 
     def render( self ):
-        cr.surface.fill(self.bg)
-        pg.draw.rect(cr.surface,BLACK,self.box,width=self.box_width)
-        pg.draw.rect(cr.surface,BLACK.lerp(WHITE,0.9),self.inner_box)
+        cr.screen.fill(self.bg)
+        # pg.draw.rect(cr.surface,BLACK,self.box,width=self.box_width)
+        # pg.draw.rect(cr.surface,BLACK.lerp(WHITE,0.9),self.inner_box)
         self.player.render()
         self.level.render()
