@@ -199,8 +199,8 @@ class Player(JellyCube) :
     def add_particle( self,source:Vector2,angle,size ):
         if len(self.particles) > self.maximum_particles :
             return
-        # return
-        age = random.uniform(0,2)
+
+        age = random.uniform(0,1)
         self.particles.append(Particle(source, size, angle,age))
 
 
