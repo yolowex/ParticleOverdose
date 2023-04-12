@@ -80,10 +80,11 @@ class Particle:
 
         any_ = False
         for box in cr.game.inner_box_list :
-            if box.contains(self.rect) :
+            if box.colliderect(self.rect) :
                 any_ = True
+                break
 
-        if not any_ :
+        if any_ :
             self.pos = last_center
             self.angle -= 180
 
@@ -106,10 +107,10 @@ class Particle:
         self.pos = center
         any_ = False
         for box in cr.game.inner_box_list:
-            if box.contains(self.rect):
+            if box.colliderect(self.rect):
                 any_ = True
 
-        if not any_:
+        if any_:
             if self.power <= 0 :
                 self.destroy_time = now()
             self.pos = last_center

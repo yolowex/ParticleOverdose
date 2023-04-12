@@ -910,7 +910,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "Player",
-							"__grid": [10,9],
+							"__grid": [18,4],
 							"__pivot": [0.5,0.5],
 							"__tags": [],
 							"__tile": null,
@@ -919,7 +919,7 @@
 							"width": 24,
 							"height": 24,
 							"defUid": 60,
-							"px": [252,228],
+							"px": [444,108],
 							"fieldInstances": []
 						}
 					]

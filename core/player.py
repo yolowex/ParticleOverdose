@@ -80,10 +80,10 @@ class Player(JellyCube) :
 
         any_ = False
         for box in cr.game.inner_box_list :
-            if box.contains(self.rect) :
+            if box.colliderect(self.rect) :
                 any_ = True
 
-        if not any_ :
+        if any_:
             self.center = last_center
         else:
             self.is_moving = True
@@ -101,10 +101,10 @@ class Player(JellyCube) :
 
         any_ = False
         for box in cr.game.inner_box_list :
-            if box.contains(self.rect) :
+            if box.colliderect(self.rect) :
                 any_ = True
 
-        if not any_ :
+        if any_ :
             self.center = last_center
             self.remaining_jump_power = 0
             self.is_jumping = False

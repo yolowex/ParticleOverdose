@@ -63,7 +63,7 @@ class Game:
     # experimental
     @property
     def inner_box_list( self ):
-        return [self.inner_box]
+        return self.level.inner_box_list
 
     def check_events( self ):
         gravity = self.gravity
@@ -75,5 +75,5 @@ class Game:
         cr.screen.fill(self.bg)
         # pg.draw.rect(cr.surface,BLACK,self.box,width=self.box_width)
         # pg.draw.rect(cr.surface,BLACK.lerp(WHITE,0.9),self.inner_box)
-        self.player.render()
         self.level.render()
+        self.player.render()
