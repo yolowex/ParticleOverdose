@@ -17,6 +17,10 @@ class Sword:
         self.update_sword(name)
         self.rect = self.get_rect()
 
+    @property
+    def is_active( self ):
+        return self.distance > 0.25
+
     def update_rect( self ):
         self.rect = self.get_rect()
 
@@ -58,6 +62,9 @@ class Sword:
         ...
 
     def render( self ):
+        if not self.is_active:
+            return
+
         sword = self.sword_right.transformed_surface
         if cr.game.player.facing == RIGHT:
             sword = self.sword_left.transformed_surface
