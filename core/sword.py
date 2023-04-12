@@ -57,13 +57,36 @@ class Sword:
         if cr.game.player.facing == RIGHT:
             sword = self.sword_left.transformed_surface
 
-        new_sword = pg.transform.rotate(sword,self.angle)
-
-
+        new_sword = pg.transform.rotate(sword,self.angle).convert()
         gp = self.grab_point
         gp.x += cr.camera.x
         gp.y += cr.camera.y
 
-        print(gp,cr.game.player.rect)
-        cr.screen.blit(new_sword,gp)
+        r_points = get_rotated_points(FRect(new_sword.get_rect()),-self.angle)
+        ptl, pbl = r_points[0], r_points[3]
+        ptr, pbr = r_points[1], r_points[2]
 
+        b = pbr.lerp(pbl, 0.5)
+        t = ptr.lerp(ptl, 0.5)
+        c = b.lerp(t, 0.3)
+
+
+
+
+        diff = gp.x - c.x, gp.y - c.y
+
+        for point in r_points:
+            point.x += diff[0]
+            point.y += diff[1]
+
+        x_list = [i.x for i in r_points]
+        y_list = [i.y for i in r_points]
+        min_x = min(x_list)
+        max_x = max(x_list)
+        min_y = min(y_list)
+        max_y = max(y_list)
+        the_rect = FRect(min_x, min_y, max_x - min_x, max_y - min_y)
+
+
+        cr.screen.blit(new_sword,the_rect)
+        pg.draw.polygon(cr.screen,"white",r_points,width=5)
