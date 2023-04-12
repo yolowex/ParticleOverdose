@@ -35,8 +35,18 @@ left_eye_sprite_dict = {key:sprite.copy()for key,sprite in right_eye_sprite_dict
 
 left_mouth_sprite_dict = {key:sprite.copy()for key,sprite in right_mouth_sprite_dict.items()}
 
-world = json.loads(open("./levels/test.json").read())
+levels_root = './levels/'
+
+world = json.loads(open(levels_root+"test.json").read())
+
 
 test_level = find_layer_instance(find_level(world,'Level_0'),'Tiles_grid')
-grid_size = test_level['__grid_size']
-tileset_path = test_level['__tilesetRelPath']
+grid_size = test_level['__gridSize']
+tileset_path = levels_root + test_level['__tilesetRelPath']
+
+test_tileset = Tileset(tileset_path,grid_size)
+
+for surface in test_tileset.tiles:
+    print(surface)
+
+print(len(test_tileset.tiles))
