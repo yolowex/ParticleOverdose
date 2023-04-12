@@ -29,4 +29,9 @@ right_eye_sprite_dict = {key:Sprite(face_root+path) for key,path in eye_dict.ite
 right_mouth_sprite_dict = {key:Sprite(face_root + path) for key,path in mouth_dict.items()}
 
 left_eye_sprite_dict = {key:sprite.copy()for key,sprite in right_eye_sprite_dict.items()}
+
+
 left_mouth_sprite_dict = {key:sprite.copy()for key,sprite in right_mouth_sprite_dict.items()}
+
+level = json.loads(open("./levels/test.json").read())
+print(level)
