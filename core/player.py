@@ -24,7 +24,7 @@ class Player(JellyCube) :
         self.min_jump_power = -1500
         self.remaining_jump_power = 0
 
-        self.maximum_particles = 2000
+        self.maximum_particles = 500
         self.particles = []
         # This is calculated only after a particle becomes inactive
         self.particles_age = 4
@@ -172,10 +172,13 @@ class Player(JellyCube) :
 
 
     def add_particle( self,source:Vector2,angle,size ):
-        age = random.uniform(0,7)
-        self.particles.append(Particle(source, size, angle,age))
         if len(self.particles) > self.maximum_particles :
-            self.particles.pop(0)
+            return
+
+        age = random.uniform(0,2)
+        self.particles.append(Particle(source, size, angle,age))
+
+
 
 
     def manage_movement_particles( self,value ):

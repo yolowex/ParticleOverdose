@@ -32,7 +32,7 @@ while not cr.event_holder.should_quit:
     cr.game.check_events()
     cr.game.render()
 
-    if cr.event_holder.should_render_debug or True:
+    if cr.event_holder.should_render_debug:
         cr.screen.blit(fps_text(),(0,0))
 
-    pg.display.update()
+    pg.display.flip()
