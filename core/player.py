@@ -52,10 +52,10 @@ class Player(JellyCube) :
 
         any_ = False
         for box in cr.game.inner_box_list :
-            if box.contains(self.rect) :
+            if box.colliderect(self.rect) :
                 any_ = True
 
-        if not any_ :
+        if any_ :
             self.center = last_center
             self.is_falling = False
 
