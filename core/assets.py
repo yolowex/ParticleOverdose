@@ -4,6 +4,8 @@ from core.ldtk.tileset import Tileset
 from core.ldtk.common_functions import *
 
 face_root = "./assets/face/"
+sword_root = "./assets/sword/"
+
 eye_dict = {
     "angry":"angry_eye.png",
     "dead":"dead_eyes.png",
@@ -25,6 +27,19 @@ mouth_dict = {
     "smirk_1":"smirk_1.png",
     "smile":"smile.png",
 }
+
+sword_dict = {
+    "blood":"blood_lust.png",
+    "hawk":"blue_hawk.png",
+    "desire":"burning_desire.png",
+    "death":"death_wish.png",
+    "evil":"evergreen_evil.png",
+    "light":"the_way_of_light.png"
+}
+
+
+right_sword_dict = {key:Sprite(sword_root+path) for key,path in sword_dict.items()}
+left_sword_dict = {key:Sprite(sword_root+path) for key,path in sword_dict.items()}
 
 
 right_eye_sprite_dict = {key:Sprite(face_root+path) for key,path in eye_dict.items()}

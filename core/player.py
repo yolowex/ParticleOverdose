@@ -5,7 +5,7 @@ from core.jelly_cube import JellyCube
 from core.particle import Particle
 from core.face import Face
 from core.common_functions import *
-
+from core.sword import Sword
 class Player(JellyCube) :
 
     def __init__( self, points: list[Vector2] ) :
@@ -16,6 +16,7 @@ class Player(JellyCube) :
             self.border_size = 1
 
         self.face = Face()
+        self.sword = Sword()
         self.move_speed = 300
         self.gravity = 0
         self.jump_power = 0
@@ -35,7 +36,7 @@ class Player(JellyCube) :
 
     def init( self ):
         self.face.init()
-
+        self.sword.init()
 
     @property
     def jump_power_per_second( self ):
@@ -168,8 +169,13 @@ class Player(JellyCube) :
 
             particle.check_events()
 
+
         super(Player, self).check_events()
+        if not self.is_still:
+            self.sword.update_rect()
+
         self.is_moving = False
+
 
 
     def render_debug( self ) :
@@ -196,7 +202,7 @@ class Player(JellyCube) :
         pg.draw.polygon(cr.screen, self.border_color, p, width=self.border_size)
 
         self.face.render()
-
+        self.sword.render()
 
 
     def add_particle( self,source:Vector2,angle,size ):

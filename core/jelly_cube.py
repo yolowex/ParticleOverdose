@@ -21,6 +21,7 @@ class JellyCube:
         self.is_jumping = False
         self.is_falling = False
         self.is_shaking = False
+        self.is_still = False
 
     @property
     def height_scale( self ):
@@ -42,6 +43,9 @@ class JellyCube:
 
         self.check_angle_change()
         self.check_size_change()
+
+        self.is_still = not self.is_moving and not self.is_shaking \
+                        and not self.is_jumping and not self.is_falling
 
     def rotate_points( self,recursive=False ):
         last_points = [i.copy() for i in self.points]

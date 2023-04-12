@@ -7,7 +7,7 @@ from core.level import Level
 
 class Game:
     def __init__(self):
-        self.bg = WHITE
+        self.bg = SKY
 
         s = cr.screen.get_size()
         # experimental
@@ -47,6 +47,16 @@ class Game:
             sprite.transform_by_width(self.player.rect.w * 0.5)
             if sprite in l_eye:
                 sprite.flip(flip_x=True)
+
+
+        for sprite in cr.right_sword_dict.values():
+            sprite.transform_by_height(self.player.rect.h)
+
+        for sprite in cr.left_sword_dict.values():
+            sprite.transform_by_height(self.player.rect.h)
+            sprite.flip(True)
+
+
 
 
 
