@@ -17,7 +17,7 @@ class Level :
 
         self.player = find_entity(test_entities, 'Player')
         self.player_pos = [self.player['px'][0]*scale,self.player['px'][1]*scale]
-        self.player_size = self.player['width']*scale, self.player['height']*scale
+        self.player_size = self.player['width']*scale *0.8, self.player['height']*scale *0.8
 
         self.tileset = Tileset(tileset_path, self.grid_size, scale)
         self.tiles = test_level['autoLayerTiles']
