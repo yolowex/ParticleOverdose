@@ -10,55 +10,31 @@ class Sword:
         self.sword_right: Optional[Sprite] = None
         self.angle = 0
         self.name = "none'"
-        self.distance = 0
-        self.rect:Optional[FRect] = None
 
     def init( self ):
         name = 'blood'
         self.update_sword(name)
-        self.rect = self.get_rect()
+
+    # @property
+    # def is_active( self ):
+    #     return self.distance > 0.25
 
     @property
-    def is_active( self ):
-        return self.distance > 0.25
-
-    def update_rect( self ):
-        self.rect = self.get_rect()
-
-    def get_rect(self,distance:float=1):
-        self.distance = distance
-        w,h = self.sword_left.transformed_surface.get_size()
-
+    def grab_point( self ):
         ptl, pbl = cr.game.player.points[0], cr.game.player.points[3]
         ptr, pbr = cr.game.player.points[1], cr.game.player.points[2]
 
+        b = pbr.lerp(pbl,0.5)
+        t = ptr.lerp(ptl,0.5)
+        c = b.lerp(t,0.5)
+        return c
 
-        x_offset = -self.sword_left.transformed_surface.get_width() * distance
-        pt, pb = ptl, pbl
-        if cr.game.player.facing == RIGHT :
-            pt, pb = ptr, pbr
-            x_offset = self.sword_left.transformed_surface.get_width()* -(1-distance)
-
-        pt, pb = pt.copy(), pb.copy()
-
-        p = pb.lerp(pt,0.3)
-        p.x += x_offset
-        p.y -= h
-
-        rect = FRect(p.x,p.y,w,h)
-
-        any_coll = any([rect.colliderect(i) == True for i in cr.game.inner_box_list])
-        if any_coll and distance>=0:
-            return self.get_rect(distance-0.2)
-        else:
-            return rect
 
     def update_sword( self ,name:str):
         if self.name != name:
             self.name = name
             self.sword_left = cr.left_sword_dict[self.name]
             self.sword_right = cr.right_sword_dict[self.name]
-            self.update_rect()
 
 
     def check_events( self ):
@@ -67,18 +43,20 @@ class Sword:
             ...
 
     def render( self ):
-        if not self.is_active:
-            return
+        # if not self.is_active:
+        #     return
 
         sword = self.sword_right.transformed_surface
         if cr.game.player.facing == RIGHT:
             sword = self.sword_left.transformed_surface
 
-        new_sword = pg.transform.rotate(sword,self.angle)
+        new_sword = pg.transform.rotate(sword,self.angle).convert()
 
-        rect = self.rect.copy()
-        rect.x += cr.camera.x
-        rect.y += cr.camera.y
-        rotated_points = get_rotated_points(rect,-self.angle)
-        cr.screen.blit(new_sword,rect)
-        pg.draw.polygon(cr.screen,"black",rotated_points,width=5)
+
+        gp = self.grab_point
+        gp.x += cr.camera.x
+        gp.y += cr.camera.y
+
+        print(gp,cr.game.player.rect)
+        cr.screen.blit(new_sword,gp)
+

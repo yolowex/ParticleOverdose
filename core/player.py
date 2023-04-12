@@ -188,8 +188,8 @@ class Player(JellyCube) :
 
 
         super(Player, self).check_events()
-        if not self.is_still:
-            self.sword.update_rect()
+        # if not self.is_still:
+        #     self.sword.update_rect()
 
         self.is_moving = False
 

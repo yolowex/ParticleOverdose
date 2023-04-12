@@ -54,3 +54,4 @@ def get_rotated_points(rect:FRect,angle:float) -> list[Vector2]:
         point.y += (l_min_y - min_y)
 
     return res
+
