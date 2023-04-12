@@ -2,7 +2,12 @@ import pygame as pg
 
 class Sprite:
 
-    def __init__(self,path:str=None,data=None):
+    def __init__(self,path:str=None,data=None,surface=None):
+        if surface is not None:
+            self.raw_surface = surface
+            self.transformed_surface = self.raw_surface.copy()
+            return
+
         if path is None:
             self.raw_surface = data[0]
             self.transformed_surface = data[1]

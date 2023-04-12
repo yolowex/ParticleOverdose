@@ -1,13 +1,13 @@
-import pygame_gui.core.utility
-
 from core.common_names import *
+from core.sprite import Sprite
 
 class Tileset:
-    def __init__(self,path:str,grid_size:float):
+    def __init__(self,path:str,grid_size:float,scale:float=1):
         self.path = path
         self.surface = pg.image.load(self.path)
         self.grid_size = grid_size
         self.tiles = []
+        self.scale = scale
         self.create_tiles()
 
     def create_tiles( self ):
@@ -24,10 +24,10 @@ class Tileset:
             rect.y = h_index * h
             tile = base_tile.copy()
             tile.blit(self.surface,[0,0],rect)
-
+            sprite = Sprite(surface=tile)
 
             if not rect.x >= self.surface.get_rect().w:
-                self.tiles.append(tile)
+                self.tiles.append(sprite)
                 counter += 1
 
             w_index += 1

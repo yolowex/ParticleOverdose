@@ -170,7 +170,10 @@ class Player(JellyCube) :
 
 
     def render_debug( self ) :
-        pg.draw.rect(cr.screen, "purple", self.rect)
+        rect = self.rect
+        rect.x += cr.camera.x
+        rect.y += cr.camera.y
+        pg.draw.rect(cr.screen, "purple", rect)
 
 
     def render( self ) :
@@ -196,7 +199,7 @@ class Player(JellyCube) :
     def add_particle( self,source:Vector2,angle,size ):
         if len(self.particles) > self.maximum_particles :
             return
-        return
+        # return
         age = random.uniform(0,2)
         self.particles.append(Particle(source, size, angle,age))
 
