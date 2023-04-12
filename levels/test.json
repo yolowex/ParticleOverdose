@@ -16,7 +16,7 @@
 	"toc": [{
 		"identifier": "Player",
 		"instances": [{
-			"worldIid": "77657420-c640-11ed-876d-89a39a0ffb4d",
+			"worldIid": "2fe17a00-c640-11ed-876d-37c17fe93711",
 			"levelIid": "cc951bd2-c640-11ed-8658-17462b37a18f",
 			"layerIid": "3e22e670-c640-11ed-876d-2f9a71d6dcd7",
 			"entityIid": "6ea9b0d0-c640-11ed-876d-0ff4cd20865a"
@@ -523,7 +523,7 @@
 			"__cHei": 6,
 			"identifier": "Cave_stone",
 			"uid": 1,
-			"relPath": "../../Workstation/Assets/tileset/cave_stone.png",
+			"relPath": "../assets/tilesets/cave_stone.png",
 			"embedAtlas": null,
 			"pxWid": 96,
 			"pxHei": 144,
@@ -613,7 +613,7 @@
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
 					"__tilesetDefUid": 1,
-					"__tilesetRelPath": "../../Workstation/Assets/tileset/cave_stone.png",
+					"__tilesetRelPath": "../assets/tilesets/cave_stone.png",
 					"iid": "7d9fd830-c640-11ed-876d-893223141e3d",
 					"levelId": 0,
 					"layerDefUid": 3,

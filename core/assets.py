@@ -1,5 +1,7 @@
 from core.common_names import *
 from core.sprite import Sprite
+from core.ldtk.tileset import Tileset
+from core.ldtk.common_functions import *
 
 face_root = "./assets/face/"
 eye_dict = {
@@ -33,5 +35,8 @@ left_eye_sprite_dict = {key:sprite.copy()for key,sprite in right_eye_sprite_dict
 
 left_mouth_sprite_dict = {key:sprite.copy()for key,sprite in right_mouth_sprite_dict.items()}
 
-level = json.loads(open("./levels/test.json").read())
-print(level)
+world = json.loads(open("./levels/test.json").read())
+
+test_level = find_layer_instance(find_level(world,'Level_0'),'Tiles_grid')
+grid_size = test_level['__grid_size']
+tileset_path = test_level['__tilesetRelPath']
