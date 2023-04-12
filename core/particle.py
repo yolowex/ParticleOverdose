@@ -1,6 +1,7 @@
 from core.common_names import *
 from core.common_functions import *
 import core.common_resources as cr
+from core.constants import *
 
 """
 this needs to be optimized!!
@@ -14,6 +15,7 @@ class Particle:
         self.angle = angle
         self.gravity = 0
         self.power = 1000
+        self.destroy_time = None
 
     @property
     def top_pos( self ):
@@ -44,12 +46,15 @@ class Particle:
 
 
     def check_events( self ):
+        if self.destroy_time is not None:
+            return
 
         self.gravity_tick()
         self.move()
 
     def move( self ):
-        if self.power <= 0 : return
+        if self.power <= 0 :
+            return
         last_center = self.pos.copy()
 
         t = self.target_point
@@ -77,7 +82,11 @@ class Particle:
             self.angle -= 180
 
     def render( self ):
-        pg.draw.rect(cr.screen,self.color,self.rect)
+        color = self.color
+        if self.destroy_time is not None:
+            color = GRAY
+
+        pg.draw.rect(cr.screen,color,self.rect)
 
 
     def gravity_tick( self ) :
@@ -88,6 +97,8 @@ class Particle:
         self.gravity = 0
         self.pos = center
         if not cr.game.inner_box.contains(self.rect):
+            if self.power <= 0 :
+                self.destroy_time = now()
             self.pos = last_center
 
     def gravity_request( self, gravity: float ) :

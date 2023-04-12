@@ -23,3 +23,6 @@ def percent(All,part):
 
 def random_color() -> Color:
     return Color([random.randint(0,255) for _ in range(3)])
+
+def now():
+    return pg.time.get_ticks() / 1000

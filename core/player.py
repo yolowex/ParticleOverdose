@@ -4,6 +4,7 @@ from core.constants import *
 from core.jelly_cube import JellyCube
 from core.particle import Particle
 from core.face import Face
+from core.common_functions import *
 
 class Player(JellyCube) :
 
@@ -23,8 +24,10 @@ class Player(JellyCube) :
         self.min_jump_power = -1500
         self.remaining_jump_power = 0
 
-        self.maximum_particles = 350
+        self.maximum_particles = 2000
         self.particles = []
+        # This is calculated only after a particle becomes inactive
+        self.particles_age = 4
         self.facing = RIGHT
 
         super(Player, self).__init__(points)
@@ -136,8 +139,14 @@ class Player(JellyCube) :
         self.manage_jump_particles()
         self.manage_fall_particles()
         self.update_face()
-        for particle in self.particles:
+        print('total particles :',len(self.particles))
+        for particle,c in zip(self.particles[::-1],range(len(self.particles))[::-1]):
+            if particle.destroy_time is not None:
+                if particle.destroy_time + self.particles_age < now():
+                    self.particles.pop(c)
+
             particle.check_events()
+
         super(Player, self).check_events()
         self.is_moving = False
 
