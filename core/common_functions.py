@@ -7,6 +7,11 @@ def rect_convert_polygon( rect: FRect ) :
             [rect.x , rect.y + rect.h],]]
 
 
+def move_points(points:list[Vector2],x=0,y=0):
+    for point in points:
+        point.x += x
+        point.y += y
+
 
 def rotate_point(origin, point, angle):
     angle = math.radians(angle)

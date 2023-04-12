@@ -17,6 +17,8 @@ class Level:
         ...
 
     def render( self ):
+        cp = cr.camera.pos
         for tile in self.tiles:
             surface = self.tileset.tiles[tile['t']]
-            cr.screen.blit(surface,tile['px'])
+            px = tile['px']
+            cr.screen.blit(surface,[cp.x+px[0],cp.y+px[1]])
