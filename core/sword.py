@@ -18,12 +18,14 @@ class Sword:
         self.is_attacking = False
         self.is_releasing = False
         self.is_active = False
-        self.attack_end_time = None
+        self.timer = None
+        self.idle_duration = 1.5
 
     def init( self ):
         name = 'blood'
         self.update_sword(name)
         self.rotate_sword()
+
 
 
     # @property
@@ -102,13 +104,16 @@ class Sword:
             self.sword_left = cr.left_sword_dict[self.name]
             self.sword_right = cr.right_sword_dict[self.name]
             self.rotate_sword()
+            self.timer = now()
+            self.is_active = True
 
     def check_events( self ):
+        self.check_attack()
         self.angle += self.angle_power
         if K_f in cr.event_holder.pressed_keys:
             self.attack()
 
-        self.check_attack()
+        self.check_activeness()
 
     @property
     def angle_speed( self ) :
@@ -126,13 +131,20 @@ class Sword:
 
         if self.angle >= 180:
             self.is_releasing = True
+            self.is_attacking = False
 
         if self.is_releasing and self.angle<=0:
             self.angle = 0
-            self.is_attacking = self.is_releasing = False
-            self.attack_end_time = now()
+            self.is_releasing = False
+            self.timer = now()
 
         self.rotate_sword()
+
+    def check_activeness( self ):
+        if self.timer is not None:
+            if now() > self.timer + self.idle_duration:
+                self.timer = None
+                self.is_active = False
 
 
     def attack( self ):
@@ -143,6 +155,9 @@ class Sword:
         pg.draw.polygon(cr.screen,'red',points,width=2)
 
     def render( self ):
+        if not self.is_active:
+            return
+
         points = self.rotated_points_right
         sword = self.rotated_sword_right
         if cr.game.player.facing == LEFT:
