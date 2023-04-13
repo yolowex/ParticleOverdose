@@ -8,3 +8,6 @@ RED = Color(195,15,15)
 
 RIGHT = 'right'
 LEFT = 'left'
+
+THROW = 'throw'
+SWING = 'swing'
