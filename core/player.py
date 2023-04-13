@@ -250,6 +250,7 @@ class Player(JellyCube) :
 
 
     def add_particle( self, source: Vector2, angle, size ) :
+        return
         if len(self.particles) > self.maximum_particles :
             return
 

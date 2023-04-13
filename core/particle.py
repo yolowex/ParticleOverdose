@@ -136,6 +136,7 @@ class Particle :
             if box.colliderect(self.rect) :
                 any_ = True
 
+
         if any_ :
             if self.power <= 0 :
                 self.destroy_time = now()

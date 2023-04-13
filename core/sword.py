@@ -166,9 +166,9 @@ class Sword :
             t = points[0].lerp(points[1],0.5)
 
             shoot_point = b.lerp(t,0.5)
-            shoot_angle = self.angle * angle_m
-            size = random.uniform(1,4)
-            self.add_particle(shoot_point,shoot_angle,size,BLACK)
+            shoot_angle = (self.angle * angle_m) + random.randint(-10,10)
+            size = random.uniform(1,4.5)
+            self.add_particle(shoot_point,shoot_angle,size,)
 
         self.last_attack_type = SWING
         m = swing_speed
@@ -232,6 +232,22 @@ class Sword :
 
 
     def swirling_throw_attack( self ):
+        angle_m = 1
+        points = self.rotated_points_right
+        if cr.game.player.facing == LEFT :
+            points = self.rotated_points_left
+            angle_m = -1
+
+        for _ in range(random.randint(1, 5)) :
+            b = points[2].lerp(points[3], 0.5)
+            t = points[0].lerp(points[1], 0.5)
+
+            shoot_point = b.lerp(t, 0.5)
+            shoot_angle = (self.angle * angle_m) + random.randint(-10, 10)
+            size = random.uniform(1, 4.5)
+            self.add_particle(shoot_point, shoot_angle, size, )
+
+
         self.last_attack_type = SWIRLING_THROW
         throw_angle = 90
         rotate_in_out = 0.5
@@ -297,6 +313,25 @@ class Sword :
     def advance_attack( self,duration:float=0.5 ):
 
 
+        angle_m = 1
+        points = self.rotated_points_right
+        if cr.game.player.facing == LEFT :
+            points = self.rotated_points_left
+            angle_m = -1
+
+
+        for _ in range(random.randint(0,5)) :
+            bias = random.uniform(0, 1)
+            b = points[2].lerp(points[3], bias)
+            t = points[0].lerp(points[1], bias)
+
+            shoot_point = b.lerp(t, 0.5)
+            shoot_angle = (self.angle * angle_m) + random.randint(-10,10)
+            shoot_angle = shoot_angle * -1
+            shoot_angle = 180
+            size = random.uniform(1, 4.5)
+            self.add_particle(shoot_point, shoot_angle, size, )
+
         dirc = cr.game.player.move_speed * 2.8
         if cr.game.player.facing == LEFT:
             dirc *= -1
@@ -321,16 +356,23 @@ class Sword :
 
     def fly_attack( self,duration:float=0.5 ):
 
-
+        points = self.rotated_points_right
         dirc = cr.game.player.move_speed * 3
         if cr.game.player.facing == LEFT:
             dirc *= -1
+            points = self.rotated_points_left
 
         self.angle = 0
         self.rotate_sword()
         halt = False
         if not cr.game.player.move(Vector2(0,-(abs(dirc))),True):
             halt = True
+
+        bias = random.uniform(0, 1)
+        b = points[2].lerp(points[3], bias)
+        t = points[0].lerp(points[1], bias)
+        point = b.lerp(t,0.5)
+        self.add_particle(point, 80, 3)
 
         if self.move_timer is None:
             self.move_timer = now()
@@ -349,7 +391,7 @@ class Sword :
 
 
         if self.attack_key == ATTACK_NORMAL:
-            self.swing_attack()
+            self.swing_attack(swing_amount=90)
         else:
             if self.name == 'death':
                 self.throw_attack()
@@ -374,8 +416,23 @@ class Sword :
         if len(cr.game.particles) > cr.game.maximum_particles :
             return
 
+        color = color
+        if self.name == 'death' :
+            color = BLACK
+        elif self.name == 'blood' :
+            color = Color(random.randint(200, 255), random.randint(0, 75), random.randint(0, 75))
+        elif self.name == 'hawk' :
+            color = Color(random.randint(0, 75), random.randint(0, 75),random.randint(200, 255))
+        elif self.name == 'evil' :
+            color = Color(random.randint(0, 75),random.randint(200, 255), random.randint(0, 75))
+        elif self.name == 'desire' :
+            color = Color(random.randint(200, 255),random.randint(50, 80), random.randint(0, 50))
+        elif self.name == 'light' :
+            color = Color(random.randint(200,255),0,random.randint(0,255))
+            color.g = color.r
+
         age = random.uniform(0, 1)
-        cr.game.particles.append(Particle(source, size, angle, age,color,True,True))
+        cr.game.particles.append(Particle(source, size, angle, age,color,True,False))
 
 
     def check_activeness( self ) :
