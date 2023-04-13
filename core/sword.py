@@ -147,6 +147,7 @@ class Sword :
 
         if self.angle >= swing_amount :
             self.angle = swing_amount
+            self.angle = self.angle % 360
             self.is_retrieving = True
             self.is_attacking = False
 
@@ -276,7 +277,7 @@ class Sword :
             self.swirling_throw_attack()
 
         if self.name == 'evil':
-            self.swing_attack(0.1,0.1,360*1)
+            self.swing_attack(2,4,360*10.8)
 
 
 
