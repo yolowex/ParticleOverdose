@@ -23,18 +23,22 @@ class Player(JellyCube) :
         self.move_speed = 300
         self.gravity = 0
         self.jump_power = 0
-
+        self.did_jump = False
         self.max_jump_power = -2500
         self.min_jump_power = -1000
         self.remaining_jump_power = 0
 
-        self.maximum_particles = 500
+
         # This is calculated only after a particle becomes inactive
         self.particles_age = 4
         self.facing = RIGHT
 
         super(Player, self).__init__(points)
 
+
+    @property
+    def maximum_particles( self ):
+        return cr.game.maximum_particles
 
     @property
     def particles( self ):
@@ -69,6 +73,7 @@ class Player(JellyCube) :
         if any_ :
             self.center = last_center
             self.is_falling = False
+            self.did_jump = False
 
 
     def gravity_request( self, gravity: float ) :
@@ -160,19 +165,21 @@ class Player(JellyCube) :
         if K_LEFT in h_keys :
             self.move(Vector2(-self.move_speed, 0))
 
-        if K_SPACE in p_keys :
-            self.jump_power = self.min_jump_power
+        if not self.did_jump:
+            if K_SPACE in p_keys :
+                self.jump_power = self.min_jump_power
 
-        if K_SPACE in h_keys and abs(self.jump_power) < abs(self.max_jump_power) :
-            self.is_charging = True
+            if K_SPACE in h_keys and abs(self.jump_power) < abs(self.max_jump_power) :
+                self.is_charging = True
 
-            self.jump_power += self.jump_power_per_second
-            if abs(self.jump_power) > abs(self.max_jump_power) :
-                self.jump_power = self.max_jump_power
+                self.jump_power += self.jump_power_per_second
+                if abs(self.jump_power) > abs(self.max_jump_power) :
+                    self.jump_power = self.max_jump_power
 
-        if K_SPACE in r_keys :
-            self.is_charging = False
-            self.jump_request()
+            if K_SPACE in r_keys :
+                self.did_jump = True
+                self.is_charging = False
+                self.jump_request()
 
 
     def dev_sword_control( self ) :

@@ -3,6 +3,7 @@ import core.common_resources as cr
 from core.sprite import Sprite
 from core.constants import *
 from core.common_functions import *
+from core.particle import Particle
 
 
 class Sword :
@@ -60,8 +61,6 @@ class Sword :
             new_sword = pg.transform.rotate(sword, -self.angle * r)
             # This code doesn't work for the opposite direction of the player because of this
             gp = self.get_grab_point(drc)
-            gp.x += cr.camera.x
-            gp.y += cr.camera.y
 
             r_points = get_rotated_points(FRect(sword.get_rect()), self.angle * r)
 
@@ -155,6 +154,21 @@ class Sword :
 
     def swing_attack( self, swing_speed: float = 1, release_speed: float = 0.5,
             swing_amount: float = 135 ) :
+
+        angle_m = 1
+        points = self.rotated_points_right
+        if cr.game.player.facing == LEFT:
+            points = self.rotated_points_left
+            angle_m = -1
+
+        for _ in range(random.randint(1,5)):
+            b = points[2].lerp(points[3],0.5)
+            t = points[0].lerp(points[1],0.5)
+
+            shoot_point = b.lerp(t,0.5)
+            shoot_angle = self.angle * angle_m
+            size = random.uniform(1,4)
+            self.add_particle(shoot_point,shoot_angle,size,BLACK)
 
         self.last_attack_type = SWING
         m = swing_speed
@@ -356,6 +370,12 @@ class Sword :
                 self.fly_attack(0.5)
 
 
+    def add_particle( self, source: Vector2, angle, size,color:Optional[Color]=None ) :
+        if len(cr.game.particles) > cr.game.maximum_particles :
+            return
+
+        age = random.uniform(0, 1)
+        cr.game.particles.append(Particle(source, size, angle, age,color,True,True))
 
 
     def check_activeness( self ) :
@@ -391,6 +411,8 @@ class Sword :
             points = self.rotated_points_left
             sword = self.rotated_sword_left
 
+        points = [i.copy() for i in points]
+        move_points(points,cr.camera.x,cr.camera.y)
         the_rect = polygon_to_rect(points)
 
         cr.screen.blit(sword, the_rect)
