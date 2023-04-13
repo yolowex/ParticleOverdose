@@ -86,8 +86,9 @@ class Player(JellyCube) :
             self.facing = LEFT
         elif value.x > 0 and not throw :
             self.facing = RIGHT
-        else :
-            return False
+        # It's not a bug it's a feature
+        # else :
+        #     return False
 
         self.manage_movement_particles(value)
         last_center = self.center

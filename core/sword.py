@@ -304,6 +304,31 @@ class Sword :
             self.timer = now()
             return
 
+
+    def fly_attack( self,duration:float=0.5 ):
+
+
+        dirc = cr.game.player.move_speed * 2
+        if cr.game.player.facing == LEFT:
+            dirc *= -1
+
+        self.angle = 0
+        self.rotate_sword()
+        halt = False
+        if not cr.game.player.move(Vector2(0,-(abs(dirc))),True):
+            halt = True
+
+        if self.move_timer is None:
+            self.move_timer = now()
+
+        elif self.move_timer + duration < now() or halt:
+            self.angle = 0
+            self.rotate_sword()
+            self.move_timer = None
+            self.is_attacking = False
+            self.timer = now()
+            return
+
     def check_attack( self ) :
         if not self.is_attacking and not self.is_retrieving :
             return
@@ -326,6 +351,9 @@ class Sword :
 
             if self.name == 'light':
                 self.advance_attack(1)
+
+            if self.name == 'hawk':
+                self.fly_attack(0.5)
 
 
 
