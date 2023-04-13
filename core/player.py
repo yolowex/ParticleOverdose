@@ -250,12 +250,15 @@ class Player(JellyCube) :
 
 
     def add_particle( self, source: Vector2, angle, size ) :
-        return
+        # return
         if len(self.particles) > self.maximum_particles :
             return
 
         age = random.uniform(0, 1)
-        self.particles.append(Particle(source, size, angle, age))
+        particle = Particle(source, size, angle, age)
+        particle.power = 10
+        particle.power_decrease_scale = 2
+        self.particles.append(particle)
 
 
     def manage_movement_particles( self, value ) :

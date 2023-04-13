@@ -326,9 +326,9 @@ class Sword :
             t = points[0].lerp(points[1], bias)
 
             shoot_point = b.lerp(t, 0.5)
-            shoot_angle = (self.angle * angle_m) + random.randint(-10,10)
+            shoot_angle = (self.angle * angle_m) + random.randint(-5,5)
             shoot_angle = shoot_angle * -1
-            shoot_angle = 180
+
             size = random.uniform(1, 4.5)
             self.add_particle(shoot_point, shoot_angle, size, )
 
@@ -364,15 +364,27 @@ class Sword :
 
         self.angle = 0
         self.rotate_sword()
+
+        angle_m = 1
+        points = self.rotated_points_right
+        if cr.game.player.facing == LEFT :
+            points = self.rotated_points_left
+            angle_m = -1
+
+        for _ in range(random.randint(0, 5)) :
+            bias = random.uniform(0, 1)
+            b = points[2].lerp(points[3], bias)
+            t = points[0].lerp(points[1], bias)
+
+            shoot_point = b.lerp(t, 0.5)
+            shoot_angle = (self.angle * angle_m) + random.randint(-5, 5)
+            shoot_angle += 180
+            size = random.uniform(1, 4.5)
+            self.add_particle(shoot_point, shoot_angle, size, )
+
         halt = False
         if not cr.game.player.move(Vector2(0,-(abs(dirc))),True):
             halt = True
-
-        bias = random.uniform(0, 1)
-        b = points[2].lerp(points[3], bias)
-        t = points[0].lerp(points[1], bias)
-        point = b.lerp(t,0.5)
-        self.add_particle(point, 80, 3)
 
         if self.move_timer is None:
             self.move_timer = now()
@@ -416,23 +428,33 @@ class Sword :
         if len(cr.game.particles) > cr.game.maximum_particles :
             return
 
+        power_scale = 0
+        spec = self.attack_key == ATTACK_SPECIAL
+
         color = color
         if self.name == 'death' :
             color = BLACK
         elif self.name == 'blood' :
+            power_scale = 1
             color = Color(random.randint(200, 255), random.randint(0, 75), random.randint(0, 75))
         elif self.name == 'hawk' :
+            power_scale = 5
             color = Color(random.randint(0, 75), random.randint(0, 75),random.randint(200, 255))
         elif self.name == 'evil' :
+            power_scale = 10
             color = Color(random.randint(0, 75),random.randint(200, 255), random.randint(0, 75))
         elif self.name == 'desire' :
             color = Color(random.randint(200, 255),random.randint(50, 80), random.randint(0, 50))
         elif self.name == 'light' :
+            power_scale = 5
             color = Color(random.randint(200,255),0,random.randint(0,255))
             color.g = color.r
 
         age = random.uniform(0, 1)
-        cr.game.particles.append(Particle(source, size, angle, age,color,True,False))
+        particle = Particle(source, size, angle, age,color,True,True)
+        # particle.power = random.uniform(4,5)
+        particle.power_decrease_scale = power_scale
+        cr.game.particles.append(particle)
 
 
     def check_activeness( self ) :

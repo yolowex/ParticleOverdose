@@ -25,7 +25,8 @@ class Particle :
         self.anti_collision = anti_collision
         self.angle = angle
         self.gravity = 0
-        self.power = 1000
+        self.power = 5
+        self.power_decrease_scale = 0
         self.age = age
         self.init_time = now()
         self.absolute_age = age * 2.5
@@ -44,10 +45,6 @@ class Particle :
         pos.y -= x
         return pos
 
-
-    @property
-    def move_unit( self ) :
-        return self.power * cr.event_holder.delta_time
 
 
     @property
@@ -75,29 +72,11 @@ class Particle :
             return
         last_center = self.pos.copy()
 
-        t = self.target_point
-        # diff = [t.x - self.pos.x, t.y - self.pos.y]
-        # unit = self.move_unit * 0.5
-        # # hit an error here
-        # if unit == 0 :
-        #     return
-        # x = abs(diff[0]) / unit
-        # if x == 0 :
-        #     x = 1
-        # y = abs(diff[0]) / unit
-        # if y == 0 :
-        #     y = 1
-        #
-        # diff = [diff[0] / x, diff[1] / y]
-        #
-        # self.power -= 1000 * cr.event_holder.delta_time
-        #
-        # self.pos.x += diff[0]
-        # self.pos.y += diff[1]
-        delta_lerp = cr.event_holder.delta_time*0.5
+        delta_lerp = cr.event_holder.delta_time*0.1*self.power
+        self.power -= cr.event_holder.delta_time * self.power_decrease_scale
         if delta_lerp>1:
             delta_lerp = 1
-            print('omg')
+
         self.pos = self.pos.lerp(self.target_point,delta_lerp)
         if self.anti_collision:
             return
@@ -109,7 +88,7 @@ class Particle :
 
         if any_ :
             self.pos = last_center
-            self.angle -= 180
+            self.angle -= random.randint(-25,25)
 
 
     def render( self ) :
