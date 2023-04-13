@@ -45,7 +45,7 @@ class Sword:
 
 
     def check_events( self ):
-        self.angle += cr.event_holder.delta_time * 50
+        self.angle += cr.event_holder.delta_time * -100
         if K_f in cr.event_holder.pressed_keys:
             ...
 
@@ -57,21 +57,19 @@ class Sword:
         if cr.game.player.facing == RIGHT:
             sword = self.sword_left.transformed_surface
 
-        new_sword = pg.transform.rotate(sword,self.angle).convert()
+        new_sword = pg.transform.rotate(sword,self.angle)
         gp = self.grab_point
         gp.x += cr.camera.x
         gp.y += cr.camera.y
 
-        r_points = get_rotated_points(FRect(new_sword.get_rect()),-self.angle)
+        r_points = get_rotated_points(FRect(sword.get_rect()),-self.angle)
+
         ptl, pbl = r_points[0], r_points[3]
         ptr, pbr = r_points[1], r_points[2]
 
         b = pbr.lerp(pbl, 0.5)
         t = ptr.lerp(ptl, 0.5)
-        c = b.lerp(t, 0.3)
-
-
-
+        c = b.lerp(t, 0.2)
 
         diff = gp.x - c.x, gp.y - c.y
 
@@ -87,6 +85,7 @@ class Sword:
         max_y = max(y_list)
         the_rect = FRect(min_x, min_y, max_x - min_x, max_y - min_y)
 
-
         cr.screen.blit(new_sword,the_rect)
-        pg.draw.polygon(cr.screen,"white",r_points,width=5)
+
+
+
