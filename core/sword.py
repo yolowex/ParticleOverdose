@@ -141,7 +141,7 @@ class Sword :
         if K_v in cr.event_holder.pressed_keys:
             if not self.is_attacking and not self.is_retrieving:
                 self.attack(ATTACK_SPECIAL)
-            else:
+            elif not self.was_thrown and not self.is_attacking and not self.is_retrieving:
                 self.reset_sword()
                 self.timer = now()
 
@@ -283,7 +283,7 @@ class Sword :
     def advance_attack( self,duration:float=0.5 ):
 
 
-        dirc = cr.game.player.move_speed * 2
+        dirc = cr.game.player.move_speed * 2.8
         if cr.game.player.facing == LEFT:
             dirc *= -1
 
@@ -308,7 +308,7 @@ class Sword :
     def fly_attack( self,duration:float=0.5 ):
 
 
-        dirc = cr.game.player.move_speed * 2
+        dirc = cr.game.player.move_speed * 3
         if cr.game.player.facing == LEFT:
             dirc *= -1
 
@@ -350,7 +350,7 @@ class Sword :
                 self.swing_attack(2,4,360*10.8)
 
             if self.name == 'light':
-                self.advance_attack(1)
+                self.advance_attack(0.5)
 
             if self.name == 'hawk':
                 self.fly_attack(0.5)
