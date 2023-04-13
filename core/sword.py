@@ -275,6 +275,9 @@ class Sword :
         if self.name == 'desire':
             self.swirling_throw_attack()
 
+        if self.name == 'evil':
+            self.swing_attack(0.1,0.1,360*1)
+
 
 
 
