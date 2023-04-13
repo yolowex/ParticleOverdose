@@ -62,12 +62,12 @@ class Level :
             rect = FRect(px[0],px[1],size[0],size[1])
 
             scr_rect = FRect(cr.screen.get_rect())
-            scr_rect.x -= scr_rect.w * 0.1
-            scr_rect.y -= scr_rect.h * 0.1
-            scr_rect.w += scr_rect.w * 0.2
-            scr_rect.h += scr_rect.h * 0.2
+            scr_rect.x -= scr_rect.w
+            scr_rect.y -= scr_rect.h
+            scr_rect.w += scr_rect.w
+            scr_rect.h += scr_rect.h
 
-            if scr_rect.contains(rect) :
+            if scr_rect.colliderect(rect) :
                 cr.screen.blit(surface, px)
                 rendered_tiles +=1
 
