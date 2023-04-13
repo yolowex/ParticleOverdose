@@ -72,10 +72,12 @@ class Player(JellyCube) :
 
     def move( self, value: Vector2 ) :
         if value.x < 0 and not (
-                self.sword.last_attack_type == THROW and self.sword.is_attacking or self.sword.is_retrieving) :
+                self.sword.last_attack_type in THROW_TYPES and self.sword.is_attacking
+                                or self.sword.is_retrieving) :
             self.facing = LEFT
         elif value.x > 0 and not (
-                self.sword.last_attack_type == THROW and self.sword.is_attacking or self.sword.is_retrieving) :
+                self.sword.last_attack_type in THROW_TYPES and self.sword.is_attacking
+                                or self.sword.is_retrieving) :
             self.facing = RIGHT
         else :
             return
@@ -194,8 +196,8 @@ class Player(JellyCube) :
             particle.check_events()
 
         super(Player, self).check_events()
-        # if not self.is_still:
-        #     self.sword.rotate_sword()
+        if not self.is_still:
+            self.sword.rotate_sword()
 
         self.is_moving = False
 

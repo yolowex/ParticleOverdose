@@ -198,6 +198,70 @@ class Sword :
         self.rotate_sword()
 
 
+    def swirling_throw_attack( self ):
+        self.last_attack_type = SWIRLING_THROW
+        throw_angle = 90
+        rotate_in_out = 0.5
+        throw_m = 0.5
+        retrieve_m = 0.5
+        throw_speed = 15
+        retrieve_speed = 15
+        max_distance = 8
+
+        # It's messy but I'm in a hurry
+        def current_distance_scale():
+            x = 1 - (self.distance / max_distance)
+            x *= 2
+            if x >= 1:
+                x = 1
+            if x <= 0.2:
+                x = 0.2
+            return x
+
+        # retrieve
+        if self.was_thrown and self.distance != self.original_distance:
+            self.angle += self.angle_speed * retrieve_m
+            self.is_attacking = False
+            self.is_retrieving = True
+            self.distance -= cr.event_holder.delta_time * retrieve_speed * current_distance_scale()
+            if self.distance < self.original_distance:
+                self.distance = self.original_distance
+                self.angle = abs(self.angle)
+                self.angle = self.angle % 360
+
+        # rotate out
+        elif self.was_thrown and self.distance == self.original_distance:
+
+            dirc = -1
+            if self.angle > 360-self.angle:
+                dirc = 1
+
+            self.angle += self.angle_speed * rotate_in_out * dirc
+            if self.angle < 0 or self.angle > 360:
+                self.angle = 0
+                self.is_retrieving = False
+                self.is_attacking = False
+                self.was_thrown = False
+                self.timer = now()
+        else:
+            # rotate in
+            if self.angle < throw_angle:
+                self.is_attacking = True
+                self.angle += self.angle_speed * rotate_in_out
+                if self.angle >= throw_angle :
+                    self.angle = throw_angle
+            # throw
+            elif self.angle >= throw_angle:
+
+                self.angle += self.angle_speed * throw_m
+                self.distance += cr.event_holder.delta_time * throw_speed * current_distance_scale()
+                if self.distance > max_distance :
+                    self.distance = max_distance
+                    self.was_thrown = True
+
+        self.rotate_sword()
+
+
     def check_attack( self ) :
         if not self.is_attacking and not self.is_retrieving :
             return
@@ -207,6 +271,9 @@ class Sword :
 
         if self.name == 'blood':
             self.swing_attack(1,0.25,360*0.5)
+
+        if self.name == 'desire':
+            self.swirling_throw_attack()
 
 
 
