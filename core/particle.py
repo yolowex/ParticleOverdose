@@ -88,7 +88,7 @@ class Particle :
 
         if any_ :
             self.pos = last_center
-            self.angle -= random.randint(-25,25)
+            self.angle -= random.randint(-50,50)
 
 
     def render( self ) :
