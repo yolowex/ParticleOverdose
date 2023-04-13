@@ -76,25 +76,29 @@ class Particle :
         last_center = self.pos.copy()
 
         t = self.target_point
-        diff = [t.x - self.pos.x, t.y - self.pos.y]
-        unit = self.move_unit * 0.5
-        # hit an error here
-        if unit == 0 :
-            return
-        x = abs(diff[0]) / unit
-        if x == 0 :
-            x = 1
-        y = abs(diff[0]) / unit
-        if y == 0 :
-            y = 1
-
-        diff = [diff[0] / x, diff[1] / y]
-
-        self.power -= 1000 * cr.event_holder.delta_time
-
-        self.pos.x += diff[0]
-        self.pos.y += diff[1]
-
+        # diff = [t.x - self.pos.x, t.y - self.pos.y]
+        # unit = self.move_unit * 0.5
+        # # hit an error here
+        # if unit == 0 :
+        #     return
+        # x = abs(diff[0]) / unit
+        # if x == 0 :
+        #     x = 1
+        # y = abs(diff[0]) / unit
+        # if y == 0 :
+        #     y = 1
+        #
+        # diff = [diff[0] / x, diff[1] / y]
+        #
+        # self.power -= 1000 * cr.event_holder.delta_time
+        #
+        # self.pos.x += diff[0]
+        # self.pos.y += diff[1]
+        delta_lerp = cr.event_holder.delta_time*0.5
+        if delta_lerp>1:
+            delta_lerp = 1
+            print('omg')
+        self.pos = self.pos.lerp(self.target_point,delta_lerp)
         if self.anti_collision:
             return
         any_ = False
