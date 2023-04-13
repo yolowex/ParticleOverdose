@@ -22,7 +22,7 @@ class Game:
         p_rect.w , p_rect.h = self.level.player_size
         p_rect.center = self.box.center
         self.player = Player(rect_convert_polygon(p_rect))
-        print(self.level.player_pos)
+        self.particles = []
 
         self.player.center = Vector2(self.level.player_pos)
         self.gravity = 500
@@ -65,7 +65,16 @@ class Game:
             sprite.flip(True)
 
 
+    def check_particles( self ):
+        for particle, c in zip(self.particles[: :-1], range(len(self.particles))[: :-1]) :
+            if particle.destroy_time is not None :
+                if particle.destroy_time + particle.age < now() :
+                    self.particles.pop(c)
 
+            elif particle.init_time + particle.absolute_age < now() :
+                self.particles.pop(c)
+
+            particle.check_events()
 
 
     # experimental
@@ -96,6 +105,7 @@ class Game:
         gravity *= cr.event_holder.delta_time
         self.player.gravity_request(gravity)
         self.player.check_events()
+        self.check_particles()
 
     def render( self ):
         cr.screen.fill(self.bg)

@@ -29,13 +29,16 @@ class Player(JellyCube) :
         self.remaining_jump_power = 0
 
         self.maximum_particles = 500
-        self.particles = []
         # This is calculated only after a particle becomes inactive
         self.particles_age = 4
         self.facing = RIGHT
 
         super(Player, self).__init__(points)
 
+
+    @property
+    def particles( self ):
+        return cr.game.particles
 
     def init( self ) :
         self.face.init()
@@ -204,15 +207,7 @@ class Player(JellyCube) :
         self.dev_sword_control()
         self.anti_gravity = False
         self.sword.check_events()
-        for particle, c in zip(self.particles[: :-1], range(len(self.particles))[: :-1]) :
-            if particle.destroy_time is not None :
-                if particle.destroy_time + particle.age < now() :
-                    self.particles.pop(c)
 
-            elif particle.init_time + particle.absolute_age < now() :
-                self.particles.pop(c)
-
-            particle.check_events()
 
         super(Player, self).check_events()
         if not self.is_still:
