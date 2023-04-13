@@ -60,7 +60,7 @@ class Game:
             sprite.transform_by_height(self.player.rect.h * m)
 
 
-        for sprite in cr.left_sword_dict.values():
+        for sprite in cr.right_sword_dict.values():
 
             sprite.flip(True)
 

@@ -55,3 +55,12 @@ def get_rotated_points(rect:FRect,angle:float) -> list[Vector2]:
 
     return res
 
+def polygon_to_rect(polygon:list[Vector2]):
+    x_list = [i.x for i in polygon]
+    y_list = [i.y for i in polygon]
+    min_x = min(x_list)
+    max_x = max(x_list)
+    min_y = min(y_list)
+    max_y = max(y_list)
+    the_rect = FRect(min_x, min_y, max_x - min_x, max_y - min_y)
+    return the_rect
