@@ -123,6 +123,30 @@ class Player(JellyCube) :
         self.is_jumping = True
         self.remaining_jump_power = self.jump_power
 
+    def check_color_update( self ):
+        if self.is_shaking:
+            new_color = random_color()
+            val = cr.event_holder.delta_time * 15
+            if val > 0.10:
+                val = 0.10
+
+            self.color = self.color.lerp(new_color,val)
+
+        else:
+            base_color = WHITE
+            if self.sword.name == 'blood':
+                base_color = RED
+            elif self.sword.name == 'light':
+                base_color = Color(255,255,0)
+            elif self.sword.name == 'evil':
+                base_color = Color(0,255,0)
+
+            lerp_value = cr.event_holder.delta_time * 2.5
+            if lerp_value > 1:
+                lerp_value = 1
+            self.color = self.color.lerp(base_color,lerp_value)
+
+
 
     def check_jump( self ) :
         last_center = self.center
@@ -204,6 +228,7 @@ class Player(JellyCube) :
 
 
     def check_events( self ) :
+
         self.check_movements()
         self.check_jump()
         self.gravity_tick()
@@ -212,6 +237,7 @@ class Player(JellyCube) :
         self.manage_fall_particles()
         self.update_face()
         self.dev_sword_control()
+        self.check_color_update()
         self.anti_gravity = False
         self.sword.check_events()
 
@@ -312,13 +338,28 @@ class Player(JellyCube) :
 
 
     def update_face( self ) :
+
+        # EYES
         if self.is_charging :
-            self.face.update_face(new_eye="silly", new_mouth="talk_1")
+            self.face.update_face(new_eye="silly")
         elif self.is_falling :
-            self.face.update_face(new_eye="jump", new_mouth="talk_3")
+            self.face.update_face(new_eye="jump")
         elif self.is_moving :
-            self.face.update_face(new_eye="angry", new_mouth="smirk_1")
+            self.face.update_face(new_eye="angry")
         elif self.is_shaking and not self.is_jumping :
-            self.face.update_face(new_eye="dead", new_mouth="hoo_hoo")
+            self.face.update_face(new_eye="dead")
         elif not self.is_moving :
-            self.face.update_face(new_eye="angry", new_mouth="smirk_0")
+            self.face.update_face(new_eye="angry")
+
+        # MOUTH
+
+        if self.is_charging :
+            self.face.update_face(new_mouth="talk_1")
+        elif self.is_falling :
+            self.face.update_face(new_mouth="talk_3")
+        elif self.is_moving :
+            self.face.update_face( new_mouth="smirk_1")
+        elif self.is_shaking and not self.is_jumping :
+            self.face.update_face( new_mouth="hoo_hoo")
+        elif not self.is_moving :
+            self.face.update_face( new_mouth="smirk_0")
