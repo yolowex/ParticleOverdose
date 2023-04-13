@@ -71,13 +71,13 @@ class Player(JellyCube) :
 
 
     def move( self, value: Vector2 ) :
-        if value.x < 0 and not (
-                self.sword.last_attack_type in THROW_TYPES and self.sword.is_attacking
-                                or self.sword.is_retrieving) :
+
+        throw = (self.sword.last_attack_type in THROW_TYPES and (self.sword.is_attacking
+                                or self.sword.is_retrieving))
+
+        if value.x < 0 and not throw  :
             self.facing = LEFT
-        elif value.x > 0 and not (
-                self.sword.last_attack_type in THROW_TYPES and self.sword.is_attacking
-                                or self.sword.is_retrieving) :
+        elif value.x > 0 and not throw :
             self.facing = RIGHT
         else :
             return
