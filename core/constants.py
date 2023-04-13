@@ -14,3 +14,6 @@ SWING = 'swing'
 SWIRLING_THROW = 'swirling_throw'
 
 THROW_TYPES = [THROW,SWIRLING_THROW]
+
+ATTACK_NORMAL = 'normal'
+ATTACK_SPECIAL = 'special'

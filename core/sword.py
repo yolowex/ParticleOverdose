@@ -18,11 +18,13 @@ class Sword :
         self.name = "none'"
         self.angle_power = 0.0
         self.is_attacking = False
+        self.attack_key = None
         self.is_retrieving = False
         self.is_active = False
         self.last_attack_type = None
         self.was_thrown = False
         self.timer = None
+        self.move_timer = None
         self.idle_duration = 1.5
         self.original_distance = 0.7
         self.distance = self.original_distance
@@ -37,6 +39,15 @@ class Sword :
     # @property
     # def is_active( self ):
     #     return self.distance > 0.25
+
+    def reset_sword( self ):
+        self.is_attacking = False
+        self.is_retrieving = False
+        self.angle = 0
+        self.distance = 0.7
+        self.move_timer = None
+        self.timer = None
+        self.rotate_sword()
 
     def rotate_sword( self ) :
         swords = [i.transformed_surface for i in [self.sword_right, self.sword_left]]
@@ -124,8 +135,15 @@ class Sword :
     def check_events( self ) :
         self.check_attack()
         self.angle += self.angle_power
+
         if K_f in cr.event_holder.pressed_keys :
-            self.attack()
+            self.attack(ATTACK_NORMAL)
+        if K_v in cr.event_holder.pressed_keys:
+            if not self.is_attacking and not self.is_retrieving:
+                self.attack(ATTACK_SPECIAL)
+            else:
+                self.reset_sword()
+                self.timer = now()
 
         self.check_activeness()
 
@@ -262,22 +280,52 @@ class Sword :
 
         self.rotate_sword()
 
+    def advance_attack( self,duration:float=0.5 ):
+
+
+        dirc = cr.game.player.move_speed * 2
+        if cr.game.player.facing == LEFT:
+            dirc *= -1
+
+        self.angle = 90
+        self.rotate_sword()
+        halt = False
+        if not cr.game.player.move(Vector2(dirc,0),True):
+            halt = True
+
+        if self.move_timer is None:
+            self.move_timer = now()
+
+        elif self.move_timer + duration < now() or halt:
+            self.angle = 0
+            self.rotate_sword()
+            self.move_timer = None
+            self.is_attacking = False
+            self.timer = now()
+            return
 
     def check_attack( self ) :
         if not self.is_attacking and not self.is_retrieving :
             return
 
-        if self.name == 'death':
-            self.throw_attack()
 
-        if self.name == 'blood':
-            self.swing_attack(1,0.25,360*0.5)
+        if self.attack_key == ATTACK_NORMAL:
+            self.swing_attack()
+        else:
+            if self.name == 'death':
+                self.throw_attack()
 
-        if self.name == 'desire':
-            self.swirling_throw_attack()
+            if self.name == 'blood':
+                self.swing_attack(1,0.1,360*3.1)
 
-        if self.name == 'evil':
-            self.swing_attack(2,4,360*10.8)
+            if self.name == 'desire':
+                self.swirling_throw_attack()
+
+            if self.name == 'evil':
+                self.swing_attack(2,4,360*10.8)
+
+            if self.name == 'light':
+                self.advance_attack(1)
 
 
 
@@ -292,7 +340,11 @@ class Sword :
                 self.is_active = False
 
 
-    def attack( self ) :
+    def attack( self,attack_key) :
+        if self.is_attacking or self.is_retrieving:
+            return
+
+        self.attack_key = attack_key
         self.is_attacking = True
         self.is_active = True
 
