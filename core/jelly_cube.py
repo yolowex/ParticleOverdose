@@ -47,21 +47,10 @@ class JellyCube:
         self.is_still = not self.is_moving and not self.is_shaking \
                         and not self.is_jumping and not self.is_falling
 
-    def rotate_points( self,recursive=False ):
-        last_points = [i.copy() for i in self.points]
+    def rotate_points( self):
         for point,o_point in zip(self.points[:2],self.original_points[:2]):
             new_point = rotate_point(self.o_rect.center,o_point,self.top_points_angle)
             point.x,point.y = new_point
-
-        # any_collision = False
-        # for rect in cr.game.inner_box_list :
-        #     if self.o_rect.colliderect(rect) :
-        #         any_collision = True
-        #         break
-        #
-        # if any_collision and not recursive:
-        #     self.top_points_angle = 0
-        #     self.rotate_points(True)
 
 
     def check_size_change( self ):
