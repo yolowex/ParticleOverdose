@@ -32,14 +32,14 @@ class Level :
         for sprite in self.tileset.tiles :
             sprite.transform_by_rel(scale, scale)
 
-        self.inner_box_list = []
+        self._inner_box_list = []
         for entity in collidables['entityInstances'] :
             if entity['__identifier'] != 'Collidable' :
                 continue
             rect = FRect(entity['px'][0] * scale, entity['px'][1] * scale, entity['width'] * scale,
                 entity['height'] * scale)
 
-            self.inner_box_list.append(rect)
+            self._inner_box_list.append(rect)
 
         for entity in collision_boxs['entityInstances'] :
             if entity['__identifier'] != 'CollisionBox' :
@@ -64,6 +64,13 @@ class Level :
                     self.tiles.pop(c)
                     continue
 
+        for key in self.collision_box_map :
+            box = self.collision_box_map[key]['rect']
+            for inner_box, c in zip(self._inner_box_list[: :-1], range(len(self._inner_box_list))[: :-1]) :
+                if box.colliderect(inner_box) :
+                    self.collision_box_map[key]['collidables'].append(inner_box)
+                    self._inner_box_list.pop(c)
+                    continue
 
 
 
@@ -73,6 +80,25 @@ class Level :
 
     def check_events( self ) :
         ...
+
+
+
+    # Bad usage of words, box means collidable here
+    @property
+    def inner_box_list( self ):
+        cp = cr.camera
+        scr_rect = FRect(cr.screen.get_rect())
+        scr_rect.x -= cp.x
+        scr_rect.y -= cp.y
+
+        inner_boxs = []
+
+        for box in self.collision_box_map:
+            rect = self.collision_box_map[box]['rect'].copy()
+            if rect.colliderect(scr_rect):
+                inner_boxs.extend(self.collision_box_map[box]['collidables'])
+
+        return inner_boxs
 
 
     def render( self ) :

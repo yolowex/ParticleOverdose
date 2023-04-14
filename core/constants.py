@@ -1,5 +1,7 @@
 from core.common_names import *
 
+IS_WEB = __import__("sys").platform == "emscripten"
+
 WHITE = Color(195,195,195)
 BLACK = Color(15,15,15)
 GRAY = WHITE.lerp(BLACK,0.5)
