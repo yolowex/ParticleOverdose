@@ -11,7 +11,7 @@
 	"iid": "cc951bd0-c640-11ed-8658-9b1b2370f46e",
 	"jsonVersion": "1.2.5",
 	"appBuildId": 464870,
-	"nextUid": 69,
+	"nextUid": 79,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "Player",
@@ -123,10 +123,15 @@
 			"parallaxScaling": true,
 			"requiredTags": [],
 			"excludedTags": [],
-			"intGridValues": [{ "value": 1, "identifier": "stone", "color": "#000000" }],
+			"intGridValues": [
+				{ "value": 1, "identifier": "Dirt", "color": "#92301A" },
+				{ "value": 2, "identifier": "Stone", "color": "#C9BCB6" },
+				{ "value": 3, "identifier": "Water", "color": "#05F0F0" },
+				{ "value": 4, "identifier": "Lava", "color": "#FF7200" }
+			],
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
-			"tilesetDefUid": null,
+			"tilesetDefUid": 69,
 			"tilePivotX": 0,
 			"tilePivotY": 0
 		}
@@ -189,7 +194,30 @@
 			"pivotY": 0,
 			"fieldDefs": []
 		}
-	], "tilesets": [], "enums": [], "externalEnums": [], "levelFields": [] },
+	], "tilesets": [
+		{
+			"__cWid": 5,
+			"__cHei": 8,
+			"identifier": "Tileset",
+			"uid": 69,
+			"relPath": "../assets/tilesets/tileset.png",
+			"embedAtlas": null,
+			"pxWid": 120,
+			"pxHei": 192,
+			"tileGridSize": 24,
+			"spacing": 0,
+			"padding": 0,
+			"tags": [],
+			"tagsSourceEnumUid": null,
+			"enumTags": [],
+			"customData": [],
+			"savedSelections": [],
+			"cachedPixelData": {
+				"opaqueTiles": "0101101110101101111111111111111111110000",
+				"averageColors": "7731f7427731f730f7307730f742f730f7427777f6777777f777f7777777f677f777f677f19ff29ff29ff19ff19ff19ff19ff19ff29fff52ff63ff63ff51ff51ff52ff51ff52ff630000000000000000"
+			}
+		}
+	], "enums": [], "externalEnums": [], "levelFields": [] },
 	"levels": [
 		{
 			"identifier": "Level_0",
@@ -286,8 +314,8 @@
 					"__opacity": 1,
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
-					"__tilesetDefUid": null,
-					"__tilesetRelPath": null,
+					"__tilesetDefUid": 69,
+					"__tilesetRelPath": "../assets/tilesets/tileset.png",
 					"iid": "7d9fd830-c640-11ed-876d-893223141e3d",
 					"levelId": 0,
 					"layerDefUid": 3,
