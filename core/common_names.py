@@ -5,9 +5,11 @@ import pygame as pg
 from pygame.locals import *
 from typing import Optional
 
+
 from pygame import Vector2,Surface,Color
 if __import__("sys").platform == "emscripten":
     # PLATFORM = 'web'
     from core.floatRect import Rect as FRect
 else:
     from pygame import FRect
+
