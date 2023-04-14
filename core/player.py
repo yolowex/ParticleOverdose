@@ -28,7 +28,6 @@ class Player(JellyCube) :
         self.min_jump_power = -1000
         self.remaining_jump_power = 0
 
-
         # This is calculated only after a particle becomes inactive
         self.particles_age = 4
         self.facing = RIGHT
@@ -37,12 +36,14 @@ class Player(JellyCube) :
 
 
     @property
-    def maximum_particles( self ):
+    def maximum_particles( self ) :
         return cr.game.maximum_particles
 
+
     @property
-    def particles( self ):
+    def particles( self ) :
         return cr.game.particles
+
 
     def init( self ) :
         self.face.init()
@@ -55,7 +56,7 @@ class Player(JellyCube) :
 
 
     def gravity_tick( self ) :
-        if self.anti_gravity:
+        if self.anti_gravity :
             return
 
         last_center = self.center
@@ -82,15 +83,15 @@ class Player(JellyCube) :
             particle.gravity_request(gravity)
 
 
-    def move( self, value: Vector2,anti_gravity:bool=False ) :
+    def move( self, value: Vector2, anti_gravity: bool = False ) :
         self.anti_gravity = anti_gravity
-        if self.anti_gravity:
+        if self.anti_gravity :
             self.is_falling = False
 
-        throw = (self.sword.last_attack_type in THROW_TYPES and (self.sword.is_attacking
-                                or self.sword.is_retrieving))
+        throw = (self.sword.last_attack_type in THROW_TYPES and (
+                    self.sword.is_attacking or self.sword.is_retrieving))
 
-        if value.x < 0 and not throw  :
+        if value.x < 0 and not throw :
             self.facing = LEFT
         elif value.x > 0 and not throw :
             self.facing = RIGHT
@@ -156,7 +157,7 @@ class Player(JellyCube) :
         p_keys = cr.event_holder.pressed_keys
         r_keys = cr.event_holder.released_keys
 
-        if self.anti_gravity:
+        if self.anti_gravity :
             return
 
         if K_RIGHT in h_keys :
@@ -165,7 +166,7 @@ class Player(JellyCube) :
         if K_LEFT in h_keys :
             self.move(Vector2(-self.move_speed, 0))
 
-        if not self.did_jump:
+        if not self.did_jump :
             if K_SPACE in p_keys :
                 self.jump_power = self.min_jump_power
 
@@ -186,7 +187,7 @@ class Player(JellyCube) :
         cant_do = self.sword.is_attacking or self.sword.is_retrieving
 
         p_keys = cr.event_holder.pressed_keys
-        if not cant_do:
+        if not cant_do :
             if K_1 in p_keys :
                 self.sword.update_sword('evil')
             if K_2 in p_keys :
@@ -201,8 +202,6 @@ class Player(JellyCube) :
                 self.sword.update_sword('death')
 
 
-
-
     def check_events( self ) :
         self.check_movements()
         self.check_jump()
@@ -215,9 +214,8 @@ class Player(JellyCube) :
         self.anti_gravity = False
         self.sword.check_events()
 
-
         super(Player, self).check_events()
-        if not self.is_still:
+        if not self.is_still :
             self.sword.rotate_sword()
 
         self.is_moving = False
@@ -254,9 +252,19 @@ class Player(JellyCube) :
         if len(self.particles) > self.maximum_particles :
             return
 
+        anti_gravity = anti_collision = False
+        if IS_WEB:
+            anti_gravity = anti_collision = True
+
+
         age = random.uniform(0, 1)
-        particle = Particle(source, size, angle, age)
+        particle = Particle(source, size, angle, age, anti_gravity=anti_gravity,
+            anti_collision=anti_collision)
         particle.power = 10
+
+        if IS_WEB:
+            particle.power = 3
+
         particle.power_decrease_scale = 2
         self.particles.append(particle)
 
@@ -299,7 +307,7 @@ class Player(JellyCube) :
 
 
     def manage_fall_particles( self ) :
-        if not self.is_falling  :
+        if not self.is_falling :
             return
 
         angle = random.randint(-45, 45)
