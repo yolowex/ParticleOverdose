@@ -10,7 +10,7 @@ class Level :
     def __init__( self,scale:float=2 ) :
         test_entities = find_layer_instance(find_level(cr.world, 'Level_0'), 'Entities')
         test_level = find_layer_instance(find_level(cr.world, 'Level_0'), 'Tiles_grid')
-        collision_boxs = find_layer_instance(find_level(cr.world, 'Level_0'), 'CollisionBoxs')
+        collision_boxs = find_layer_instance(find_level(cr.world, 'Level_0'), 'Collidables')
 
         self.grid_size = test_level['__gridSize']
         tileset_path = cr.levels_root + test_level['__tilesetRelPath']
@@ -33,7 +33,7 @@ class Level :
 
         self.inner_box_list = []
         for entity in collision_boxs['entityInstances'] :
-            if entity['__identifier'] != 'CollisionBox' :
+            if entity['__identifier'] != 'Collidable' :
                 continue
             rect = FRect(entity['px'][0] * scale, entity['px'][1] * scale, entity['width'] * scale,
                 entity['height'] * scale)

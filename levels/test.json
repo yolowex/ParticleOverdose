@@ -16,7 +16,7 @@
 	"toc": [{
 		"identifier": "Player",
 		"instances": [{
-			"worldIid": "ad605720-c640-11ed-b73d-a731021a33c9",
+			"worldIid": "d4061ba0-c640-11ed-b73d-e94d8f218a1f",
 			"levelIid": "cc951bd2-c640-11ed-8658-17462b37a18f",
 			"layerIid": "3e22e670-c640-11ed-876d-2f9a71d6dcd7",
 			"entityIid": "44b86fc0-c640-11ed-b615-5fde10d13620"
@@ -1833,7 +1833,7 @@
 		},
 		{
 			"__type": "Entities",
-			"identifier": "CollisionBoxs",
+			"identifier": "Collidables",
 			"type": "Entities",
 			"uid": 67,
 			"doc": null,
@@ -1974,7 +1974,7 @@
 			"fieldDefs": []
 		},
 		{
-			"identifier": "CollisionBox",
+			"identifier": "Collidable",
 			"uid": 68,
 			"tags": ["region"],
 			"exportToToc": false,
@@ -3831,7 +3831,7 @@
 					]
 				},
 				{
-					"__identifier": "CollisionBoxs",
+					"__identifier": "Collidables",
 					"__type": "Entities",
 					"__cWid": 44,
 					"__cHei": 56,
@@ -3855,7 +3855,7 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [19,36],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -3869,7 +3869,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [20,35],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -3883,7 +3883,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [24,33],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -3897,7 +3897,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [31,31],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -3911,7 +3911,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [20,28],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -3925,7 +3925,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [37,28],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -3939,7 +3939,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [38,27],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -3953,7 +3953,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [9,28],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -3967,7 +3967,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [31,22],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -3981,7 +3981,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [37,23],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -3995,7 +3995,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [8,30],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4009,7 +4009,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [6,30],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4023,7 +4023,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [4,30],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4037,7 +4037,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [25,34],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4051,7 +4051,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [26,35],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4065,7 +4065,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [32,32],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4079,7 +4079,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [13,19],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4093,7 +4093,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [12,19],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4107,7 +4107,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [13,20],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4121,7 +4121,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [14,21],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4135,7 +4135,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [15,22],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4149,7 +4149,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [17,23],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4163,7 +4163,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [22,24],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4177,7 +4177,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [22,22],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4191,7 +4191,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [22,21],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4205,7 +4205,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [23,20],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4219,7 +4219,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [24,19],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4233,7 +4233,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [17,37],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4247,7 +4247,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [9,38],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4261,7 +4261,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [18,39],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4275,7 +4275,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [8,40],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4289,7 +4289,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [6,41],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4303,7 +4303,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [6,42],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4317,7 +4317,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [7,44],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4331,7 +4331,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [17,45],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4345,7 +4345,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [18,46],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4359,7 +4359,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [25,44],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4373,7 +4373,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [24,46],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4387,7 +4387,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [23,47],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4401,7 +4401,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [16,48],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4415,7 +4415,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [6,47],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4429,7 +4429,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [4,50],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4443,7 +4443,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [14,52],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4457,7 +4457,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [35,50],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4471,7 +4471,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [35,47],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4485,7 +4485,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [29,47],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4499,7 +4499,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [26,48],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4513,7 +4513,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [26,44],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4527,7 +4527,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [43,38],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4541,7 +4541,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [42,52],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4555,7 +4555,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [3,42],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4569,7 +4569,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [5,43],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4583,7 +4583,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [0,42],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4597,7 +4597,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [0,34],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4611,7 +4611,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [1,36],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4625,7 +4625,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [0,30],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4639,7 +4639,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [0,25],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4653,7 +4653,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [4,22],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4667,7 +4667,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [1,20],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4681,7 +4681,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [4,17],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4695,7 +4695,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [7,15],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4709,7 +4709,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [11,14],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4723,7 +4723,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [4,8],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4737,7 +4737,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [5,9],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4751,7 +4751,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [13,9],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4765,7 +4765,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [15,8],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4779,7 +4779,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [19,10],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4793,7 +4793,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [23,11],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4807,7 +4807,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [25,12],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4821,7 +4821,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [30,17],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4835,7 +4835,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [31,16],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4849,7 +4849,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [32,15],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4863,7 +4863,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [33,14],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4877,7 +4877,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [38,15],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4891,7 +4891,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [39,16],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4905,7 +4905,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [40,17],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4919,7 +4919,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [42,14],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4933,7 +4933,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [41,13],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4947,7 +4947,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [40,11],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4961,7 +4961,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [39,7],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4975,7 +4975,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [40,7],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -4989,7 +4989,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [41,6],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -5003,7 +5003,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [42,5],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -5017,7 +5017,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [28,5],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -5031,7 +5031,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [28,6],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -5045,7 +5045,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [30,7],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -5059,7 +5059,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [31,8],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -5073,7 +5073,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [30,11],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -5087,7 +5087,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [29,12],
 							"__pivot": [0,0],
 							"__tags": ["region"],
@@ -5101,7 +5101,7 @@
 							"fieldInstances": []
 						},
 						{
-							"__identifier": "CollisionBox",
+							"__identifier": "Collidable",
 							"__grid": [28,13],
 							"__pivot": [0,0],
 							"__tags": ["region"],
