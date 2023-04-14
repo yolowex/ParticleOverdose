@@ -32,6 +32,7 @@ class Player(JellyCube) :
         # This is calculated only after a particle becomes inactive
         self.particles_age = 4
         self.facing = RIGHT
+        self.movement_request = Vector2(0,0)
 
         super(Player, self).__init__(points)
 
@@ -58,22 +59,13 @@ class Player(JellyCube) :
         if self.anti_gravity:
             return
 
-        last_center = self.center
-        center = last_center.copy()
-
-        center.y += self.gravity
-        self.gravity = 0
-        self.center = center
-
-        any_ = False
-        for box in cr.game.inner_box_list :
-            if box.colliderect(self.o_rect) :
-                any_ = True
-
-        if any_ :
-            self.center = last_center
+        if not self.is_colliding(Vector2(0,self.gravity)):
+            self.center = Vector2(self.center.x,self.center.y + self.gravity)
+        else:
             self.is_falling = False
             self.did_jump = False
+
+        self.gravity = 0
 
 
     def gravity_request( self, gravity: float ) :
@@ -232,7 +224,17 @@ class Player(JellyCube) :
                 self.sword.update_sword('death')
 
 
+    def is_colliding( self,movement:Vector2 ):
+        n_rect = self.o_rect
+        n_rect.x += movement.x
+        n_rect.y += movement.y
 
+        any_ = False
+        for box in cr.game.inner_box_list :
+            if box.colliderect(n_rect) :
+                any_ = True
+
+        return any_
 
     def check_events( self ) :
 
