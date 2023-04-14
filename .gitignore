@@ -1,6 +1,6 @@
 __pycache__
 core/__pycache__
 core/ldtk/__pycache__
-core/pygame-ce/__pycache__
+core/pygame_ce/__pycache__
 build/
 dist/
