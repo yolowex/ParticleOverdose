@@ -145,14 +145,8 @@ class Player(JellyCube) :
 
     def check_jump( self ) :
         last_center = self.center
-        center = last_center.copy()
-        center.y += self.remaining_jump_power * cr.event_holder.delta_time
-        self.center = center
-
-        any_ = False
-        for box in cr.game.inner_box_list :
-            if box.colliderect(self.o_rect) :
-                any_ = True
+        movement = Vector2(0,self.remaining_jump_power * cr.event_holder.delta_time)
+        any_ = self.is_colliding(movement)
 
         if any_ :
             self.center = last_center
@@ -160,6 +154,10 @@ class Player(JellyCube) :
             self.is_jumping = False
             self.is_falling = True
         else :
+            c = self.center
+            c.x += movement.x
+            c.y += movement.y
+            self.center = c
             self.remaining_jump_power -= (
                     self.remaining_jump_power * 7 * cr.event_holder.delta_time)
             if abs(self.remaining_jump_power) < abs(cr.game.gravity * 0.5) :
