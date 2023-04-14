@@ -19,7 +19,7 @@ async def main():
     if __import__("sys").platform == "emscripten": # web only, scales automatically
         cr.screen = pg.display.set_mode([900*0.6,640*0.6])
     else:
-        cr.screen = pg.display.set_mode([900*0.6,640*0.6], SCALED | FULLSCREEN)
+        cr.screen = pg.display.set_mode([900*0.8,640*0.8], SCALED | FULLSCREEN)
 
     cr.event_holder = EventHolder()
     cr.event_holder.should_render_debug = False
