@@ -60,9 +60,13 @@ class Player(JellyCube) :
         if self.anti_gravity :
             return
 
-        if not self.is_colliding(Vector2(0, self.gravity)) :
+        any_ = self.is_colliding(Vector2(0, self.gravity))
+        if not any_:
             self.center = Vector2(self.center.x, self.center.y + self.gravity)
         else :
+            c = self.center
+            # c.y = (any_.y - self.o_rect.h / 2 ) - 0
+            self.center = c
             self.is_falling = False
             self.did_jump = False
 
@@ -219,26 +223,17 @@ class Player(JellyCube) :
                 self.sword.update_sword('death')
 
 
-    def is_colliding( self, movement: Vector2, recursive_o_move: Vector2 = None ) :
-        if recursive_o_move is None :
-            recursive_o_move = movement.copy()
+    def is_colliding( self, movement: Vector2 ) -> FRect or bool:
 
         n_rect = self.o_rect
         n_rect.x += movement.x
         n_rect.y += movement.y
 
-        any_ = False
+        any_:Optional[FRect,bool] = False
         for box in cr.game.inner_box_list :
             if box.colliderect(n_rect) :
-                any_ = True
-
-        end = (abs(movement.x) <= abs(recursive_o_move.x * 0.1)) and (
-                    abs(movement.y) <= abs(recursive_o_move.y * 0.1))
-
-        if any_ and not end :
-            movement.x *= 0.9
-            movement.y *= 0.9
-            return self.is_colliding(movement, recursive_o_move)
+                any_ = box
+                break
 
         return any_
 

@@ -69,7 +69,6 @@ class Level :
             for inner_box, c in zip(self._inner_box_list[: :-1], range(len(self._inner_box_list))[: :-1]) :
                 if box.colliderect(inner_box) :
                     self.collision_box_map[key]['collidables'].append(inner_box)
-                    self._inner_box_list.pop(c)
                     continue
 
 
