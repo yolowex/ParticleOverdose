@@ -67,7 +67,7 @@ class Player(JellyCube) :
 
         any_ = False
         for box in cr.game.inner_box_list :
-            if box.colliderect(self.rect) :
+            if box.colliderect(self.o_rect) :
                 any_ = True
 
         if any_ :
@@ -107,7 +107,7 @@ class Player(JellyCube) :
 
         any_ = False
         for box in cr.game.inner_box_list :
-            if box.colliderect(self.rect) :
+            if box.colliderect(self.o_rect) :
                 any_ = True
 
         if any_ :
@@ -163,7 +163,7 @@ class Player(JellyCube) :
 
         any_ = False
         for box in cr.game.inner_box_list :
-            if box.colliderect(self.rect) :
+            if box.colliderect(self.o_rect) :
                 any_ = True
 
         if any_ :
