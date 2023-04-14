@@ -1,13 +1,18 @@
 add face assets                             Done
-improve colors
-add collisions boxs
-add sword                                   In process
-add gun                                     In process
+improve colors                              Done
+add collisions boxs                         Done
+add sword                                   Done
+add gun                                     Canceled
 add player particles                        Done
 add wall jump
 add enemies
 
 add particles                               Done
 
-create maps with ldtk
-load maps in game
+create maps with ldtk                       Done
+load maps in game                           Done
+
+
+enemy ideas:
+    canon
+    bombers
