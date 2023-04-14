@@ -18,7 +18,7 @@ class Game:
 
         self.level = Level()
 
-        p_rect = self.inner_box
+        p_rect = FRect(0,0,0,0)
         p_rect.w , p_rect.h = self.level.player_size
         p_rect.center = self.box.center
         self.player = Player(rect_convert_polygon(p_rect))
@@ -31,7 +31,7 @@ class Game:
 
     def init( self ):
         self.player.init()
-
+        self.level.init()
         r_mouth = list(cr.right_mouth_sprite_dict.values())
         l_mouth = list(cr.left_mouth_sprite_dict.values())
         mouth = r_mouth + l_mouth
@@ -78,26 +78,22 @@ class Game:
 
 
     # experimental
-    @property
-    def inner_box( self ) -> FRect:
-
-        rect = self.box.copy()
-        rect.x+=self.box_width
-        rect.y+=self.box_width
-        rect.w-=self.box_width*2
-        rect.h-=self.box_width*2
-        return rect
+    # @property
+    # def inner_box( self ) -> FRect:
+    #
+    #     rect = self.box.copy()
+    #     rect.x+=self.box_width
+    #     rect.y+=self.box_width
+    #     rect.w-=self.box_width*2
+    #     rect.h-=self.box_width*2
+    #     return rect
 
     # experimental
+
+    # Bad usage of words, box means collidable here
     @property
     def inner_box_list( self ):
-        res = []
-        cp = cr.camera.pos
-        scr_rect = FRect(cr.screen.get_rect())
-        scr_rect.x -= cp.x
-        scr_rect.y -= cp.y
-
-        return [i for i in self.level.inner_box_list if scr_rect.colliderect(i)]
+        return self.level.inner_box_list
 
 
     def check_events( self ):
