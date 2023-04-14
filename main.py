@@ -13,13 +13,16 @@ res = "./pic_res.png"
 
 pg.init()
 
-# cr.screen = pg.display.set_mode([900, 640], SCALED | FULLSCREEN)
-cr.screen = pg.display.set_mode([900*0.6,640*0.6], SCALED | FULLSCREEN)
-cr.event_holder = EventHolder()
-cr.event_holder.should_render_debug = False
-cr.event_holder.determined_fps = 1000
-cr.game = Game()
-cr.game.init()
+    # cr.screen = pg.display.set_mode([900, 640], SCALED | FULLSCREEN)
+    if __import__("sys").platform == "emscripten": # web only, scales automatically
+        cr.screen = pg.display.set_mode([900*0.6,640*0.6])
+    else:
+        cr.screen = pg.display.set_mode([900*0.6,640*0.6], SCALED | FULLSCREEN)
+    cr.event_holder = EventHolder()
+    cr.event_holder.should_render_debug = False
+    cr.event_holder.determined_fps = 1000
+    cr.game = Game()
+    cr.game.init()
 
 font = pg.font.SysFont('monospace', 30)
 fps_text = lambda : font.render(f"FPS :{int(cr.event_holder.final_fps)}"
