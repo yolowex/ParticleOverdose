@@ -81,7 +81,7 @@ class Player(JellyCube) :
             self.is_falling = False
 
         throw = (self.sword.last_attack_type in THROW_TYPES and (
-                    self.sword.is_attacking or self.sword.is_retrieving))
+                self.sword.is_attacking or self.sword.is_retrieving))
 
         if value.x < 0 and not throw :
             self.facing = LEFT
@@ -92,7 +92,8 @@ class Player(JellyCube) :
         #     return False
 
         self.manage_movement_particles(value)
-        movement = Vector2(value.x * cr.event_holder.delta_time, value.y * cr.event_holder.delta_time)
+        movement = Vector2(value.x * cr.event_holder.delta_time,
+            value.y * cr.event_holder.delta_time)
         any_ = self.is_colliding(movement)
 
         if any_ :
@@ -145,7 +146,7 @@ class Player(JellyCube) :
 
     def check_jump( self ) :
         last_center = self.center
-        movement = Vector2(0,self.remaining_jump_power * cr.event_holder.delta_time)
+        movement = Vector2(0, self.remaining_jump_power * cr.event_holder.delta_time)
         any_ = self.is_colliding(movement)
 
         if any_ :
@@ -218,7 +219,10 @@ class Player(JellyCube) :
                 self.sword.update_sword('death')
 
 
-    def is_colliding( self, movement: Vector2 ) :
+    def is_colliding( self, movement: Vector2, recursive_o_move: Vector2 = None ) :
+        if recursive_o_move is None :
+            recursive_o_move = movement.copy()
+
         n_rect = self.o_rect
         n_rect.x += movement.x
         n_rect.y += movement.y
@@ -227,6 +231,14 @@ class Player(JellyCube) :
         for box in cr.game.inner_box_list :
             if box.colliderect(n_rect) :
                 any_ = True
+
+        end = (abs(movement.x) <= abs(recursive_o_move.x * 0.1)) and (
+                    abs(movement.y) <= abs(recursive_o_move.y * 0.1))
+
+        if any_ and not end :
+            movement.x *= 0.9
+            movement.y *= 0.9
+            return self.is_colliding(movement, recursive_o_move)
 
         return any_
 
