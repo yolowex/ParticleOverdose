@@ -197,10 +197,16 @@ class Sword :
         throw_speed = 20
         max_distance = 20
 
+
+        do_particles = False
+        reverse = 1
+
         # retrieve
         if self.was_thrown and self.distance != self.original_distance:
             self.is_attacking = False
             self.is_retrieving = True
+            do_particles = True
+            reverse *= -1
             self.distance -= cr.event_holder.delta_time * throw_speed
             if self.distance < self.original_distance:
                 self.distance = self.original_distance
@@ -223,10 +229,30 @@ class Sword :
                     self.angle = throw_angle
             # throw
             elif self.angle == throw_angle :
+                do_particles = True
                 self.distance += cr.event_holder.delta_time * throw_speed
                 if self.distance > max_distance :
                     self.distance = max_distance
                     self.was_thrown = True
+
+        if do_particles:
+            angle_m = 1
+            points = self.rotated_points_right
+            if cr.game.player.facing == LEFT :
+                points = self.rotated_points_left
+                angle_m = -1
+
+            for _ in range(random.randint(0, 5)) :
+                bias = random.uniform(0, 1)
+                b = points[2].lerp(points[3], bias)
+                t = points[0].lerp(points[1], bias)
+
+                shoot_point = b.lerp(t, 0.5)
+                shoot_angle = (self.angle * angle_m) + random.randint(-5, 5)
+                shoot_angle = shoot_angle * -1 * reverse
+
+                size = random.uniform(1, 4.5)
+                self.add_particle(shoot_point, shoot_angle, size, )
 
         self.rotate_sword()
 
@@ -434,6 +460,8 @@ class Sword :
         color = color
         if self.name == 'death' :
             color = BLACK
+            if spec:
+                power_scale = random.uniform(0,1)
         elif self.name == 'blood' :
             power_scale = 1
             color = Color(random.randint(200, 255), random.randint(0, 75), random.randint(0, 75))
