@@ -288,8 +288,14 @@ class Player(JellyCube) :
             return
 
         age = random.uniform(0, 1)
-        particle = Particle(source, size, angle, age)
-        particle.power = 10
+        anti_gravity = anti_collision = False
+        if IS_WEB:
+            anti_gravity = anti_collision = True
+
+        particle = Particle(source, size, angle, age,None,anti_gravity,anti_collision)
+        if IS_WEB:
+            particle.power = 3
+
         particle.power_decrease_scale = 2
         self.particles.append(particle)
 
