@@ -28,22 +28,23 @@ class Player(JellyCube) :
         self.min_jump_power = -1000
         self.remaining_jump_power = 0
 
-
         # This is calculated only after a particle becomes inactive
         self.particles_age = 4
         self.facing = RIGHT
-        self.movement_request = Vector2(0,0)
+        self.movement_request = Vector2(0, 0)
 
         super(Player, self).__init__(points)
 
 
     @property
-    def maximum_particles( self ):
+    def maximum_particles( self ) :
         return cr.game.maximum_particles
 
+
     @property
-    def particles( self ):
+    def particles( self ) :
         return cr.game.particles
+
 
     def init( self ) :
         self.face.init()
@@ -56,12 +57,12 @@ class Player(JellyCube) :
 
 
     def gravity_tick( self ) :
-        if self.anti_gravity:
+        if self.anti_gravity :
             return
 
-        if not self.is_colliding(Vector2(0,self.gravity)):
-            self.center = Vector2(self.center.x,self.center.y + self.gravity)
-        else:
+        if not self.is_colliding(Vector2(0, self.gravity)) :
+            self.center = Vector2(self.center.x, self.center.y + self.gravity)
+        else :
             self.is_falling = False
             self.did_jump = False
 
@@ -74,15 +75,15 @@ class Player(JellyCube) :
             particle.gravity_request(gravity)
 
 
-    def move( self, value: Vector2,anti_gravity:bool=False ) :
+    def move( self, value: Vector2, anti_gravity: bool = False ) :
         self.anti_gravity = anti_gravity
-        if self.anti_gravity:
+        if self.anti_gravity :
             self.is_falling = False
 
-        throw = (self.sword.last_attack_type in THROW_TYPES and (self.sword.is_attacking
-                                or self.sword.is_retrieving))
+        throw = (self.sword.last_attack_type in THROW_TYPES and (
+                    self.sword.is_attacking or self.sword.is_retrieving))
 
-        if value.x < 0 and not throw  :
+        if value.x < 0 and not throw :
             self.facing = LEFT
         elif value.x > 0 and not throw :
             self.facing = RIGHT
@@ -91,21 +92,17 @@ class Player(JellyCube) :
         #     return False
 
         self.manage_movement_particles(value)
-        last_center = self.center
-        center = last_center.copy()
-        center.x += value.x * cr.event_holder.delta_time
-        center.y += value.y * cr.event_holder.delta_time
-        self.center = center
-
-        any_ = False
-        for box in cr.game.inner_box_list :
-            if box.colliderect(self.o_rect) :
-                any_ = True
+        movement = Vector2(value.x * cr.event_holder.delta_time, value.y * cr.event_holder.delta_time)
+        any_ = self.is_colliding(movement)
 
         if any_ :
-            self.center = last_center
             return False
         else :
+            c = self.center
+            c.x += movement.x
+            c.y += movement.y
+            self.center = c
+
             self.is_moving = True
             super(Player, self).move(value)
             return True
@@ -115,36 +112,35 @@ class Player(JellyCube) :
         self.is_jumping = True
         self.remaining_jump_power = self.jump_power
 
-    def check_color_update( self ):
-        if self.is_shaking:
+
+    def check_color_update( self ) :
+        if self.is_shaking :
             new_color = random_color()
             val = cr.event_holder.delta_time * 15
-            if val > 0.10:
+            if val > 0.10 :
                 val = 0.10
 
-            self.color = self.color.lerp(new_color,val)
+            self.color = self.color.lerp(new_color, val)
 
-        else:
+        else :
             base_color = WHITE
-            if self.sword.name == 'blood':
+            if self.sword.name == 'blood' :
                 base_color = RED
-            elif self.sword.name == 'light':
-                base_color = Color(255,255,0)
-            elif self.sword.name == 'evil':
-                base_color = Color(0,255,0)
-            elif self.sword.name == 'death':
+            elif self.sword.name == 'light' :
+                base_color = Color(255, 255, 0)
+            elif self.sword.name == 'evil' :
+                base_color = Color(0, 255, 0)
+            elif self.sword.name == 'death' :
                 base_color = Color("black")
-            elif self.sword.name == 'desire':
-                base_color = Color(255,155,0)
-            elif self.sword.name == 'hawk':
-                base_color = Color(0,0,255)
-
+            elif self.sword.name == 'desire' :
+                base_color = Color(255, 155, 0)
+            elif self.sword.name == 'hawk' :
+                base_color = Color(0, 0, 255)
 
             lerp_value = cr.event_holder.delta_time * 2.5
-            if lerp_value > 1:
+            if lerp_value > 1 :
                 lerp_value = 1
-            self.color = self.color.lerp(base_color,lerp_value)
-
+            self.color = self.color.lerp(base_color, lerp_value)
 
 
     def check_jump( self ) :
@@ -179,7 +175,7 @@ class Player(JellyCube) :
         p_keys = cr.event_holder.pressed_keys
         r_keys = cr.event_holder.released_keys
 
-        if self.anti_gravity:
+        if self.anti_gravity :
             return
 
         if K_RIGHT in h_keys :
@@ -188,7 +184,7 @@ class Player(JellyCube) :
         if K_LEFT in h_keys :
             self.move(Vector2(-self.move_speed, 0))
 
-        if not self.did_jump:
+        if not self.did_jump :
             if K_SPACE in p_keys :
                 self.jump_power = self.min_jump_power
 
@@ -209,7 +205,7 @@ class Player(JellyCube) :
         cant_do = self.sword.is_attacking or self.sword.is_retrieving
 
         p_keys = cr.event_holder.pressed_keys
-        if not cant_do:
+        if not cant_do :
             if K_1 in p_keys :
                 self.sword.update_sword('evil')
             if K_2 in p_keys :
@@ -224,7 +220,7 @@ class Player(JellyCube) :
                 self.sword.update_sword('death')
 
 
-    def is_colliding( self,movement:Vector2 ):
+    def is_colliding( self, movement: Vector2 ) :
         n_rect = self.o_rect
         n_rect.x += movement.x
         n_rect.y += movement.y
@@ -236,8 +232,8 @@ class Player(JellyCube) :
 
         return any_
 
-    def check_events( self ) :
 
+    def check_events( self ) :
         self.check_movements()
         self.check_jump()
         self.gravity_tick()
@@ -250,9 +246,8 @@ class Player(JellyCube) :
         self.anti_gravity = False
         self.sword.check_events()
 
-
         super(Player, self).check_events()
-        if not self.is_still:
+        if not self.is_still :
             self.sword.rotate_sword()
 
         self.is_moving = False
@@ -268,7 +263,6 @@ class Player(JellyCube) :
         o_rect.x += cr.camera.x
         o_rect.y += cr.camera.y
         pg.draw.rect(cr.screen, "yellow", o_rect)
-
 
 
     def render( self ) :
@@ -297,13 +291,13 @@ class Player(JellyCube) :
 
         age = random.uniform(0, 1)
         anti_gravity = anti_collision = False
-        if IS_WEB:
+        if IS_WEB :
             anti_gravity = anti_collision = True
 
-        particle = Particle(source, size, angle, age,None,anti_gravity,anti_collision)
+        particle = Particle(source, size, angle, age, None, anti_gravity, anti_collision)
 
         particle.power = 10
-        if IS_WEB:
+        if IS_WEB :
             particle.power = 3
 
         particle.power_decrease_scale = 2
@@ -348,7 +342,7 @@ class Player(JellyCube) :
 
 
     def manage_fall_particles( self ) :
-        if not self.is_falling  :
+        if not self.is_falling :
             return
 
         angle = random.randint(-45, 45)
@@ -361,7 +355,6 @@ class Player(JellyCube) :
 
 
     def update_face( self ) :
-
         # EYES
         if self.is_charging :
             self.face.update_face(new_eye="silly")
@@ -381,8 +374,8 @@ class Player(JellyCube) :
         elif self.is_falling :
             self.face.update_face(new_mouth="talk_3")
         elif self.is_moving :
-            self.face.update_face( new_mouth="smirk_1")
+            self.face.update_face(new_mouth="smirk_1")
         elif self.is_shaking and not self.is_jumping :
-            self.face.update_face( new_mouth="hoo_hoo")
+            self.face.update_face(new_mouth="hoo_hoo")
         elif not self.is_moving :
-            self.face.update_face( new_mouth="smirk_0")
+            self.face.update_face(new_mouth="smirk_0")
