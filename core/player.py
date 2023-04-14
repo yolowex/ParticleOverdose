@@ -262,6 +262,12 @@ class Player(JellyCube) :
         rect.y += cr.camera.y
         pg.draw.rect(cr.screen, "purple", rect)
 
+        o_rect = self.o_rect
+        o_rect.x += cr.camera.x
+        o_rect.y += cr.camera.y
+        pg.draw.rect(cr.screen, "yellow", o_rect)
+
+
 
     def render( self ) :
         if cr.event_holder.should_render_debug :
@@ -293,10 +299,10 @@ class Player(JellyCube) :
             anti_gravity = anti_collision = True
 
         particle = Particle(source, size, angle, age,None,anti_gravity,anti_collision)
+
         particle.power = 10
         if IS_WEB:
             particle.power = 3
-
 
         particle.power_decrease_scale = 2
         self.particles.append(particle)
