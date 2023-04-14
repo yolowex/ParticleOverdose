@@ -262,6 +262,12 @@ class Player(JellyCube) :
         rect.y += cr.camera.y
         pg.draw.rect(cr.screen, "purple", rect)
 
+        o_rect = self.o_rect
+        o_rect.x += cr.camera.x
+        o_rect.y += cr.camera.y
+        pg.draw.rect(cr.screen, "yellow", o_rect)
+
+
 
     def render( self ) :
         if cr.event_holder.should_render_debug :
