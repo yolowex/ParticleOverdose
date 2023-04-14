@@ -14,6 +14,7 @@ class Sprite:
             return
 
         self.raw_surface  = pg.image.load(path)
+        # self.raw_surface.set_colorkey("black")
         self.transformed_surface = self.raw_surface.copy()
 
     def get_diff( self ):

@@ -5,10 +5,15 @@ class Tileset:
     def __init__(self,path:str,grid_size:float,scale:float=1):
         self.path = path
         self.surface = pg.image.load(self.path)
+        # self.surface.set_colorkey("black")
         self.grid_size = grid_size
-        self.tiles = []
+        self.tiles:list[Sprite] = []
         self.scale = scale
         self.create_tiles()
+
+    def init( self ):
+        for tile in self.tiles:
+            tile.transformed_surface.set_colorkey("black")
 
     def create_tiles( self ):
         w = h = self.grid_size

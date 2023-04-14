@@ -31,7 +31,7 @@ class Game:
 
     def init( self ):
         self.player.init()
-
+        self.level.init()
         r_mouth = list(cr.right_mouth_sprite_dict.values())
         l_mouth = list(cr.left_mouth_sprite_dict.values())
         mouth = r_mouth + l_mouth

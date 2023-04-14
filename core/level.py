@@ -40,7 +40,8 @@ class Level :
 
             self.inner_box_list.append(rect)
 
-
+    def init( self ):
+        self.tileset.init()
 
     def check_events( self ) :
         ...
