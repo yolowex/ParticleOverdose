@@ -16,10 +16,10 @@
 	"toc": [{
 		"identifier": "Player",
 		"instances": [{
-			"worldIid": "0d4c0e40-c640-11ed-b73d-a1a1d51214cc",
+			"worldIid": "f045b810-c640-11ed-b9cb-3d5488541aa7",
 			"levelIid": "cc951bd2-c640-11ed-8658-17462b37a18f",
 			"layerIid": "3e22e670-c640-11ed-876d-2f9a71d6dcd7",
-			"entityIid": "44b86fc0-c640-11ed-b615-5fde10d13620"
+			"entityIid": "ba051960-c640-11ed-b9cb-056f011bd71a"
 		}]
 	}],
 	"worldLayout": "Free",
@@ -1949,7 +1949,7 @@
 			"type": "Entities",
 			"uid": 64,
 			"doc": null,
-			"gridSize": 24,
+			"gridSize": 8,
 			"guideGridWid": 0,
 			"guideGridHei": 0,
 			"displayOpacity": 1,
@@ -1978,8 +1978,8 @@
 			"tags": [],
 			"exportToToc": true,
 			"doc": null,
-			"width": 24,
-			"height": 24,
+			"width": 8,
+			"height": 8,
 			"resizableX": true,
 			"resizableY": true,
 			"keepAspectRatio": false,
@@ -5798,9 +5798,9 @@
 				{
 					"__identifier": "Entities",
 					"__type": "Entities",
-					"__cWid": 44,
-					"__cHei": 56,
-					"__gridSize": 24,
+					"__cWid": 132,
+					"__cHei": 168,
+					"__gridSize": 8,
 					"__opacity": 1,
 					"__pxTotalOffsetX": 0,
 					"__pxTotalOffsetY": 0,
@@ -5821,16 +5821,16 @@
 					"entityInstances": [
 						{
 							"__identifier": "Player",
-							"__grid": [12,35],
+							"__grid": [41,87],
 							"__pivot": [0.5,0.5],
 							"__tags": [],
 							"__tile": null,
 							"__smartColor": "#1462B5",
-							"iid": "44b86fc0-c640-11ed-b615-5fde10d13620",
+							"iid": "ba051960-c640-11ed-b9cb-056f011bd71a",
 							"width": 24,
 							"height": 24,
 							"defUid": 60,
-							"px": [300,852],
+							"px": [332,700],
 							"fieldInstances": []
 						}
 					]

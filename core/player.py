@@ -190,18 +190,19 @@ class Player(JellyCube) :
         if not self.did_jump :
             if K_SPACE in p_keys :
                 self.jump_power = self.min_jump_power
-
-            if K_SPACE in h_keys and abs(self.jump_power) < abs(self.max_jump_power) :
                 self.is_charging = True
 
-                self.jump_power += self.jump_power_per_second
-                if abs(self.jump_power) > abs(self.max_jump_power) :
-                    self.jump_power = self.max_jump_power
+            if self.is_charging:
+                if K_SPACE in h_keys and abs(self.jump_power) < abs(self.max_jump_power) :
 
-            if K_SPACE in r_keys :
-                self.did_jump = True
-                self.is_charging = False
-                self.jump_request()
+                    self.jump_power += self.jump_power_per_second
+                    if abs(self.jump_power) > abs(self.max_jump_power) :
+                        self.jump_power = self.max_jump_power
+
+                if K_SPACE in r_keys :
+                    self.did_jump = True
+                    self.is_charging = False
+                    self.jump_request()
 
 
     def dev_sword_control( self ) :
