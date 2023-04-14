@@ -93,10 +93,11 @@ class Game:
     # Bad usage of words, box means collidable here
     @property
     def inner_box_list( self ):
-        return self.level.inner_box_list
+        return cr.inner_box_list
 
 
     def check_events( self ):
+        cr.inner_box_list = self.level.inner_box_list
         gravity = self.gravity
         gravity *= cr.event_holder.delta_time
         self.player.gravity_request(gravity)
