@@ -140,6 +140,13 @@ class Player(JellyCube) :
                 base_color = Color(255,255,0)
             elif self.sword.name == 'evil':
                 base_color = Color(0,255,0)
+            elif self.sword.name == 'death':
+                base_color = Color("black")
+            elif self.sword.name == 'desire':
+                base_color = Color(255,155,0)
+            elif self.sword.name == 'hawk':
+                base_color = Color(0,0,255)
+
 
             lerp_value = cr.event_holder.delta_time * 2.5
             if lerp_value > 1:
