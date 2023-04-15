@@ -13,3 +13,4 @@ camera = Camera(Vector2(0,0))
 inner_box_list:list[Rect] = []
 font: Optional[pg.Font] = None
 little_font: Optional[pg.Font] = None
+smallest_font: Optional[pg.Font] = None

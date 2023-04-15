@@ -15,32 +15,35 @@ res = "./pic_res.png"
 pg.init()
 
 cr.font = pg.font.SysFont('monospace', 20)
-cr.little_font = pg.font.SysFont('Arial',15)
+cr.little_font = pg.font.SysFont('Arial', 15)
+cr.smallest_font = pg.font.SysFont('monospace', 10)
+
 font = cr.font
 last_time = 0
+
 
 def game_over_text() :
     diamonds = cr.game.player.acquired_diamonds
 
     return cr.little_font.render(
-        f"You found {diamonds} Diamonds in {last_time} seconds! Good Job! press X to replay",
-                    True,"red","gray")
+        f"You found {diamonds} Diamonds in {last_time} seconds! Good Job! press X to replay", True,
+        "red", "gray")
+
 
 def win_text() :
-
     return cr.little_font.render(
-        f"You all Diamonds in {last_time} seconds! Very nice! press X to replay",
-                    True,"red","gray")
+        f"You all Diamonds in {last_time} seconds! Very nice! press X to replay", True, "red",
+        "gray")
 
 
 pg.mouse.set_visible(False)
 
-
 just_lost = False
 just_won = False
 
+
 async def main() :
-    global last_time,just_lost,just_won
+    global last_time, just_lost, just_won
 
     # cr.screen = pg.display.set_mode([900, 640], SCALED | FULLSCREEN)
     if IS_WEB :  # web only, scales automatically
@@ -65,31 +68,29 @@ async def main() :
 
     reset_game()
 
-    fps_text = lambda : font.render(f"FPS :{int(cr.event_holder.final_fps)}"
-                                    f" PARTICLES: {cr.game.player.particles.__len__()}", True,
-        "white")
+    fps_text = lambda : cr.smallest_font.render(f"FPS :{int(cr.event_holder.final_fps)}"
+                                              f" PARTICLES: {cr.game.player.particles.__len__()}",
+        True, "white")
 
     # I F**king love OOP :heart:
     while not cr.event_holder.should_quit :
-        if cr.game.player.lives == 0 and not just_lost:
+        if cr.game.player.lives == 0 and not just_lost :
             just_lost = True
-            last_time = round(now() - cr.game.timer,2)
+            last_time = round(now() - cr.game.timer, 2)
 
-        if cr.game.player.acquired_diamonds == cr.game.level.total_diamonds and not just_won:
+        if cr.game.player.acquired_diamonds == cr.game.level.total_diamonds and not just_won :
             print("Won!")
             just_won = True
-            last_time = round(now() - cr.game.timer,2)
-
+            last_time = round(now() - cr.game.timer, 2)
 
         if K_F3 in cr.event_holder.pressed_keys :
             cr.event_holder.should_render_debug = not cr.event_holder.should_render_debug
 
-        if K_x in cr.event_holder.released_keys:
-            if just_won or just_lost:
+        if K_x in cr.event_holder.released_keys :
+            if just_won or just_lost :
                 reset_game()
                 just_lost = False
                 just_won = False
-
 
         cr.event_holder.get_events()
         if start_playing and not (just_lost or just_won) :
@@ -105,20 +106,21 @@ async def main() :
                 just_lost = False
                 cr.game.timer = now()
 
-        if cr.event_holder.should_render_debug :
-            cr.screen.blit(fps_text(), (0, 0))
+        text = fps_text()
+        cr.screen.blit(fps_text(),
+            (cr.screen.get_width() - text.get_width(), cr.screen.get_height() - text.get_height()))
 
-        if just_lost:
+        if just_lost :
             surface = game_over_text()
             rect = surface.get_rect()
             rect.center = cr.screen.get_rect().center
-            cr.screen.blit(surface,rect)
+            cr.screen.blit(surface, rect)
 
-        if just_won:
+        if just_won :
             surface = game_over_text()
             rect = surface.get_rect()
             rect.center = cr.screen.get_rect().center
-            cr.screen.blit(surface,rect)
+            cr.screen.blit(surface, rect)
 
         pg.display.update()
 
