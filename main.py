@@ -1,7 +1,5 @@
 import pygame as pg
 from pygame.locals import *
-import numpy
-from PIL import Image
 
 from core.event_holder import EventHolder
 import core.common_resources as cr
