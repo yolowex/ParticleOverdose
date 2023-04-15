@@ -1,3 +1,6 @@
+import pgspecial.iocommands
+import pygame_gui.core.utility
+
 from core.constants import *
 from core.common_names import *
 import core.common_resources as cr
@@ -25,6 +28,9 @@ class Inventory :
         rect_5 = rect.copy()
         rect_5.y += rect.h * 5 + gap_unit * 5.5
 
+        self.selected_surface = Surface((rect.w,rect.h))
+        self.selected_surface = self.selected_surface
+        self.selected_surface.fill([180,150,150,125])
 
         self.items = {"evil" : {"rect" : rect_0, "text" : "blood lust"},
             "desire" : {"rect" : rect_1, "text" : "evergreen evil"},
@@ -36,12 +42,23 @@ class Inventory :
         for key in self.items :
             item = self.items[key]
             item['sprite'] = Sprite(surface=cr.right_sword_dict[key].raw_surface)
+
             item['sprite'].transform_by_height(rect.h*0.8)
             item['locked_sprite'] = Sprite(surface=Surface((rect.w,rect.h)))
 
-            # item['locked_sprite'].transformed_surface.convert_alpha()
-            item['locked_sprite'].transformed_surface.fill([155,155,155,255])
-            item['locked_sprite'].transformed_surface.set_alpha(200)
+            gray_surface = pg.transform.grayscale(item['sprite'].transformed_surface)
+            # gray_surface = item['sprite'].transformed_surface
+            rect = item['locked_sprite'].raw_surface.get_rect()
+            item['locked_sprite'].transform_by_height(rect.h)
+            surface_rect = gray_surface.get_rect()
+            surface_rect.center = rect.center
+
+
+            item['locked_sprite'].transformed_surface.fill([0,0,0,150])
+            item['locked_sprite'].transformed_surface.blit(gray_surface,surface_rect)
+
+
+
 
 
     def check_events( self ) :
@@ -58,8 +75,11 @@ class Inventory :
             surface = value['sprite'].transformed_surface
             surface_rect = surface.get_rect()
             surface_rect.center = rect.center
-            cr.screen.blit(surface,surface_rect)
-            if key in cr.game.player.locked_swords_list:
+
+            if not key in cr.game.player.locked_swords_list:
+                cr.screen.blit(self.selected_surface,rect)
+                cr.screen.blit(surface,surface_rect)
+            else:
                 cr.screen.blit(value['locked_sprite'].transformed_surface,rect)
 
             pg.draw.rect(cr.screen, color, rect, width=5)

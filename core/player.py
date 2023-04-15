@@ -17,7 +17,7 @@ class Player(JellyCube) :
         if self.border_size < 1 :
             self.border_size = 1
 
-        self.locked_swords_list = []
+        self.locked_swords_list = ["hawk"]
 
         self.anti_gravity = False
         self.face = Face()

@@ -4,7 +4,7 @@ class Sprite:
 
     def __init__(self,path:str=None,data=None,surface=None):
         if surface is not None:
-            self.raw_surface = surface
+            self.raw_surface = surface.convert_alpha()
             self.transformed_surface = self.raw_surface.copy()
             return
 
