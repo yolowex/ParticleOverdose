@@ -207,6 +207,9 @@ class Game :
         return cr.font.render("You are dead, press P to respawn!",True,"red")
 
     def render_dead_player_text( self ):
+        if self.player.lives == 0:
+            return
+
         surface = self.dead_player_text
         rect = surface.get_rect()
         rect.center = cr.screen.get_rect().center

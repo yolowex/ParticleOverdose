@@ -15,15 +15,28 @@ res = "./pic_res.png"
 pg.init()
 
 cr.font = pg.font.SysFont('monospace', 20)
+cr.little_font = pg.font.SysFont('Arial',15)
 font = cr.font
 
+
+def game_over_text() :
+    diamonds = cr.game.player.acquired_diamonds
+    time = round(now() - cr.game.timer,2)
+
+    return cr.little_font.render(
+        f"You found {diamonds} in {time} seconds! Good Job! press X to replay",
+                    True,"red")
+
+
 pg.mouse.set_visible(False)
-async def main():
+
+
+async def main() :
     # cr.screen = pg.display.set_mode([900, 640], SCALED | FULLSCREEN)
-    if IS_WEB: # web only, scales automatically
-        cr.screen = pg.display.set_mode([900*0.6,640*0.6])
-    else:
-        cr.screen = pg.display.set_mode([900*0.6,640*0.6], SCALED | FULLSCREEN)
+    if IS_WEB :  # web only, scales automatically
+        cr.screen = pg.display.set_mode([900 * 0.6, 640 * 0.6])
+    else :
+        cr.screen = pg.display.set_mode([900 * 0.6, 640 * 0.6], SCALED | FULLSCREEN)
 
     start_playing = False
 
@@ -31,42 +44,50 @@ async def main():
     cr.event_holder.should_render_debug = False
     cr.event_holder.determined_fps = 1000
 
-    start_playing_text = font.render("press P to start Playing!",True,"red")
+    start_playing_text = font.render("press P to start Playing!", True, "red")
 
-    def reset_game():
-        cr.world = json.loads(open(levels_root+"test.json").read())
+
+    def reset_game() :
+        cr.world = json.loads(open(levels_root + "test.json").read())
         cr.game = Game()
         cr.game.init()
+
 
     reset_game()
 
     fps_text = lambda : font.render(f"FPS :{int(cr.event_holder.final_fps)}"
-                            f" PARTICLES: {cr.game.player.particles.__len__()}", True, "white")
+                                    f" PARTICLES: {cr.game.player.particles.__len__()}", True,
+        "white")
 
     # I F**king love OOP :heart:
     while not cr.event_holder.should_quit :
         if K_F3 in cr.event_holder.pressed_keys :
             cr.event_holder.should_render_debug = not cr.event_holder.should_render_debug
 
-        if K_x in cr.event_holder.released_keys:
+        if K_x in cr.event_holder.released_keys and cr.game.player.lives == 0 :
             reset_game()
 
         cr.event_holder.get_events()
-        if start_playing:
+        if start_playing and cr.game.player.lives != 0:
             cr.game.check_events()
 
         cr.game.render()
-        if not start_playing:
+        if not start_playing :
             text_rect = start_playing_text.get_rect()
             text_rect.center = cr.screen.get_rect().center
-            cr.screen.blit(start_playing_text,text_rect)
-            if K_p in cr.event_holder.released_keys or K_LCTRL in cr.event_holder.released_keys:
+            cr.screen.blit(start_playing_text, text_rect)
+            if K_p in cr.event_holder.released_keys or K_LCTRL in cr.event_holder.released_keys :
                 start_playing = True
                 cr.game.timer = now()
 
-
         if cr.event_holder.should_render_debug :
             cr.screen.blit(fps_text(), (0, 0))
+
+        if cr.game.player.lives == 0:
+            surface = game_over_text()
+            rect = surface.get_rect()
+            rect.center = cr.screen.get_rect().center
+            cr.screen.blit(surface,rect)
 
         pg.display.update()
 
@@ -75,6 +96,5 @@ async def main():
         await asyncio.sleep(0)
 
 
-if __name__ == '__main__':
+if __name__ == '__main__' :
     asyncio.run(main())
-
