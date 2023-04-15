@@ -27,13 +27,12 @@ def game_over_text() :
 
     return cr.little_font.render(
         f"You found {diamonds} Diamonds in {last_time} seconds! Good Job! press X to replay", True,
-        "red", "gray")
+        "red")
 
 
 def win_text() :
     return cr.little_font.render(
-        f"You all Diamonds in {last_time} seconds! Very nice! press X to replay", True, "red",
-        "gray")
+        f"You all Diamonds in {last_time} seconds! Very nice! press X to replay", True, "red")
 
 
 pg.mouse.set_visible(False)
@@ -61,6 +60,7 @@ async def main() :
 
 
     def reset_game() :
+        start_playing = False
         cr.world = json.loads(open(levels_root + "test.json").read())
         cr.game = Game()
         cr.game.init()
@@ -79,11 +79,12 @@ async def main() :
     # I F**king love OOP :heart:
     while not cr.event_holder.should_quit :
         if cr.game.player.lives == 0 and not just_lost :
+            reset_game()
             just_lost = True
             last_time = round(now() - cr.game.timer, 2)
 
         if cr.game.player.acquired_diamonds == cr.game.level.total_diamonds and not just_won :
-            print("Won!")
+            reset_game()
             just_won = True
             last_time = round(now() - cr.game.timer, 2)
 
@@ -92,12 +93,10 @@ async def main() :
 
         if K_x in cr.event_holder.released_keys :
             if just_won or just_lost :
-                reset_game()
                 just_lost = False
                 just_won = False
 
         if K_F12 in cr.event_holder.released_keys:
-            reset_game()
             just_lost = False
             just_won = False
 
@@ -105,11 +104,12 @@ async def main() :
         if IS_WEB and cr.event_holder.should_quit:
             cr.event_holder.should_quit = False
 
-
+        if not (start_playing and not (just_lost or just_won)) :
+            cr.screen.fill("black")
         if start_playing and not (just_lost or just_won) :
             cr.game.check_events()
+            cr.game.render()
 
-        cr.game.render()
         if not start_playing :
             text_rect = start_playing_text.get_rect()
             text_rect.center = cr.screen.get_rect().center

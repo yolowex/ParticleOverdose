@@ -39,7 +39,6 @@ class JellyCube:
 
     def check_events( self ):
         self.is_shaking = False
-        h_keys = cr.event_holder.held_keys
 
         self.check_angle_change()
         self.check_size_change()
