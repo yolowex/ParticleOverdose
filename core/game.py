@@ -184,8 +184,7 @@ class Game :
 
 
     def check_events( self ) :
-        if K_r in cr.event_holder.pressed_keys :
-            self.player.kill()
+
 
         cr.inner_box_list = self.level.inner_box_list
         gravity = self.gravity

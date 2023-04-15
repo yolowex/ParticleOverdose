@@ -95,6 +95,16 @@ class Player(JellyCube) :
         self.gravity = 0
 
 
+    def check_lava( self ) -> bool:
+        for lavabox in cr.game.level.lava_colliders_list :
+            if self.rect.colliderect(lavabox) :
+                self.kill()
+                self.face.update_face(new_eye="dead",new_mouth="talk_1")
+                # Bad programming
+                return True
+
+        return False
+
     def gravity_request( self, gravity: float ) :
         self.gravity = gravity
         for particle in self.particles :
@@ -288,12 +298,14 @@ class Player(JellyCube) :
 
     def check_events( self ) :
 
-
         self.is_wet = False
         for waterbox in cr.game.level.water_colliders_list :
             if self.rect.colliderect(waterbox) :
                 self.is_wet = True
                 break
+
+        if self.check_lava():
+            return
 
         self.check_movements()
         self.check_jump()

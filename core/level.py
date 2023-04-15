@@ -200,6 +200,22 @@ class Level :
         return water_colliders
 
 
+    @property
+    def lava_colliders_list( self ) :
+        cp = cr.camera
+        scr_rect = FRect(cr.screen.get_rect())
+        scr_rect.x -= cp.x
+        scr_rect.y -= cp.y
+
+        lava_colliders = []
+
+        for box in self.collision_box_map :
+            rect = self.collision_box_map[box]['rect'].copy()
+            if rect.colliderect(scr_rect) :
+                lava_colliders.extend(self.collision_box_map[box]['lava_boxs'])
+
+        return lava_colliders
+
     def render_upgradables( self ):
         for name,values in self.sword_upgradables.items():
             if name in cr.game.player.locked_swords_list or name == 'diamond':
