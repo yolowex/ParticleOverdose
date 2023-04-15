@@ -150,7 +150,12 @@ class Game :
     @property
     def diamonds_text( self ) :
         return cr.font.render(
-            f"Diamonds: {self.player.acquired_diamonds}/{self.level.total_diamonds}",True,"black")
+            f"Diamonds: {self.player.acquired_diamonds}/{self.level.total_diamonds}",False,"black")
+
+
+    @property
+    def time_text( self ):
+        return cr.font.render(f"{round(pg.time.get_ticks()/1000,1)}".zfill(5),False,(155,0,0))
 
 
     def check_events( self ) :
@@ -177,3 +182,10 @@ class Game :
         rect = text.get_rect()
         rect.x = cr.screen.get_width() - rect.w
         cr.screen.blit(text,rect)
+
+        time_text = self.time_text
+        time_rect = time_text.get_rect()
+        time_rect.x = cr.screen.get_width() - time_rect.w
+        time_rect.y += rect.h*1.3
+        cr.screen.blit(time_text,time_rect)
+
