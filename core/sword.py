@@ -119,7 +119,7 @@ class Sword :
         t = ptr.lerp(ptl, 0.5)
         lerp_value = 0.3
         if self.name == 'death':
-            lerp_value = 0.5
+            lerp_value = 0.7
         c = b.lerp(t, lerp_value)
 
         m = 1
@@ -221,7 +221,11 @@ class Sword :
         throw_speed = 20
         max_distance = 20
 
+        points = self.rotated_points_right
+        if cr.game.player.facing == LEFT :
+            points = self.rotated_points_left
 
+        rect = polygon_to_rect(points)
 
         do_particles = False
         reverse = 1
@@ -233,11 +237,12 @@ class Sword :
             do_particles = True
             reverse *= -1
             self.distance -= cr.event_holder.delta_time * throw_speed
-            if self.distance < self.original_distance:
-                self.cancel_throw = False
-                self.distance = self.original_distance
 
-        # rotate out
+            if self.cancel_throw or self.distance < self.original_distance:
+                self.distance = self.original_distance
+                self.cancel_throw = False
+
+        # rotate in
         elif self.was_thrown and self.distance == self.original_distance:
             self.angle -= self.angle_speed * m
             if self.angle < 0:
@@ -248,7 +253,7 @@ class Sword :
                 self.timer = now()
 
         else:
-            # rotate in
+            # rotate out
             if self.angle < throw_angle :
                 self.is_attacking = True
                 self.angle += self.angle_speed * m
@@ -266,6 +271,10 @@ class Sword :
                 if self.is_colliding() :
                     self.cancel_throw = True
                     self.was_thrown = True
+                    cr.game.player.teleport(Vector2(rect.center))
+
+
+
 
 
 

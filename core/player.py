@@ -393,6 +393,14 @@ class Player(JellyCube) :
 
             self.add_particle(Vector2(self.center), angle, size)
 
+    def teleport( self,to:Vector2 ):
+        l_center = self.center
+        self.center = to
+        if self.is_colliding(Vector2(0,0)):
+            self.center = l_center
+            print("Could not teleport, invalid location.")
+
+
 
     def manage_fall_particles( self ) :
         if not self.is_falling :
