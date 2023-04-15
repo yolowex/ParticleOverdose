@@ -73,13 +73,15 @@ class Level :
 
             self._lava_box_list.append(rect)
 
+        self.diamonds = []
+        self.sword_upgradables = {}
 
-        self.upgradables = {}
         for entity in upgradables['entityInstances'] :
             if entity['__identifier'] != 'Upgradable' :
                 continue
 
             name = find_in(entity['fieldInstances'],'String')['__value']
+
             if name is None:
                 continue
 
@@ -88,9 +90,10 @@ class Level :
             rect.x -= rect.w / 2
             rect.y -= rect.h / 2
 
-            self.upgradables[name] = {"rect":rect,"is_taken":False,"angle":0}
-
-
+            if name == "diamond":
+                self.diamonds.append({"rect":rect, "is_taken":False, "angle":0})
+            else:
+                self.sword_upgradables[name] = {"rect":rect, "is_taken":False, "angle":0}
 
 
         for key in self.collision_box_map:
@@ -135,16 +138,28 @@ class Level :
 
     def init( self ) :
         self.tileset.init()
-
+        cr.diamond.transform_by_height(self.grid_size)
 
     def check_events( self ) :
-        for name,values in self.upgradables.items():
+
+        for name,values in self.sword_upgradables.items():
+            values['angle'] += cr.event_holder.delta_time * 45
+
             if name in cr.game.player.locked_swords_list:
-                values['angle'] += cr.event_holder.delta_time * 45
                 if cr.game.player.rect.colliderect(values['rect']):
                     cr.game.player.locked_swords_list.remove(name)
+                    values['is_taken'] = True
 
 
+        for values in self.diamonds:
+            if values['is_taken']:
+                continue
+
+            values['angle'] += cr.event_holder.delta_time * - 65
+
+            if cr.game.player.rect.colliderect(values['rect']) :
+                print("Acquired diamond")
+                values['is_taken'] = True
 
 
     # Bad usage of words, box means collidable here
@@ -182,8 +197,8 @@ class Level :
 
 
     def render_upgradables( self ):
-        for name,values in self.upgradables.items():
-            if name in cr.game.player.locked_swords_list:
+        for name,values in self.sword_upgradables.items():
+            if name in cr.game.player.locked_swords_list or name == 'diamond':
                 surface = cr.right_sword_dict[name].transformed_surface
                 surface = pg.transform.rotate(surface,values['angle'])
                 surface_rect = surface.get_rect()
@@ -198,6 +213,22 @@ class Level :
                 pg.draw.rect(cr.screen,"gold",rect,width=5)
 
                 cr.screen.blit(surface,surface_rect)
+
+        for values in self.diamonds:
+            if not values['is_taken']:
+                surface = cr.diamond.transformed_surface
+                surface = pg.transform.rotate(surface, values['angle'])
+                surface_rect = surface.get_rect()
+                surface_rect.center = values['rect'].center
+                surface_rect.x += cr.camera.x
+                surface_rect.y += cr.camera.y
+                rect = values['rect'].copy()
+                rect.x += cr.camera.x
+                rect.y += cr.camera.y
+
+                pg.draw.rect(cr.screen, Color("blue").lerp("white",0.9), rect, width=5)
+
+                cr.screen.blit(surface, surface_rect)
 
     def render( self ) :
         cp = cr.camera.pos
@@ -218,5 +249,3 @@ class Level :
 
 
         self.render_upgradables()
-
-        # t = 0  #  # for rect in cr.game.inner_box_list :  #     rect = list(rect)  #     o_rect = rect.copy()  #  #     rect[0] += cp.x  #     rect[1] += cp.y  #  #     scr_rect = FRect(cr.screen.get_rect())  #     scr_rect.x -= cp.x  #     scr_rect.y -= cp.y  #  #     if scr_rect.colliderect(o_rect):  #         pg.draw.rect(cr.screen, WHITE.lerp('red', 0.2), rect)  #         pg.draw.rect(cr.screen, WHITE.lerp(BLACK, 0.5), rect, width=3)  #         t+=1  #  # print(len(cr.game.inner_box_list),t)

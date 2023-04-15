@@ -54,3 +54,6 @@ levels_root = './levels/'
 
 world = json.loads(open(levels_root+"test.json").read())
 
+
+diamond = Sprite("./assets/diamond.png")
+
