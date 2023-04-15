@@ -92,6 +92,11 @@ async def main() :
                 just_lost = False
                 just_won = False
 
+        if K_F12 in cr.event_holder.released_keys:
+            reset_game()
+            just_lost = False
+            just_won = False
+
         cr.event_holder.get_events()
         if start_playing and not (just_lost or just_won) :
             cr.game.check_events()

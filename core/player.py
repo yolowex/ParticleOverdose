@@ -36,6 +36,7 @@ class Player(JellyCube) :
         self.min_jump_power = -1000
         self.remaining_jump_power = 0
         self.is_wet = False
+        self.on_fire = False
 
         # This is calculated only after a particle becomes inactive
         self.particles_age = 4
@@ -96,12 +97,15 @@ class Player(JellyCube) :
 
 
     def check_lava( self ) -> bool:
+        self.on_fire = False
         for lavabox in cr.game.level.lava_colliders_list :
             if self.rect.colliderect(lavabox) :
-                self.kill()
-                self.face.update_face(new_eye="dead",new_mouth="talk_1")
-                # Bad programming
-                return True
+                if self.sword.name != 'desire':
+                    self.kill()
+                    self.face.update_face(new_eye="dead",new_mouth="talk_1")
+                    # Bad programming
+                    return True
+                self.on_fire = True
 
         return False
 
@@ -120,7 +124,7 @@ class Player(JellyCube) :
             self.is_falling = False
 
         water_m = 1
-        if self.is_wet :
+        if self.is_wet or self.on_fire:
             water_m = 0.8
 
             if self.sword.name == 'evil' :
@@ -129,6 +133,7 @@ class Player(JellyCube) :
                     water_m = 2.5
                 if value.y > 0:
                     water_m = 1
+
 
         throw = (self.sword.last_attack_type in THROW_TYPES and (
                 self.sword.is_attacking or self.sword.is_retrieving))
@@ -238,8 +243,10 @@ class Player(JellyCube) :
         if K_LEFT in h_keys :
             self.move(Vector2(-self.move_speed, 0))
 
-        if self.is_wet :
+        if self.is_wet or self.on_fire :
             sword_m = 1 if self.sword.name == 'evil' else 2
+            if self.on_fire:
+                sword_m = 2
             if K_DOWN in h_keys :
                 self.move(Vector2(0, self.move_speed * sword_m))
 

@@ -602,7 +602,7 @@ class Sword :
 
     @property
     def cooldown_text( self ) :
-        return cr.smallest_font.render(
+        return cr.little_font.render(
             f"Cooldown... {str(round(abs(now() - (self.cooldown_timer + self.cooldown)), 2)).zfill(5)}",
             False, Color(155,0,0))
 
