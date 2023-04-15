@@ -17,21 +17,25 @@ pg.init()
 cr.font = pg.font.SysFont('monospace', 20)
 cr.little_font = pg.font.SysFont('Arial',15)
 font = cr.font
-
+last_time = 0
 
 def game_over_text() :
     diamonds = cr.game.player.acquired_diamonds
-    time = round(now() - cr.game.timer,2)
+
 
     return cr.little_font.render(
-        f"You found {diamonds} in {time} seconds! Good Job! press X to replay",
+        f"You found {diamonds} Diamonds in {last_time} seconds! Good Job! press X to replay",
                     True,"red")
 
 
 pg.mouse.set_visible(False)
 
 
+just_lost = False
+
 async def main() :
+    global last_time,just_lost
+
     # cr.screen = pg.display.set_mode([900, 640], SCALED | FULLSCREEN)
     if IS_WEB :  # web only, scales automatically
         cr.screen = pg.display.set_mode([900 * 0.6, 640 * 0.6])
@@ -61,6 +65,9 @@ async def main() :
 
     # I F**king love OOP :heart:
     while not cr.event_holder.should_quit :
+        if cr.game.player.lives == 0 and not just_lost:
+            just_lost = True
+            last_time = time = round(now() - cr.game.timer,2)
         if K_F3 in cr.event_holder.pressed_keys :
             cr.event_holder.should_render_debug = not cr.event_holder.should_render_debug
 
@@ -78,6 +85,7 @@ async def main() :
             cr.screen.blit(start_playing_text, text_rect)
             if K_p in cr.event_holder.released_keys or K_LCTRL in cr.event_holder.released_keys :
                 start_playing = True
+                just_lost = False
                 cr.game.timer = now()
 
         if cr.event_holder.should_render_debug :
