@@ -226,7 +226,6 @@ class Level :
                 rect.x += cr.camera.x
                 rect.y += cr.camera.y
 
-                pg.draw.rect(cr.screen, Color("blue").lerp("white",0.9), rect, width=5)
 
                 cr.screen.blit(surface, surface_rect)
 

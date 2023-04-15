@@ -8201,6 +8201,431 @@
 								"id": "V_String",
 								"params": ["diamond"]
 							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [5,42],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "b85b3220-c640-11ed-8134-9f813f25ddd9",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [132,1020],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [9,42],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "b8e597d0-c640-11ed-8134-39dfc7a9586a",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [228,1020],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [5,48],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "b9cff7d0-c640-11ed-8134-b54a88243752",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [132,1164],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [10,51],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "ba42b6d0-c640-11ed-8134-8df414ad3a5b",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [252,1236],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [4,54],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "bb23a0f0-c640-11ed-8134-073bd8dad9b8",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [108,1308],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [9,58],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "bb7f7c90-c640-11ed-8134-67f9cf5ea564",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [228,1404],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [4,60],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "bc79bb10-c640-11ed-8134-2d4b46588557",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [108,1452],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [11,62],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "bce50000-c640-11ed-8134-5102b776c88e",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [276,1500],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [18,64],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "be003400-c640-11ed-8134-bb96a77e1e9c",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [444,1548],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [10,33],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "c4256260-c640-11ed-8134-27b109900d46",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [252,804],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [10,23],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "c567cd70-c640-11ed-8134-c93ec7e04e74",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [252,564],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [14,16],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "c74cba10-c640-11ed-8134-d96f1598d8af",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [348,396],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [13,7],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "c83cbf60-c640-11ed-8134-8da2647212dc",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [324,180],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [27,7],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "c9581a70-c640-11ed-8134-5dc938962721",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [660,180],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [37,7],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "ca33d470-c640-11ed-8134-8fa4af5c2721",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [900,180],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [35,18],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "cbe0e830-c640-11ed-8134-73e35f2f7f30",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [852,444],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [38,18],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "cca570b0-c640-11ed-8134-333dd206d46b",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [924,444],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [44,18],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "cd5fe710-c640-11ed-8134-dd0a616a4b34",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [1068,444],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [54,21],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "cf75cec0-c640-11ed-8134-397bb6f4a377",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [1308,516],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [52,21],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "cffd0020-c640-11ed-8134-578b5dab0118",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [1260,516],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [61,5],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "da0b76a0-c640-11ed-8134-4313a24bd1e7",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [1476,132],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [60,6],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "da506ee0-c640-11ed-8134-61b138e4a34b",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [1452,156],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [51,6],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "dadcf770-c640-11ed-8134-c937daf31259",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [1236,156],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [50,5],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "db201af0-c640-11ed-8134-617433c924ea",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [1212,132],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [49,5],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "db4cf750-c640-11ed-8134-21047b32df0b",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [1188,132],
+							"fieldInstances": [{ "__identifier": "String", "__value": "diamond", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["diamond"]
+							}] }]
 						}
 					]
 				},
