@@ -121,10 +121,14 @@ class Player(JellyCube) :
 
         water_m = 1
         if self.is_wet :
-            water_m = 0.5
+            water_m = 0.8
 
             if self.sword.name == 'evil' :
-                water_m = 2
+                water_m = 1.5
+                if value.y < 0:
+                    water_m = 2.5
+                if value.y > 0:
+                    water_m = 1
 
         throw = (self.sword.last_attack_type in THROW_TYPES and (
                 self.sword.is_attacking or self.sword.is_retrieving))
