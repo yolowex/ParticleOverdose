@@ -21,6 +21,7 @@ class Game:
             self.box_width = 1
 
         self.level = Level()
+        self.inventory = Inventory()
 
         p_rect = FRect(0,0,0,0)
         p_rect.w , p_rect.h = self.level.player_size
@@ -154,6 +155,7 @@ class Game:
         gravity *= cr.event_holder.delta_time
         self.player.gravity_request(gravity)
         self.player.check_events()
+        self.inventory.check_events()
         self.check_particles()
         self.check_camera_and_peek()
 
@@ -163,4 +165,5 @@ class Game:
         # pg.draw.rect(cr.surface,BLACK,self.box,width=self.box_width)
         # pg.draw.rect(cr.surface,BLACK.lerp(WHITE,0.9),self.inner_box)
         self.level.render()
+        self.inventory.render()
         self.player.render()
