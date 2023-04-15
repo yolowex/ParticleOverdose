@@ -102,6 +102,10 @@ async def main() :
             just_won = False
 
         cr.event_holder.get_events()
+        if IS_WEB and cr.event_holder.should_quit:
+            cr.event_holder.should_quit = False
+
+
         if start_playing and not (just_lost or just_won) :
             cr.game.check_events()
 
