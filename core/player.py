@@ -27,6 +27,7 @@ class Player(JellyCube) :
         self.max_jump_power = -2500
         self.min_jump_power = -1000
         self.remaining_jump_power = 0
+        self.is_wet = False
 
         # This is calculated only after a particle becomes inactive
         self.particles_age = 4
@@ -91,6 +92,14 @@ class Player(JellyCube) :
         if self.anti_gravity :
             self.is_falling = False
 
+
+
+        water_m = 1
+        if self.is_wet:
+            water_m = 0.5
+
+
+
         throw = (self.sword.last_attack_type in THROW_TYPES and (
                 self.sword.is_attacking or self.sword.is_retrieving))
 
@@ -98,13 +107,10 @@ class Player(JellyCube) :
             self.facing = LEFT
         elif value.x > 0 and not throw :
             self.facing = RIGHT
-        # It's not a bug it's a feature
-        # else :
-        #     return False
 
         self.manage_movement_particles(value)
-        movement = Vector2(value.x * cr.event_holder.delta_time,
-            value.y * cr.event_holder.delta_time)
+        movement = Vector2(value.x *water_m* cr.event_holder.delta_time,
+            value.y *water_m* cr.event_holder.delta_time)
         any_ = self.is_colliding(movement)
 
         if any_ :
@@ -247,6 +253,12 @@ class Player(JellyCube) :
 
 
     def check_events( self ) :
+        self.is_wet = False
+        for waterbox in cr.game.level.water_colliders_list :
+            if self.rect.colliderect(waterbox) :
+                self.is_wet = True
+                break
+
         self.check_movements()
         self.check_jump()
         self.gravity_tick()
@@ -314,10 +326,12 @@ class Player(JellyCube) :
         particle.power = 10
         if IS_WEB :
             particle.power = 3
-
             # particle.power += random.uniform(particle.power*-0.8,particle.power)
 
         particle.power_decrease_scale = 2
+        if self.is_wet:
+            particle.power_decrease_scale *= 6
+
         self.particles.append(particle)
 
 

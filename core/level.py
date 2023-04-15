@@ -12,6 +12,8 @@ class Level :
         test_level = find_layer_instance(find_level(cr.world, 'Level_0'), 'Tiles_grid')
         collidables = find_layer_instance(find_level(cr.world, 'Level_0'), 'Collidables')
         collision_boxs = find_layer_instance(find_level(cr.world, 'Level_0'), 'CollisionBoxs')
+        water_boxs = find_layer_instance(find_level(cr.world, 'Level_0'), 'WaterBoxs')
+        lava_boxs = find_layer_instance(find_level(cr.world, 'Level_0'), 'LavaBoxs')
 
         self.grid_size = test_level['__gridSize']
         tileset_path = cr.levels_root + test_level['__tilesetRelPath']
@@ -33,6 +35,9 @@ class Level :
             sprite.transform_by_rel(scale, scale)
 
         self._inner_box_list = []
+        self._water_box_list = []
+        self._lava_box_list = []
+
         for entity in collidables['entityInstances'] :
             if entity['__identifier'] != 'Collidable' :
                 continue
@@ -48,7 +53,27 @@ class Level :
                 entity['height'] * scale)
 
             self.collision_box_map[len(self.collision_box_map)] = {"rect" : rect,
-                "collidables" : [], "tiles" : []}
+                "collidables" : [], "tiles" : [],"water_boxs":[],"lava_boxs":[]}
+
+
+        for entity in water_boxs['entityInstances'] :
+            if entity['__identifier'] != 'WaterBox' :
+                continue
+            rect = FRect(entity['px'][0] * scale, entity['px'][1] * scale, entity['width'] * scale,
+                entity['height'] * scale)
+
+            self._water_box_list.append(rect)
+
+        for entity in lava_boxs['entityInstances'] :
+            if entity['__identifier'] != 'LavaBox' :
+                continue
+            rect = FRect(entity['px'][0] * scale, entity['px'][1] * scale, entity['width'] * scale,
+                entity['height'] * scale)
+
+            self._water_box_list.append(rect)
+
+
+
 
 
         for key in self.collision_box_map:
@@ -69,6 +94,20 @@ class Level :
             for inner_box, c in zip(self._inner_box_list[: :-1], range(len(self._inner_box_list))[: :-1]) :
                 if box.colliderect(inner_box) :
                     self.collision_box_map[key]['collidables'].append(inner_box)
+                    continue
+
+        for key in self.collision_box_map :
+            box = self.collision_box_map[key]['rect']
+            for inner_box, c in zip(self._water_box_list[: :-1], range(len(self._water_box_list))[: :-1]) :
+                if box.colliderect(inner_box) :
+                    self.collision_box_map[key]['water_boxs'].append(inner_box)
+                    continue
+
+        for key in self.collision_box_map :
+            box = self.collision_box_map[key]['rect']
+            for inner_box, c in zip(self._lava_box_list[: :-1], range(len(self._lava_box_list))[: :-1]) :
+                if box.colliderect(inner_box) :
+                    self.collision_box_map[key]['lava_boxs'].append(inner_box)
                     continue
 
 
@@ -98,6 +137,22 @@ class Level :
                 inner_boxs.extend(self.collision_box_map[box]['collidables'])
 
         return inner_boxs
+
+    @property
+    def water_colliders_list( self ):
+        cp = cr.camera
+        scr_rect = FRect(cr.screen.get_rect())
+        scr_rect.x -= cp.x
+        scr_rect.y -= cp.y
+
+        water_colliders = []
+
+        for box in self.collision_box_map :
+            rect = self.collision_box_map[box]['rect'].copy()
+            if rect.colliderect(scr_rect) :
+                water_colliders.extend(self.collision_box_map[box]['water_boxs'])
+
+        return water_colliders
 
 
     def render( self ) :
