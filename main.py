@@ -68,7 +68,11 @@ async def main() :
 
     reset_game()
 
-    fps_text = lambda : cr.smallest_font.render(f"FPS :{int(cr.event_holder.final_fps)}"
+    this_font = cr.smallest_font
+    if IS_WEB:
+        this_font = cr.little_font
+
+    fps_text = lambda : this_font.render(f"FPS :{int(cr.event_holder.final_fps)}"
                                               f" PARTICLES: {cr.game.player.particles.__len__()}",
         True, "white")
 

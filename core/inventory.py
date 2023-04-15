@@ -55,7 +55,10 @@ class Inventory :
             item['locked_sprite'].transformed_surface.fill([0,0,0,150])
             item['locked_sprite'].transformed_surface.blit(gray_surface,surface_rect)
 
-            text = cr.smallest_font.render(item['text'],False,"black",[155,133,168])
+            font = cr.smallest_font
+            if IS_WEB:
+                font = cr.little_font
+            text = font.render(item['text'],False,"black",[155,133,168])
             item['text_surface'] = text
 
 
