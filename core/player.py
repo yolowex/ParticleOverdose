@@ -217,6 +217,15 @@ class Player(JellyCube) :
         if K_LEFT in h_keys :
             self.move(Vector2(-self.move_speed, 0))
 
+        if self.is_wet:
+            sword_m = 1 if self.sword.name == 'evil' else 2
+            if K_DOWN in h_keys:
+                self.move(Vector2(0, self.move_speed*sword_m))
+
+            if K_UP in h_keys:
+                self.move(Vector2(0, -self.move_speed*sword_m))
+
+
         if not self.did_jump :
             if K_SPACE in p_keys :
                 self.jump_power = self.min_jump_power
