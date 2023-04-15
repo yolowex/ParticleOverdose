@@ -25,6 +25,7 @@ class Inventory :
         rect_5 = rect.copy()
         rect_5.y += rect.h * 5 + gap_unit * 5.5
 
+
         self.items = {"evil" : {"rect" : rect_0, "text" : "blood lust"},
             "desire" : {"rect" : rect_1, "text" : "evergreen evil"},
             "light" : {"rect" : rect_2, "text" : "blue hawk"},
@@ -36,8 +37,11 @@ class Inventory :
             item = self.items[key]
             item['sprite'] = Sprite(surface=cr.right_sword_dict[key].raw_surface)
             item['sprite'].transform_by_height(rect.h*0.8)
+            item['locked_sprite'] = Sprite(surface=Surface((rect.w,rect.h)))
 
-
+            # item['locked_sprite'].transformed_surface.convert_alpha()
+            item['locked_sprite'].transformed_surface.fill([155,155,155,255])
+            item['locked_sprite'].transformed_surface.set_alpha(200)
 
 
     def check_events( self ) :
@@ -55,4 +59,8 @@ class Inventory :
             surface_rect = surface.get_rect()
             surface_rect.center = rect.center
             cr.screen.blit(surface,surface_rect)
+            if key in cr.game.player.locked_swords_list:
+                cr.screen.blit(value['locked_sprite'].transformed_surface,rect)
+
             pg.draw.rect(cr.screen, color, rect, width=5)
+

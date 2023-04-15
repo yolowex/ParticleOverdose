@@ -17,6 +17,8 @@ class Player(JellyCube) :
         if self.border_size < 1 :
             self.border_size = 1
 
+        self.locked_swords_list = ['hawk','blood','death','desire']
+
         self.anti_gravity = False
         self.face = Face()
         self.sword = Sword()
@@ -249,17 +251,17 @@ class Player(JellyCube) :
 
         p_keys = cr.event_holder.pressed_keys
         if not cant_do :
-            if K_1 in p_keys :
+            if K_1 in p_keys and 'evil' not in self.locked_swords_list :
                 self.sword.update_sword('evil')
-            if K_2 in p_keys :
+            if K_2 in p_keys and 'desire' not in self.locked_swords_list  :
                 self.sword.update_sword('desire')
-            if K_3 in p_keys :
+            if K_3 in p_keys and 'light' not in self.locked_swords_list  :
                 self.sword.update_sword('light')
-            if K_4 in p_keys :
+            if K_4 in p_keys and 'hawk' not in self.locked_swords_list  :
                 self.sword.update_sword('hawk')
-            if K_5 in p_keys :
+            if K_5 in p_keys and 'blood' not in self.locked_swords_list  :
                 self.sword.update_sword('blood')
-            if K_6 in p_keys :
+            if K_6 in p_keys and 'death' not in self.locked_swords_list  :
                 self.sword.update_sword('death')
 
 
