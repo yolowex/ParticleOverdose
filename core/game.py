@@ -4,6 +4,7 @@ import core.common_resources as cr
 from core.common_functions import *
 from core.constants import *
 from core.level import Level
+from core.inventory import Inventory
 
 class Game:
     def __init__(self):
