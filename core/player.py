@@ -21,6 +21,7 @@ class Player(JellyCube) :
         if self.border_size < 1 :
             self.border_size = 1
 
+        self.is_dead = False
         self.locked_swords_list = ['hawk','light','desire','death','evil']
         self.acquired_diamonds = 0
 
@@ -42,7 +43,6 @@ class Player(JellyCube) :
         self.movement_request = Vector2(0, 0)
 
         super(Player, self).__init__(points)
-
 
     @property
     def particle_delta_count( self ) :
@@ -100,6 +100,9 @@ class Player(JellyCube) :
         for particle in self.particles :
             particle.gravity_request(gravity)
 
+    def kill( self ):
+        self.lives -= 1
+        self.is_dead = True
 
     def move( self, value: Vector2, anti_gravity: bool = False ) :
         self.anti_gravity = anti_gravity

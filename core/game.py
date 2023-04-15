@@ -11,29 +11,24 @@ class Game :
 
     def __init__( self ) :
         self.bg = SKY
-
+        self.timer = now()
         self.camera_x_offset = 0
         self.camera_y_offset = 0
 
         s = cr.screen.get_size()
         # experimental
-        self.box = FRect(s[0] * 0.1, s[1] * 0.1, s[0] * 0.8, s[1] * 0.8)
-        self.box_width = int(s[0] * 0.01)
-        if self.box_width < 1 :
-            self.box_width = 1
 
         self.level = Level()
         self.inventory = Inventory()
 
         p_rect = FRect(0, 0, 0, 0)
         p_rect.w, p_rect.h = self.level.player_size
-        p_rect.center = self.box.center
+        p_rect.center = Vector2(self.level.player_pos)
         self.player = Player(rect_convert_polygon(p_rect))
         self.particles = []
         self.maximum_particles = 1000
         if IS_WEB :
             self.maximum_particles = 1000
-        self.player.center = Vector2(self.level.player_pos)
         self.gravity = 500
 
         p = self.player.center.copy()
@@ -42,6 +37,21 @@ class Game :
 
         cr.camera.pos = p
 
+    def reset_player( self ,new_game:bool=False):
+        l_locked = self.player.locked_swords_list
+        l_diamonds = self.player.acquired_diamonds
+        l_lives = self.player.lives
+
+        p_rect = FRect(0, 0, 0, 0)
+        p_rect.w, p_rect.h = self.level.player_size
+        p_rect.center = Vector2(self.level.player_pos)
+        self.player = Player(rect_convert_polygon(p_rect))
+        self.player.init()
+
+        if not new_game:
+            self.player.locked_swords_list = l_locked
+            self.player.acquired_diamonds = l_diamonds
+            self.player.lives = l_lives
 
     def init( self ) :
         self.player.init()
@@ -168,17 +178,39 @@ class Game :
     def lives_text( self ):
         return cr.font.render(f"lives: {self.player.lives}/{self.player.max_lives}",False,(0,55,0))
 
+    def check_dead_player( self ):
+        if K_p in cr.event_holder.released_keys or K_LCTRL in cr.event_holder.released_keys:
+            self.reset_player()
+
+
     def check_events( self ) :
+        if K_r in cr.event_holder.pressed_keys :
+            self.player.kill()
+
         cr.inner_box_list = self.level.inner_box_list
         gravity = self.gravity
         gravity *= cr.event_holder.delta_time
         self.level.check_events()
         self.player.gravity_request(gravity)
-        self.player.check_events()
+
+        if not self.player.is_dead:
+            self.player.check_events()
+        else:
+            self.check_dead_player()
+
         self.inventory.check_events()
         self.check_particles()
         self.check_camera_and_peek()
 
+    @property
+    def dead_player_text( self ):
+        return cr.font.render("You are dead, press P to respawn!",True,"red")
+
+    def render_dead_player_text( self ):
+        surface = self.dead_player_text
+        rect = surface.get_rect()
+        rect.center = cr.screen.get_rect().center
+        cr.screen.blit(surface,rect)
 
     def render( self ) :
         cr.screen.fill(self.bg)
@@ -186,7 +218,10 @@ class Game :
         # pg.draw.rect(cr.surface,BLACK.lerp(WHITE,0.9),self.inner_box)
         self.level.render()
         self.inventory.render()
+
         self.player.render()
+        if self.player.is_dead:
+            self.render_dead_player_text()
 
         text = self.diamonds_text
         rect = text.get_rect()

@@ -5,6 +5,7 @@ from core.event_holder import EventHolder
 import core.common_resources as cr
 from core.game import Game
 from core.constants import *
+from core.common_functions import *
 import core.constants as const
 import asyncio
 
@@ -32,9 +33,12 @@ async def main():
 
     start_playing_text = font.render("press P to start Playing!",True,"red")
 
+    def reset_game():
+        cr.world = json.loads(open(levels_root+"test.json").read())
+        cr.game = Game()
+        cr.game.init()
 
-    cr.game = Game()
-    cr.game.init()
+    reset_game()
 
     fps_text = lambda : font.render(f"FPS :{int(cr.event_holder.final_fps)}"
                             f" PARTICLES: {cr.game.player.particles.__len__()}", True, "white")
@@ -42,6 +46,9 @@ async def main():
     while not cr.event_holder.should_quit :
         if K_F3 in cr.event_holder.pressed_keys :
             cr.event_holder.should_render_debug = not cr.event_holder.should_render_debug
+
+        if K_x in cr.event_holder.released_keys:
+            reset_game()
 
         cr.event_holder.get_events()
         if start_playing:
@@ -52,9 +59,9 @@ async def main():
             text_rect = start_playing_text.get_rect()
             text_rect.center = cr.screen.get_rect().center
             cr.screen.blit(start_playing_text,text_rect)
-            if K_p in cr.event_holder.released_keys:
+            if K_p in cr.event_holder.released_keys or K_LCTRL in cr.event_holder.released_keys:
                 start_playing = True
-
+                cr.game.timer = now()
 
 
         if cr.event_holder.should_render_debug :
