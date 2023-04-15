@@ -9,6 +9,9 @@ class Game:
     def __init__(self):
         self.bg = SKY
 
+        self.camera_x_offset = 0
+        self.camera_y_offset = 0
+
         s = cr.screen.get_size()
         # experimental
         self.box = FRect(s[0]*0.1,s[1]*0.1,s[0]*0.8,s[1]*0.8)
@@ -66,6 +69,52 @@ class Game:
 
             sprite.flip(True)
 
+    def check_camera_and_peek( self ):
+        x_offset = 0.5
+        y_offset = 0.8
+
+        h_keys = cr.event_holder.held_keys
+
+        cam_unit = cr.event_holder.delta_time * 0.5
+        cam_release_unit = (1-cr.event_holder.delta_time*2)
+        if cam_release_unit < 0:
+            cam_release_unit = 0
+        if cam_release_unit > 1:
+            cam_release_unit = 1
+            
+        if K_a in h_keys:
+            self.camera_x_offset += cam_unit
+        if K_d in h_keys:
+            self.camera_x_offset -= cam_unit
+
+        if K_s in h_keys:
+            self.camera_y_offset -= cam_unit
+
+        if any(i in h_keys for i in [K_a,K_d,K_s]):
+            if self.camera_x_offset > 0.3:
+                self.camera_x_offset = 0.3
+            elif self.camera_x_offset < -0.2:
+                self.camera_x_offset = -0.2
+            if self.camera_y_offset < -0.6:
+                self.camera_y_offset = -0.6
+
+
+        else:
+            self.camera_x_offset *= cam_release_unit
+            self.camera_y_offset *= cam_release_unit
+            
+            if abs(self.camera_x_offset) < 0.001:
+                self.camera_x_offset = 0
+
+            if abs(self.camera_y_offset) < 0.001:
+                self.camera_y_offset = 0
+
+
+        p = cr.game.player.center.copy()
+        p.x = -int(p.x) + int(cr.screen.get_width() *(x_offset+self.camera_x_offset))
+        p.y = -int(p.y) + int(cr.screen.get_height() *(y_offset+self.camera_y_offset))
+
+        cr.camera.pos = p
 
     def check_particles( self ):
         for particle, c in zip(self.particles[: :-1], range(len(self.particles))[: :-1]) :
@@ -105,6 +154,8 @@ class Game:
         self.player.gravity_request(gravity)
         self.player.check_events()
         self.check_particles()
+        self.check_camera_and_peek()
+
 
     def render( self ):
         cr.screen.fill(self.bg)

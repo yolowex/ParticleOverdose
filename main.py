@@ -7,6 +7,7 @@ from core.event_holder import EventHolder
 import core.common_resources as cr
 from core.game import Game
 from core.constants import *
+import core.constants as const
 import asyncio
 
 pic = "./pic.png"
@@ -24,6 +25,8 @@ async def main():
     cr.event_holder = EventHolder()
     cr.event_holder.should_render_debug = False
     cr.event_holder.determined_fps = 1000
+
+
     cr.game = Game()
     cr.game.init()
 
@@ -39,13 +42,11 @@ async def main():
         cr.game.check_events()
         cr.game.render()
 
-
-
-        p = cr.game.player.center.copy()
-        p.x = -int(p.x) + int(cr.screen.get_width() * .5)
-        p.y = -int(p.y) + int(cr.screen.get_height() * .8)
-
-        cr.camera.pos = p
+        # p = cr.game.player.center.copy()
+        # p.x = -int(p.x) + int(cr.screen.get_width() * .5)
+        # p.y = -int(p.y) + int(cr.screen.get_height() * .8)
+        #
+        # cr.camera.pos = p
         # cr.surface.scroll(-int(p.x) + int(cr.surface.get_width() * .5),
 
         if cr.event_holder.should_render_debug :

@@ -1,4 +1,5 @@
 from core.common_names import *
+from core.common_resources import *
 
 IS_WEB = __import__("sys").platform == "emscripten"
 
