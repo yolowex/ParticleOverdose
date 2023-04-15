@@ -43,6 +43,7 @@ async def main():
     fps_text = lambda : font.render(f"FPS :{int(cr.event_holder.final_fps)}"
                             f" PARTICLES: {cr.game.player.particles.__len__()}", True, "white")
 
+    # I F**king love OOP :heart:
     while not cr.event_holder.should_quit :
         if K_F3 in cr.event_holder.pressed_keys :
             cr.event_holder.should_render_debug = not cr.event_holder.should_render_debug
