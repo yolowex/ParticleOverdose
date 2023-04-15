@@ -70,7 +70,7 @@ class Level :
             rect = FRect(entity['px'][0] * scale, entity['px'][1] * scale, entity['width'] * scale,
                 entity['height'] * scale)
 
-            self._water_box_list.append(rect)
+            self._lava_box_list.append(rect)
 
 
 

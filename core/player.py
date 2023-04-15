@@ -68,9 +68,14 @@ class Player(JellyCube) :
         if self.anti_gravity :
             return
 
-        any_ = self.is_colliding(Vector2(0, self.gravity))
+        water_m = 1
+        if self.is_wet :
+            water_m = 0.4
+
+        movement = Vector2(0, self.gravity * water_m)
+        any_ = self.is_colliding(movement)
         if not any_:
-            self.center = Vector2(self.center.x, self.center.y + self.gravity)
+            self.center = Vector2(self.center.x + movement.x,self.center.y + movement.y)
         else :
             c = self.center
             # c.y = (any_.y - self.o_rect.h / 2 ) - 0
@@ -98,6 +103,8 @@ class Player(JellyCube) :
         if self.is_wet:
             water_m = 0.5
 
+            if self.sword.name == 'evil':
+                water_m = 2
 
 
         throw = (self.sword.last_attack_type in THROW_TYPES and (
@@ -162,9 +169,18 @@ class Player(JellyCube) :
 
 
     def check_jump( self ) :
+        water_m = 1
+        if self.is_wet :
+            water_m = 0.5
+
+            if self.sword.name == 'evil' :
+                water_m = 2
+
         last_center = self.center
-        movement = Vector2(0, self.remaining_jump_power * cr.event_holder.delta_time)
+        movement = Vector2(0, self.remaining_jump_power * water_m * cr.event_holder.delta_time )
         any_ = self.is_colliding(movement)
+
+
 
         if any_ :
             self.center = last_center
@@ -178,6 +194,7 @@ class Player(JellyCube) :
             self.center = c
             self.remaining_jump_power -= (
                     self.remaining_jump_power * 7 * cr.event_holder.delta_time)
+
             if abs(self.remaining_jump_power) < abs(cr.game.gravity * 0.5) :
                 self.remaining_jump_power = 0
 
@@ -327,6 +344,7 @@ class Player(JellyCube) :
         if IS_WEB :
             particle.power = 3
             # particle.power += random.uniform(particle.power*-0.8,particle.power)
+
 
         particle.power_decrease_scale = 2
         if self.is_wet:
