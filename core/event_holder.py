@@ -20,6 +20,7 @@ class EventHolder :
         self.should_quit = False
         self.determined_fps = 60
         self.final_fps = 0
+        self.focus_gain_timer = -100
         self.clock = pg.time.Clock()
         self.dt = 0
 
@@ -49,6 +50,7 @@ class EventHolder :
                 self.window_focus = False
             if i.type == WINDOWFOCUSGAINED:
                 self.window_focus = True
+                self.focus_gain_timer = pg.time.get_ticks() / 1000
 
             if i.type == WINDOWENTER or MOUSEMOTION :
                 self.mouse_pos = Vector2(pg.mouse.get_pos())

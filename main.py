@@ -76,6 +76,8 @@ async def main() :
                                               f" PARTICLES: {cr.game.player.particles.__len__()}",
         True, "white")
 
+    wait_text = this_font.render("Please wait while loading...",True,"red")
+
     # I F**king love OOP :heart:
     while not cr.event_holder.should_quit :
         if cr.game.player.lives == 0 and not just_lost :
@@ -104,12 +106,20 @@ async def main() :
         if IS_WEB and cr.event_holder.should_quit:
             cr.event_holder.should_quit = False
 
-        if not (start_playing and not (just_lost or just_won)) :
-            cr.screen.fill("black")
+        should = start_playing and not (just_lost or just_won) and cr.event_holder.window_focus \
+                and now() > cr.event_holder.focus_gain_timer + 1
 
-        if start_playing and not (just_lost or just_won) and cr.event_holder.window_focus:
+        if not should:
+            cr.screen.fill([0,0,0,0])
+        if should:
             cr.game.check_events()
             cr.game.render()
+
+        if not should and not just_lost and not just_won:
+            rect = wait_text.get_rect()
+            rect.center = cr.screen.get_rect().center
+            rect.y = cr.screen.get_height() * 0.7
+            cr.screen.blit(wait_text,rect)
 
         if not start_playing :
             text_rect = start_playing_text.get_rect()
