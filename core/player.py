@@ -273,8 +273,14 @@ class Player(JellyCube) :
 
         return any_
 
+    @property
+    def jump_power_percent( self ):
+        return percent(abs(self.max_jump_power) - abs(self.min_jump_power),
+            abs(self.jump_power) - abs(self.min_jump_power))
 
     def check_events( self ) :
+
+
         self.is_wet = False
         for waterbox in cr.game.level.water_colliders_list :
             if self.rect.colliderect(waterbox) :
@@ -326,6 +332,27 @@ class Player(JellyCube) :
         # pg.draw.polygon(cr.screen, self.color.lerp("red",0.5), self.original_points)
 
         pg.draw.polygon(cr.screen, self.border_color, p, width=self.border_size)
+
+
+        if self.is_charging:
+            color = 'green'
+            rect = self.rect
+            rect.w = rect.w * 0.2
+            rect.x -= rect.w * 1.3
+            lh = rect.h
+            rect.h = rect.h * self.jump_power_percent * 0.01
+            rect.y += lh - rect.h
+
+            rect.x += cr.camera.x
+            rect.y += cr.camera.y
+
+            if self.facing == LEFT:
+                rect.x += self.rect.w * 1.3 + (rect.w)
+
+            pg.draw.rect(cr.screen,color,rect)
+
+
+
 
         self.face.render()
         self.sword.render()
@@ -393,13 +420,13 @@ class Player(JellyCube) :
 
             self.add_particle(Vector2(self.center), angle, size)
 
-    def teleport( self,to:Vector2 ):
+
+    def teleport( self, to: Vector2 ) :
         l_center = self.center
         self.center = to
-        if self.is_colliding(Vector2(0,0)):
+        if self.is_colliding(Vector2(0, 0)) :
             self.center = l_center
             print("Could not teleport, invalid location.")
-
 
 
     def manage_fall_particles( self ) :
@@ -446,8 +473,7 @@ class Player(JellyCube) :
 
         # SWORD
 
-        if self.sword.is_active and not self.sword.is_attacking \
-                and self.sword.attack_key == ATTACK_SPECIAL and self.is_still:
+        if self.sword.is_active and not self.sword.is_attacking and self.sword.attack_key == ATTACK_SPECIAL and self.is_still :
             new_mouth = 'smile'
 
         if self.sword.is_attacking :
