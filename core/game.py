@@ -36,6 +36,12 @@ class Game :
         self.player.center = Vector2(self.level.player_pos)
         self.gravity = 500
 
+        p = self.player.center.copy()
+        p.x = -int(p.x) + int(cr.screen.get_width()*0.5)
+        p.y = -int(p.y) + int(cr.screen.get_height()*0.8)
+
+        cr.camera.pos = p
+
 
     def init( self ) :
         self.player.init()

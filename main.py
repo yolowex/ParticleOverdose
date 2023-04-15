@@ -24,9 +24,13 @@ async def main():
     else:
         cr.screen = pg.display.set_mode([900*0.6,640*0.6], SCALED | FULLSCREEN)
 
+    start_playing = False
+
     cr.event_holder = EventHolder()
     cr.event_holder.should_render_debug = False
     cr.event_holder.determined_fps = 1000
+
+    start_playing_text = font.render("press P to start Playing!",True,"red")
 
 
     cr.game = Game()
@@ -40,15 +44,18 @@ async def main():
             cr.event_holder.should_render_debug = not cr.event_holder.should_render_debug
 
         cr.event_holder.get_events()
-        cr.game.check_events()
-        cr.game.render()
+        if start_playing:
+            cr.game.check_events()
 
-        # p = cr.game.player.center.copy()
-        # p.x = -int(p.x) + int(cr.screen.get_width() * .5)
-        # p.y = -int(p.y) + int(cr.screen.get_height() * .8)
-        #
-        # cr.camera.pos = p
-        # cr.surface.scroll(-int(p.x) + int(cr.surface.get_width() * .5),
+        cr.game.render()
+        if not start_playing:
+            text_rect = start_playing_text.get_rect()
+            text_rect.center = cr.screen.get_rect().center
+            cr.screen.blit(start_playing_text,text_rect)
+            if K_p in cr.event_holder.released_keys:
+                start_playing = True
+
+
 
         if cr.event_holder.should_render_debug :
             cr.screen.blit(fps_text(), (0, 0))
