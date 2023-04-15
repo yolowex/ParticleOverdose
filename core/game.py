@@ -171,7 +171,7 @@ class Game :
 
     @property
     def time_text( self ):
-        return cr.font.render(f"{round(pg.time.get_ticks()/1000,1)}".zfill(5),False,(155,0,0))
+        return cr.font.render(f"{round(pg.time.get_ticks()/1000-self.timer,1)}".zfill(5),False,(155,0,0))
 
 
     @property
