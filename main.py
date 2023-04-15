@@ -22,19 +22,25 @@ last_time = 0
 def game_over_text() :
     diamonds = cr.game.player.acquired_diamonds
 
-
     return cr.little_font.render(
         f"You found {diamonds} Diamonds in {last_time} seconds! Good Job! press X to replay",
-                    True,"red")
+                    True,"red","gray")
+
+def win_text() :
+
+    return cr.little_font.render(
+        f"You all Diamonds in {last_time} seconds! Very nice! press X to replay",
+                    True,"red","gray")
 
 
 pg.mouse.set_visible(False)
 
 
 just_lost = False
+just_won = False
 
 async def main() :
-    global last_time,just_lost
+    global last_time,just_lost,just_won
 
     # cr.screen = pg.display.set_mode([900, 640], SCALED | FULLSCREEN)
     if IS_WEB :  # web only, scales automatically
@@ -67,15 +73,26 @@ async def main() :
     while not cr.event_holder.should_quit :
         if cr.game.player.lives == 0 and not just_lost:
             just_lost = True
-            last_time = time = round(now() - cr.game.timer,2)
+            last_time = round(now() - cr.game.timer,2)
+
+        if cr.game.player.acquired_diamonds == cr.game.level.total_diamonds and not just_won:
+            print("Won!")
+            just_won = True
+            last_time = round(now() - cr.game.timer,2)
+
+
         if K_F3 in cr.event_holder.pressed_keys :
             cr.event_holder.should_render_debug = not cr.event_holder.should_render_debug
 
-        if K_x in cr.event_holder.released_keys and cr.game.player.lives == 0 :
-            reset_game()
+        if K_x in cr.event_holder.released_keys:
+            if just_won or just_lost:
+                reset_game()
+                just_lost = False
+                just_won = False
+
 
         cr.event_holder.get_events()
-        if start_playing and cr.game.player.lives != 0:
+        if start_playing and not (just_lost or just_won) :
             cr.game.check_events()
 
         cr.game.render()
@@ -91,7 +108,13 @@ async def main() :
         if cr.event_holder.should_render_debug :
             cr.screen.blit(fps_text(), (0, 0))
 
-        if cr.game.player.lives == 0:
+        if just_lost:
+            surface = game_over_text()
+            rect = surface.get_rect()
+            rect.center = cr.screen.get_rect().center
+            cr.screen.blit(surface,rect)
+
+        if just_won:
             surface = game_over_text()
             rect = surface.get_rect()
             rect.center = cr.screen.get_rect().center
