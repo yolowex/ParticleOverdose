@@ -37,6 +37,18 @@ class Sword :
         self.rotate_sword()
 
 
+    @property
+    def particle_delta_count( self ) :
+        delta = cr.event_holder.delta_time
+        if delta <= 0.01 :
+            delta = 0.01
+
+        count = int(delta * 100)
+        if IS_WEB:
+            count *= 6
+
+        return count
+
     # @property
     # def is_active( self ):
     #     return self.distance > 0.25
@@ -161,12 +173,17 @@ class Sword :
             points = self.rotated_points_left
             angle_m = -1
 
-        for _ in range(random.randint(1,5)):
+        web_m = 1
+        if IS_WEB :
+            web_m = 3
+
+        for _ in range(random.randint(1,self.particle_delta_count * 5)):
             b = points[2].lerp(points[3],0.5)
             t = points[0].lerp(points[1],0.5)
 
-            shoot_point = b.lerp(t,0.5)
-            shoot_angle = (self.angle * angle_m) + random.randint(-10,10)
+            shoot_point = b.lerp(t, random.uniform(0.2, 0.8))
+
+            shoot_angle = (self.angle * angle_m) + random.randint(-10*web_m,10*web_m)
             size = random.uniform(1,4.5)
             self.add_particle(shoot_point,shoot_angle,size,)
 
@@ -242,13 +259,15 @@ class Sword :
                 points = self.rotated_points_left
                 angle_m = -1
 
-            for _ in range(random.randint(0, 5)) :
+
+            for _ in range(random.randint(1, self.particle_delta_count*5)) :
                 bias = random.uniform(0, 1)
                 b = points[2].lerp(points[3], bias)
                 t = points[0].lerp(points[1], bias)
 
-                shoot_point = b.lerp(t, 0.5)
-                shoot_angle = (self.angle * angle_m) + random.randint(-5, 5)
+                shoot_point = b.lerp(t, random.uniform(0.2, 0.8))
+
+                shoot_angle = (self.angle * angle_m) + random.randint(-7,7)
                 shoot_angle = shoot_angle * -1 * reverse
 
                 size = random.uniform(1, 4.5)
@@ -264,12 +283,17 @@ class Sword :
             points = self.rotated_points_left
             angle_m = -1
 
-        for _ in range(random.randint(1, 5)) :
+        web_m = 1
+        if IS_WEB :
+            web_m = 3
+
+        for _ in range(random.randint(1, self.particle_delta_count*5)) :
             b = points[2].lerp(points[3], 0.5)
             t = points[0].lerp(points[1], 0.5)
 
-            shoot_point = b.lerp(t, 0.5)
-            shoot_angle = (self.angle * angle_m) + random.randint(-10, 10)
+            shoot_point = b.lerp(t, random.uniform(0.2, 0.8))
+
+            shoot_angle = (self.angle * angle_m) + random.randint(-10*web_m,10*web_m)
             size = random.uniform(1, 4.5)
             self.add_particle(shoot_point, shoot_angle, size, )
 
@@ -346,12 +370,13 @@ class Sword :
             angle_m = -1
 
 
-        for _ in range(random.randint(0,5)) :
+        for _ in range(random.randint(0,self.particle_delta_count*5)) :
             bias = random.uniform(0, 1)
             b = points[2].lerp(points[3], bias)
             t = points[0].lerp(points[1], bias)
 
-            shoot_point = b.lerp(t, 0.5)
+            shoot_point = b.lerp(t, random.uniform(0.2, 0.8))
+
             shoot_angle = (self.angle * angle_m) + random.randint(-5,5)
             shoot_angle = shoot_angle * -1
 
@@ -397,12 +422,12 @@ class Sword :
             points = self.rotated_points_left
             angle_m = -1
 
-        for _ in range(random.randint(0, 5)) :
+        for _ in range(random.randint(0, self.particle_delta_count*5)) :
             bias = random.uniform(0, 1)
             b = points[2].lerp(points[3], bias)
             t = points[0].lerp(points[1], bias)
 
-            shoot_point = b.lerp(t, 0.5)
+            shoot_point = b.lerp(t, random.uniform(0.2,0.8))
             shoot_angle = (self.angle * angle_m) + random.randint(-5, 5)
             shoot_angle += 180
             size = random.uniform(1, 4.5)
@@ -481,6 +506,9 @@ class Sword :
         age = random.uniform(0, 1)
         particle = Particle(source, size, angle, age,color,True,True)
         # particle.power = random.uniform(4,5)
+        particle.power = 5
+        if IS_WEB:
+            particle.power = 3.8
         particle.power_decrease_scale = power_scale
         cr.game.particles.append(particle)
 

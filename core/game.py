@@ -23,7 +23,9 @@ class Game:
         p_rect.center = self.box.center
         self.player = Player(rect_convert_polygon(p_rect))
         self.particles = []
-        self.maximum_particles = 500
+        self.maximum_particles = 1000
+        if IS_WEB:
+            self.maximum_particles = 1000
         self.player.center = Vector2(self.level.player_pos)
         self.gravity = 500
 

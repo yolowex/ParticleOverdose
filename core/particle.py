@@ -73,7 +73,7 @@ class Particle :
         last_center = self.pos.copy()
 
         delta_lerp = cr.event_holder.delta_time*0.1*self.power
-        self.power -= cr.event_holder.delta_time * self.power_decrease_scale
+        self.power -= cr.event_holder.delta_time*self.power_decrease_scale
         if delta_lerp>1:
             delta_lerp = 1
 

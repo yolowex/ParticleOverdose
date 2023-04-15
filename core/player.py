@@ -35,6 +35,13 @@ class Player(JellyCube) :
 
         super(Player, self).__init__(points)
 
+    @property
+    def particle_delta_count( self ):
+        delta = cr.event_holder.delta_time
+        if delta <= 0.01 :
+            delta = 0.01
+        count = int(delta * 200)
+        return count
 
     @property
     def maximum_particles( self ) :
@@ -292,13 +299,15 @@ class Player(JellyCube) :
 
     def add_particle( self, source: Vector2, angle, size ) :
         # return
+
         if len(self.particles) > self.maximum_particles :
             return
 
         age = random.uniform(0, 1)
+
         anti_gravity = anti_collision = False
         if IS_WEB :
-            anti_gravity = anti_collision = True
+             anti_gravity = anti_collision = True
 
         particle = Particle(source, size, angle, age, None, anti_gravity, anti_collision)
 
@@ -306,58 +315,62 @@ class Player(JellyCube) :
         if IS_WEB :
             particle.power = 3
 
+            # particle.power += random.uniform(particle.power*-0.8,particle.power)
+
         particle.power_decrease_scale = 2
         self.particles.append(particle)
 
 
     def manage_movement_particles( self, value ) :
-        angle = random.randint(30, 60)
+        for _ in range(self.particle_delta_count):
+            angle = random.randint(30, 60)
 
-        if value.x > 0 :
-            angle = - angle
+            if value.x > 0 :
+                angle = - angle
 
-        size = random.uniform(1, 4)
+            size = random.uniform(1, 4)
 
-        self.add_particle(Vector2(self.center), angle, size)
+            self.add_particle(Vector2(self.center), angle, size)
 
 
     def manage_shake_particles( self ) :
         if not self.is_shaking :
             return
+        for _ in range(self.particle_delta_count):
+            angle = random.randint(15, 60)
+            if random.randint(0, 1) :
+                angle = - angle
 
-        angle = random.randint(15, 60)
-        if random.randint(0, 1) :
-            angle = - angle
+            size = random.uniform(1, 4)
 
-        size = random.uniform(1, 4)
-
-        self.add_particle(Vector2(self.center), angle, size)
+            self.add_particle(Vector2(self.center), angle, size)
 
 
     def manage_jump_particles( self ) :
         if not self.is_jumping :
             return
+        for _ in range(self.particle_delta_count):
+            angle = random.randint(135, 225)
+            if random.randint(0, 1) :
+                angle = - angle
 
-        angle = random.randint(135, 225)
-        if random.randint(0, 1) :
-            angle = - angle
+            size = random.uniform(1, 4)
 
-        size = random.uniform(1, 4)
-
-        self.add_particle(Vector2(self.center), angle, size)
+            self.add_particle(Vector2(self.center), angle, size)
 
 
     def manage_fall_particles( self ) :
         if not self.is_falling :
             return
 
-        angle = random.randint(-45, 45)
-        if random.randint(0, 1) :
-            angle = - angle
+        for _ in range(self.particle_delta_count):
+            angle = random.randint(-45, 45)
+            if random.randint(0, 1) :
+                angle = - angle
 
-        size = random.uniform(1, 4)
+            size = random.uniform(1, 4)
 
-        self.add_particle(Vector2(self.center), angle, size)
+            self.add_particle(Vector2(self.center), angle, size)
 
 
     def update_face( self ) :
