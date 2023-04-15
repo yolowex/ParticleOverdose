@@ -153,6 +153,7 @@ class Game:
         cr.inner_box_list = self.level.inner_box_list
         gravity = self.gravity
         gravity *= cr.event_holder.delta_time
+        self.level.check_events()
         self.player.gravity_request(gravity)
         self.player.check_events()
         self.inventory.check_events()

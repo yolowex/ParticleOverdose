@@ -14,3 +14,8 @@ def find_entity(entities:dict,name:str):
     for entity in entities['entityInstances']:
         if entity['__identifier'] == name:
             return entity
+
+def find_in(list_:list,identifier:str):
+    for item in list_:
+        if item['__identifier'] == identifier:
+            return item
