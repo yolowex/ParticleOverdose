@@ -8038,7 +8038,10 @@
 							"height": 24,
 							"defUid": 202,
 							"px": [1140,1140],
-							"fieldInstances": [{ "__identifier": "String", "__value": null, "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [] }]
+							"fieldInstances": [{ "__identifier": "String", "__value": "desire", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["desire"]
+							}] }]
 						},
 						{
 							"__identifier": "Upgradable",
@@ -8080,7 +8083,89 @@
 							"height": 24,
 							"defUid": 202,
 							"px": [396,1644],
+							"fieldInstances": [{ "__identifier": "String", "__value": "death", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["death"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [46,32],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "82360bb0-c640-11ed-8134-09f44206ce05",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [1116,780],
+							"fieldInstances": [{ "__identifier": "String", "__value": "light", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["light"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [59,26],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "837b0ed0-c640-11ed-8134-69cc61ef16a5",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [1428,636],
 							"fieldInstances": [{ "__identifier": "String", "__value": null, "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [40,22],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "87ceb180-c640-11ed-8134-952202fd50f9",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [972,540],
+							"fieldInstances": [{ "__identifier": "String", "__value": null, "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [55,13],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "891fe9a0-c640-11ed-8134-ddf0b2164c25",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [1332,324],
+							"fieldInstances": [{ "__identifier": "String", "__value": "evil", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["evil"]
+							}] }]
+						},
+						{
+							"__identifier": "Upgradable",
+							"__grid": [7,7],
+							"__pivot": [0.5,0.5],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#F8E403",
+							"iid": "f16a3740-c640-11ed-8134-8dce0ef27ec6",
+							"width": 24,
+							"height": 24,
+							"defUid": 202,
+							"px": [180,180],
+							"fieldInstances": [{ "__identifier": "String", "__value": "hawk", "__type": "String", "__tile": null, "defUid": 203, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["hawk"]
+							}] }]
 						}
 					]
 				},
