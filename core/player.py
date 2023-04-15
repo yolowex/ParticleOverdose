@@ -297,6 +297,10 @@ class Player(JellyCube) :
             abs(self.jump_power) - abs(self.min_jump_power))
 
     def check_events( self ) :
+        if self.center.y > cr.game.level.lowest_tile - 500:
+            self.kill()
+            self.face.update_face(new_eye="dead", new_mouth="talk_1")
+            return
 
         self.is_wet = False
         for waterbox in cr.game.level.water_colliders_list :

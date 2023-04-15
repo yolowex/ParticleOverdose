@@ -16,6 +16,9 @@ class Level :
         lava_boxs = find_layer_instance(find_level(cr.world, 'Level_0'), 'LavaBoxs')
         upgradables = find_layer_instance(find_level(cr.world, 'Level_0'), 'Upgradables')
 
+
+        self.lowest_tile = None
+
         self.total_diamonds = 0
         self.grid_size = test_level['__gridSize']
         tileset_path = cr.levels_root + test_level['__tilesetRelPath']
@@ -45,6 +48,13 @@ class Level :
                 continue
             rect = FRect(entity['px'][0] * scale, entity['px'][1] * scale, entity['width'] * scale,
                 entity['height'] * scale)
+
+            if self.lowest_tile is None:
+                self.lowest_tile = rect.y + rect.h
+
+            if rect.y + rect.h > self.lowest_tile:
+                self.lowest_tile = rect.y + rect.h
+
 
             self._inner_box_list.append(rect)
 
@@ -143,8 +153,9 @@ class Level :
         self.tileset.init()
         cr.diamond.transform_by_height(self.grid_size)
 
-
     def check_events( self ) :
+
+
 
         for name,values in self.sword_upgradables.items():
             values['angle'] += cr.event_holder.delta_time * 45
