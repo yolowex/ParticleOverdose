@@ -31,6 +31,11 @@ class Sword :
         self.distance = self.original_distance
         self.cancel_throw = False
 
+        self.max_special_combo = 2
+        self.total_combo = 0
+        self.cooldown = 3
+        self.cooldown_timer = 0
+
 
     def init( self ) :
         name = 'blood'
@@ -154,46 +159,42 @@ class Sword :
     def check_events( self ) :
         self.check_attack()
         self.angle += self.angle_power
-
         if K_f in cr.event_holder.pressed_keys :
             self.attack(ATTACK_NORMAL)
-        if K_v in cr.event_holder.pressed_keys :
-            if not self.is_attacking and not self.is_retrieving :
-                self.attack(ATTACK_SPECIAL)
-            elif not self.was_thrown :
-                self.reset_sword()
-                self.timer = now()
+
+        in_cooldown = now() < self.cooldown + self.cooldown_timer
+        if not in_cooldown and self.total_combo == self.max_special_combo :
+            self.total_combo = 0
 
         if not self.was_thrown :
+            did_combo = False
+            name = 'none'
             if K_q in cr.event_holder.pressed_keys and 'evil' not in cr.game.player.locked_swords_list :
-                self.reset_sword()
-                self.update_sword("evil")
-                self.attack(ATTACK_SPECIAL)
+                name = 'evil'
+            elif K_w in cr.event_holder.pressed_keys and 'desire' not in cr.game.player.locked_swords_list :
+                name = 'desire'
+            elif K_e in cr.event_holder.pressed_keys and 'light' not in cr.game.player.locked_swords_list :
+                name = 'light'
+            elif K_r in cr.event_holder.pressed_keys and 'hawk' not in cr.game.player.locked_swords_list :
+                name = 'hawk'
+            elif K_t in cr.event_holder.pressed_keys and 'blood' not in cr.game.player.locked_swords_list :
+                name = 'blood'
+            elif K_g in cr.event_holder.pressed_keys and 'death' not in cr.game.player.locked_swords_list :
+                name = 'death'
 
-            if K_w in cr.event_holder.pressed_keys and 'desire' not in cr.game.player.locked_swords_list :
+            if name is not 'none' and not in_cooldown :
+                reset = False
                 self.reset_sword()
-                self.update_sword("desire")
-                self.attack(ATTACK_SPECIAL)
-
-            if K_e in cr.event_holder.pressed_keys and 'light' not in cr.game.player.locked_swords_list :
-                self.reset_sword()
-                self.update_sword("light")
-                self.attack(ATTACK_SPECIAL)
-
-            if K_r in cr.event_holder.pressed_keys and 'hawk' not in cr.game.player.locked_swords_list :
-                self.reset_sword()
-                self.update_sword("hawk")
-                self.attack(ATTACK_SPECIAL)
-
-            if K_t in cr.event_holder.pressed_keys and 'blood' not in cr.game.player.locked_swords_list :
-                self.reset_sword()
-                self.update_sword("blood")
-                self.attack(ATTACK_SPECIAL)
-
-            if K_g in cr.event_holder.pressed_keys and 'death' not in cr.game.player.locked_swords_list :
-                self.reset_sword()
-                self.update_sword("death")
-                self.attack(ATTACK_SPECIAL)
+                reset = self.name == name and (self.is_attacking or self.is_retrieving)
+                self.update_sword(name)
+                if not reset:
+                    self.attack(ATTACK_SPECIAL)
+                    self.total_combo += 1
+                    if self.total_combo == self.max_special_combo :
+                        self.cooldown_timer = now()
+                else:
+                    self.total_combo = 0
+                    self.cooldown_timer = now()
 
         self.check_activeness()
 
@@ -592,6 +593,12 @@ class Sword :
                 return True
 
         return False
+
+
+    @property
+    def cooldown_text( self ) :
+        return cr.little_font.render(
+            f"Cooldown... {round(abs(self.cooldown - self.cooldown_timer), 2)}",False,"red","white")
 
 
     def render_debug( self, points ) :
