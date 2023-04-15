@@ -18,6 +18,7 @@ class Player(JellyCube) :
             self.border_size = 1
 
         self.locked_swords_list = ['hawk','light','desire','death','evil']
+        self.acquired_diamonds = 0
 
         self.anti_gravity = False
         self.face = Face()

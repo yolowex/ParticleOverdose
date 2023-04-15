@@ -13,6 +13,9 @@ res = "./pic_res.png"
 
 pg.init()
 
+cr.font = pg.font.SysFont('monospace', 30)
+font = cr.font
+
 pg.mouse.set_visible(False)
 async def main():
     # cr.screen = pg.display.set_mode([900, 640], SCALED | FULLSCREEN)
@@ -29,7 +32,6 @@ async def main():
     cr.game = Game()
     cr.game.init()
 
-    font = pg.font.SysFont('monospace', 30)
     fps_text = lambda : font.render(f"FPS :{int(cr.event_holder.final_fps)}"
                             f" PARTICLES: {cr.game.player.particles.__len__()}", True, "white")
 

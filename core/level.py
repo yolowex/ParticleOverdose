@@ -16,6 +16,7 @@ class Level :
         lava_boxs = find_layer_instance(find_level(cr.world, 'Level_0'), 'LavaBoxs')
         upgradables = find_layer_instance(find_level(cr.world, 'Level_0'), 'Upgradables')
 
+        self.total_diamonds = 0
         self.grid_size = test_level['__gridSize']
         tileset_path = cr.levels_root + test_level['__tilesetRelPath']
 
@@ -95,6 +96,7 @@ class Level :
             else:
                 self.sword_upgradables[name] = {"rect":rect, "is_taken":False, "angle":0}
 
+        self.total_diamonds = len(self.diamonds)
 
         for key in self.collision_box_map:
             box = self.collision_box_map[key]['rect']
@@ -128,6 +130,7 @@ class Level :
             for inner_box, c in zip(self._lava_box_list[: :-1], range(len(self._lava_box_list))[: :-1]) :
                 if box.colliderect(inner_box) :
                     self.collision_box_map[key]['lava_boxs'].append(inner_box)
+
                     continue
 
 
@@ -139,6 +142,7 @@ class Level :
     def init( self ) :
         self.tileset.init()
         cr.diamond.transform_by_height(self.grid_size)
+
 
     def check_events( self ) :
 
@@ -158,7 +162,7 @@ class Level :
             values['angle'] += cr.event_holder.delta_time * - 65
 
             if cr.game.player.rect.colliderect(values['rect']) :
-                print("Acquired diamond")
+                cr.game.player.acquired_diamonds += 1
                 values['is_taken'] = True
 
 

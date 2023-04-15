@@ -38,6 +38,8 @@ sword_dict = {
 }
 
 
+
+
 right_sword_dict = {key:Sprite(sword_root+path) for key,path in sword_dict.items()}
 left_sword_dict = {key:Sprite(sword_root+path) for key,path in sword_dict.items()}
 
