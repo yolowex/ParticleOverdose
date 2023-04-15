@@ -15,6 +15,7 @@ res = "./pic_res.png"
 
 pg.init()
 
+pg.mouse.set_visible(False)
 async def main():
     # cr.screen = pg.display.set_mode([900, 640], SCALED | FULLSCREEN)
     if IS_WEB: # web only, scales automatically
