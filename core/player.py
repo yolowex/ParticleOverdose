@@ -11,8 +11,12 @@ from core.sword import Sword
 class Player(JellyCube) :
 
     def __init__( self, points: list[Vector2] ) :
+        self.init_points = points.copy()
+
         self.color = WHITE
         self.border_color = BLACK.lerp(WHITE, 0.5)
+        self.lives = 5
+        self.max_lives = 5
         self.border_size = 1
         if self.border_size < 1 :
             self.border_size = 1

@@ -13,7 +13,7 @@ res = "./pic_res.png"
 
 pg.init()
 
-cr.font = pg.font.SysFont('monospace', 30)
+cr.font = pg.font.SysFont('monospace', 20)
 font = cr.font
 
 pg.mouse.set_visible(False)

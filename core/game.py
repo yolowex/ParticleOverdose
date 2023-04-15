@@ -158,6 +158,10 @@ class Game :
         return cr.font.render(f"{round(pg.time.get_ticks()/1000,1)}".zfill(5),False,(155,0,0))
 
 
+    @property
+    def lives_text( self ):
+        return cr.font.render(f"lives: {self.player.lives}/{self.player.max_lives}",False,(0,55,0))
+
     def check_events( self ) :
         cr.inner_box_list = self.level.inner_box_list
         gravity = self.gravity
@@ -189,3 +193,9 @@ class Game :
         time_rect.y += rect.h*1.3
         cr.screen.blit(time_text,time_rect)
 
+        lives_text = self.lives_text
+        lives_rect = lives_text.get_rect()
+        lives_rect.x = cr.screen.get_width() - lives_rect.w
+        lives_rect.y += time_rect.y + time_rect.h * 1.3
+        cr.screen.blit(lives_text,lives_rect )
+                                              
