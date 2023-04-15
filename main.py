@@ -106,7 +106,8 @@ async def main() :
 
         if not (start_playing and not (just_lost or just_won)) :
             cr.screen.fill("black")
-        if start_playing and not (just_lost or just_won) :
+
+        if start_playing and not (just_lost or just_won) and cr.event_holder.window_focus:
             cr.game.check_events()
             cr.game.render()
 
