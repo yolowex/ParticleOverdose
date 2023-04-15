@@ -29,6 +29,7 @@ class Sword :
         self.idle_duration = 1.5
         self.original_distance = 0.7
         self.distance = self.original_distance
+        self.cancel_throw = False
 
 
     def init( self ) :
@@ -81,7 +82,9 @@ class Sword :
 
             b = pbr.lerp(pbl, 0.5)
             t = ptr.lerp(ptl, 0.5)
-            c = b.lerp(t, 0.2)
+            lerp_val = 0.2
+
+            c = b.lerp(t, lerp_val)
 
             diff = gp.x - c.x, gp.y - c.y
 
@@ -114,11 +117,15 @@ class Sword :
 
         b = pbr.lerp(pbl, 0.5)
         t = ptr.lerp(ptl, 0.5)
-        c = b.lerp(t, 0.3)
+        lerp_value = 0.3
+        if self.name == 'death':
+            lerp_value = 0.5
+        c = b.lerp(t, lerp_value)
 
         m = 1
         if self.name == 'blood' :
             m = 1.5
+
         if direction == RIGHT :
             c.x += player.rect.w * self.distance * m
         else :
@@ -215,17 +222,19 @@ class Sword :
         max_distance = 20
 
 
+
         do_particles = False
         reverse = 1
 
         # retrieve
-        if self.was_thrown and self.distance != self.original_distance:
+        if (self.was_thrown and self.distance != self.original_distance) or self.cancel_throw:
             self.is_attacking = False
             self.is_retrieving = True
             do_particles = True
             reverse *= -1
             self.distance -= cr.event_holder.delta_time * throw_speed
             if self.distance < self.original_distance:
+                self.cancel_throw = False
                 self.distance = self.original_distance
 
         # rotate out
@@ -237,6 +246,7 @@ class Sword :
                 self.is_attacking = False
                 self.was_thrown = False
                 self.timer = now()
+
         else:
             # rotate in
             if self.angle < throw_angle :
@@ -244,6 +254,7 @@ class Sword :
                 self.angle += self.angle_speed * m
                 if self.angle > throw_angle :
                     self.angle = throw_angle
+
             # throw
             elif self.angle == throw_angle :
                 do_particles = True
@@ -251,6 +262,12 @@ class Sword :
                 if self.distance > max_distance :
                     self.distance = max_distance
                     self.was_thrown = True
+
+                if self.is_colliding() :
+                    self.cancel_throw = True
+                    self.was_thrown = True
+
+
 
         if do_particles:
             angle_m = 1
@@ -531,6 +548,18 @@ class Sword :
         self.is_attacking = True
         self.is_active = True
 
+    def is_colliding( self ) -> bool:
+        points = self.rotated_points_right
+        if cr.game.player.facing == LEFT:
+            points = self.rotated_points_left
+
+        rect = polygon_to_rect(points)
+
+        for box in cr.game.inner_box_list:
+            if rect.colliderect(box):
+                return True
+
+        return False
 
     def render_debug( self, points ) :
         pg.draw.polygon(cr.screen, 'red', points, width=2)
