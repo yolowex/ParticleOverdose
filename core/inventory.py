@@ -13,28 +13,28 @@ class Inventory :
         self.active_color = Color(155, 30, 12)
 
         rect_0 = rect.copy()
-        rect_0.y += rect.h * 0 + gap_unit * 0.5
+        rect_0.y += rect.h * 0 + gap_unit * 0.0
 
         rect_1 = rect.copy()
-        rect_1.y += rect.h * 1 + gap_unit * 1.5
+        rect_1.y += rect.h * 1 + gap_unit * 1.0
         rect_2 = rect.copy()
-        rect_2.y += rect.h * 2 + gap_unit * 2.5
+        rect_2.y += rect.h * 2 + gap_unit * 2.0
         rect_3 = rect.copy()
-        rect_3.y += rect.h * 3 + gap_unit * 3.5
+        rect_3.y += rect.h * 3 + gap_unit * 3.0
         rect_4 = rect.copy()
-        rect_4.y += rect.h * 4 + gap_unit * 4.5
+        rect_4.y += rect.h * 4 + gap_unit * 4.0
         rect_5 = rect.copy()
-        rect_5.y += rect.h * 5 + gap_unit * 5.5
+        rect_5.y += rect.h * 5 + gap_unit * 5.0
 
         self.selected_surface = Surface((rect.w,rect.h))
         self.selected_surface = self.selected_surface
         self.selected_surface.fill([180,150,150,125])
 
-        self.items = {"evil" : {"rect" : rect_0, "text" : "blood lust"},
-            "desire" : {"rect" : rect_1, "text" : "evergreen evil"},
-            "light" : {"rect" : rect_2, "text" : "blue hawk"},
-            "hawk" : {"rect" : rect_3, "text" : "the way of light"},
-            "blood" : {"rect" : rect_4, "text" : "burning desire"},
+        self.items = {"evil" : {"rect" : rect_0, "text" : "evergreen evil"},
+            "desire" : {"rect" : rect_1, "text" : "burning desire"},
+            "light" : {"rect" : rect_2, "text" : "the way of light"},
+            "hawk" : {"rect" : rect_3, "text" : "blue hawk"},
+            "blood" : {"rect" : rect_4, "text" : "blood lust"},
             "death" : {"rect" : rect_5, "text" : "death wish"}}
 
         for key in self.items :
@@ -55,6 +55,9 @@ class Inventory :
             item['locked_sprite'].transformed_surface.fill([0,0,0,150])
             item['locked_sprite'].transformed_surface.blit(gray_surface,surface_rect)
 
+            text = cr.smallest_font.render(item['text'],False,"black",[155,133,168])
+            item['text_surface'] = text
+
 
 
 
@@ -73,6 +76,12 @@ class Inventory :
             surface = value['sprite'].transformed_surface
             surface_rect = surface.get_rect()
             surface_rect.center = rect.center
+
+            text_surface = value['text_surface']
+            text_rect = text_surface.get_rect()
+            text_rect.x = 0
+            text_rect.y = rect.y + rect.h
+            cr.screen.blit(text_surface,text_rect)
 
             if not key in cr.game.player.locked_swords_list:
                 cr.screen.blit(self.selected_surface,rect)
