@@ -33,8 +33,8 @@ class Sword :
 
         self.max_special_combo = 2
         self.total_combo = 0
-        self.cooldown = 3
-        self.cooldown_timer = 0
+        self.cooldown = 1.7
+        self.cooldown_timer = -100
 
 
     def init( self ) :
@@ -162,14 +162,16 @@ class Sword :
         if K_f in cr.event_holder.pressed_keys :
             self.attack(ATTACK_NORMAL)
 
+        in_cooldown = now() < self.cooldown + self.cooldown_timer
+
         if K_v in cr.event_holder.pressed_keys :
-            if not self.is_attacking and not self.is_retrieving :
+            if not self.is_attacking and not self.is_retrieving  and not in_cooldown:
                 self.attack(ATTACK_SPECIAL)
+                self.cooldown_timer = now()
             elif not self.was_thrown :
                 self.reset_sword()
                 self.timer = now()
 
-        in_cooldown = now() < self.cooldown + self.cooldown_timer
         if not in_cooldown and self.total_combo == self.max_special_combo :
             self.total_combo = 0
 
@@ -193,12 +195,11 @@ class Sword :
                 reset = (self.is_attacking or self.is_retrieving)
                 self.update_sword(name)
 
-                if not reset:
+                if not reset :
                     self.attack(ATTACK_SPECIAL)
                     self.total_combo += 1
                     if self.total_combo == self.max_special_combo :
                         self.cooldown_timer = now()
-
 
         self.check_activeness()
 
@@ -601,8 +602,9 @@ class Sword :
 
     @property
     def cooldown_text( self ) :
-        return cr.little_font.render(
-            f"Cooldown... {round(abs(self.cooldown - self.cooldown_timer), 2)}",False,"red","white")
+        return cr.smallest_font.render(
+            f"Cooldown... {str(round(abs(now() - (self.cooldown_timer + self.cooldown)), 2)).zfill(5)}",
+            False, Color(155,0,0))
 
 
     def render_debug( self, points ) :
@@ -624,6 +626,14 @@ class Sword :
         the_rect = polygon_to_rect(points)
 
         cr.screen.blit(sword, the_rect)
+
+        in_cooldown = now() < self.cooldown + self.cooldown_timer
+        if in_cooldown :
+            surface = self.cooldown_text
+            rect = surface.get_rect()
+            rect.center = cr.screen.get_rect().center
+            rect.y = cr.screen.get_height() - rect.h
+            cr.screen.blit(surface, rect)
 
         if cr.event_holder.should_render_debug :
             self.render_debug(points)
