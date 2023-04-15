@@ -162,12 +162,18 @@ class Sword :
         if K_f in cr.event_holder.pressed_keys :
             self.attack(ATTACK_NORMAL)
 
+        if K_v in cr.event_holder.pressed_keys :
+            if not self.is_attacking and not self.is_retrieving :
+                self.attack(ATTACK_SPECIAL)
+            elif not self.was_thrown :
+                self.reset_sword()
+                self.timer = now()
+
         in_cooldown = now() < self.cooldown + self.cooldown_timer
         if not in_cooldown and self.total_combo == self.max_special_combo :
             self.total_combo = 0
 
         if not self.was_thrown :
-            did_combo = False
             name = 'none'
             if K_q in cr.event_holder.pressed_keys and 'evil' not in cr.game.player.locked_swords_list :
                 name = 'evil'
@@ -183,18 +189,16 @@ class Sword :
                 name = 'death'
 
             if name is not 'none' and not in_cooldown :
-                reset = False
                 self.reset_sword()
-                reset = self.name == name and (self.is_attacking or self.is_retrieving)
+                reset = (self.is_attacking or self.is_retrieving)
                 self.update_sword(name)
+
                 if not reset:
                     self.attack(ATTACK_SPECIAL)
                     self.total_combo += 1
                     if self.total_combo == self.max_special_combo :
                         self.cooldown_timer = now()
-                else:
-                    self.total_combo = 0
-                    self.cooldown_timer = now()
+
 
         self.check_activeness()
 
