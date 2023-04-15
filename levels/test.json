@@ -16,7 +16,7 @@
 	"toc": [{
 		"identifier": "Player",
 		"instances": [{
-			"worldIid": "0d56ec30-c640-11ed-ad61-53ee5a78d9b0",
+			"worldIid": "d2f4d2d0-c640-11ed-b5cd-e3c23c029e96",
 			"levelIid": "cc951bd2-c640-11ed-8658-17462b37a18f",
 			"layerIid": "3e22e670-c640-11ed-876d-2f9a71d6dcd7",
 			"entityIid": "ba051960-c640-11ed-b9cb-056f011bd71a"
@@ -6727,6 +6727,20 @@
 							"height": 24,
 							"defUid": 68,
 							"px": [768,792],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Collidable",
+							"__grid": [30,24],
+							"__pivot": [0,0],
+							"__tags": ["region"],
+							"__tile": null,
+							"__smartColor": "#54B942",
+							"iid": "d7a2f190-c640-11ed-b5cd-ab73cff96108",
+							"width": 24,
+							"height": 24,
+							"defUid": 68,
+							"px": [720,576],
 							"fieldInstances": []
 						}
 					]
