@@ -83,8 +83,10 @@ class Player(JellyCube) :
             return
 
         water_m = 1
-        if self.is_wet :
+        if self.is_wet or self.is_flying:
             water_m = 0.4
+
+
 
         movement = Vector2(0, self.gravity * water_m)
         any_ = self.is_colliding(movement)
@@ -128,15 +130,22 @@ class Player(JellyCube) :
             self.is_falling = False
 
         water_m = 1
-        if self.is_wet or self.on_fire:
-            water_m = 0.8
 
-            if self.sword.name == 'evil' :
-                water_m = 1.5
-                if value.y < 0:
-                    water_m = 2.5
-                if value.y > 0:
-                    water_m = 1
+        if self.sword.name == 'evil':
+            water_m = 1.4
+        if self.sword.name == 'desire':
+            water_m = 1
+        if self.is_flying:
+            water_m = 1
+
+        if value.y < 0: # above
+            water_m *= 2
+            if self.is_jumping:
+                water_m = 0
+
+        if value.y > 0: # below
+            water_m *= 0.3
+
 
 
         throw = (self.sword.last_attack_type in THROW_TYPES and (
@@ -248,16 +257,10 @@ class Player(JellyCube) :
             self.move(Vector2(-self.move_speed, 0))
 
         if self.is_wet or self.on_fire or self.is_flying :
-            sword_m = 1 if self.sword.name == 'evil' else 2
-            if self.on_fire:
-                sword_m = 2
             if K_DOWN in h_keys :
-                self.move(Vector2(0, self.move_speed * sword_m))
-
+                self.move(Vector2(0, self.move_speed))
             if K_UP in h_keys :
-                if self.is_flying and not self.is_wet:
-                    sword_m *= 2.3
-                self.move(Vector2(0, -self.move_speed * sword_m))
+                self.move(Vector2(0, -self.move_speed))
 
 
 
