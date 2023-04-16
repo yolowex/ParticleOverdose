@@ -46,6 +46,10 @@ class Player(JellyCube) :
         super(Player, self).__init__(points)
 
     @property
+    def is_flying( self ):
+        return self.sword.name == 'evil' and self.sword.is_attacking
+
+    @property
     def particle_delta_count( self ) :
         delta = cr.event_holder.delta_time
         if delta <= 0.01 :
@@ -243,7 +247,7 @@ class Player(JellyCube) :
         if K_LEFT in h_keys :
             self.move(Vector2(-self.move_speed, 0))
 
-        if self.is_wet or self.on_fire :
+        if self.is_wet or self.on_fire or self.is_flying :
             sword_m = 1 if self.sword.name == 'evil' else 2
             if self.on_fire:
                 sword_m = 2
@@ -251,7 +255,11 @@ class Player(JellyCube) :
                 self.move(Vector2(0, self.move_speed * sword_m))
 
             if K_UP in h_keys :
+                if self.is_flying and not self.is_wet:
+                    sword_m *= 2.3
                 self.move(Vector2(0, -self.move_speed * sword_m))
+
+
 
         if not self.did_jump :
             if K_SPACE in p_keys :

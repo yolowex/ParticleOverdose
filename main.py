@@ -46,9 +46,9 @@ async def main() :
 
     # cr.screen = pg.display.set_mode([900, 640], SCALED | FULLSCREEN)
     if IS_WEB :  # web only, scales automatically
-        cr.screen = pg.display.set_mode([900 * 0.6, 640 * 0.6])
+        cr.screen = pg.display.set_mode([900 * 0.8, 640 * 0.8])
     else :
-        cr.screen = pg.display.set_mode([900 * 0.6, 640 * 0.6], SCALED | FULLSCREEN)
+        cr.screen = pg.display.set_mode([900 * 0.8, 640 * 0.8], SCALED | FULLSCREEN)
 
     start_playing = False
 
