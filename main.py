@@ -23,10 +23,8 @@ last_time = 0
 
 
 def game_over_text() :
-    diamonds = cr.game.player.acquired_diamonds
-
     return cr.little_font.render(
-        f"You found {diamonds} Diamonds in {last_time} seconds! Good Job! press X to replay", True,
+        f"You found {last_diamonds} Diamonds in {last_time} seconds! Good Job! press X to replay", True,
         "red")
 
 
@@ -40,9 +38,10 @@ pg.mouse.set_visible(False)
 just_lost = False
 just_won = False
 
-
+last_diamonds = 0
 async def main() :
     global last_time, just_lost, just_won
+    global last_diamonds
 
     # cr.screen = pg.display.set_mode([900, 640], SCALED | FULLSCREEN)
     if IS_WEB :  # web only, scales automatically
@@ -81,14 +80,17 @@ async def main() :
     # I F**king love OOP :heart:
     while not cr.event_holder.should_quit :
         if cr.game.player.lives == 0 and not just_lost :
+            last_time = round(now() - cr.game.timer, 2)
+            last_diamonds = cr.game.player.acquired_diamonds
             reset_game()
             just_lost = True
-            last_time = round(now() - cr.game.timer, 2)
 
         if cr.game.player.acquired_diamonds == cr.game.level.total_diamonds and not just_won :
+            last_diamonds = cr.game.player.acquired_diamonds
+            last_time = round(now() - cr.game.timer, 2)
+
             reset_game()
             just_won = True
-            last_time = round(now() - cr.game.timer, 2)
 
         if K_F3 in cr.event_holder.pressed_keys :
             cr.event_holder.should_render_debug = not cr.event_holder.should_render_debug
@@ -141,7 +143,7 @@ async def main() :
             cr.screen.blit(surface, rect)
 
         if just_won :
-            surface = game_over_text()
+            surface = win_text()
             rect = surface.get_rect()
             rect.center = cr.screen.get_rect().center
             cr.screen.blit(surface, rect)

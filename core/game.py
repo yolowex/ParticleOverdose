@@ -32,12 +32,13 @@ class Game :
         self.gravity = 500
 
         p = self.player.center.copy()
-        p.x = -int(p.x) + int(cr.screen.get_width()*0.5)
-        p.y = -int(p.y) + int(cr.screen.get_height()*0.8)
+        p.x = -int(p.x) + int(cr.screen.get_width() * 0.5)
+        p.y = -int(p.y) + int(cr.screen.get_height() * 0.8)
 
         cr.camera.pos = p
 
-    def reset_player( self ,new_game:bool=False):
+
+    def reset_player( self, new_game: bool = False ) :
         l_locked = self.player.locked_swords_list
         l_diamonds = self.player.acquired_diamonds
         l_lives = self.player.lives
@@ -48,10 +49,11 @@ class Game :
         self.player = Player(rect_convert_polygon(p_rect))
         self.player.init()
 
-        if not new_game:
+        if not new_game :
             self.player.locked_swords_list = l_locked
             self.player.acquired_diamonds = l_diamonds
             self.player.lives = l_lives
+
 
     def init( self ) :
         self.player.init()
@@ -89,10 +91,15 @@ class Game :
         x_offset = 0.5
         y_offset = 0.8
 
+        x = (self.player.sword.is_attacking and self.player.sword.name in ['light', 'evil'])
+
+        go_center = self.player.is_jumping or (x and self.player.sword.attack_key == ATTACK_SPECIAL)
+
         h_keys = cr.event_holder.held_keys
 
         cam_unit = cr.event_holder.delta_time * 0.5
         cam_release_unit = (1 - cr.event_holder.delta_time * 2)
+
         if cam_release_unit < 0 :
             cam_release_unit = 0
         if cam_release_unit > 1 :
@@ -103,7 +110,7 @@ class Game :
         if K_d in h_keys :
             self.camera_x_offset -= cam_unit
 
-        if K_s in h_keys :
+        if K_s in h_keys or go_center :
             self.camera_y_offset -= cam_unit
 
         if any(i in h_keys for i in [K_a, K_d, K_s]) :
@@ -144,20 +151,6 @@ class Game :
             particle.check_events()
 
 
-    # experimental
-    # @property
-    # def inner_box( self ) -> FRect:
-    #
-    #     rect = self.box.copy()
-    #     rect.x+=self.box_width
-    #     rect.y+=self.box_width
-    #     rect.w-=self.box_width*2
-    #     rect.h-=self.box_width*2
-    #     return rect
-
-    # experimental
-
-    # Bad usage of words, box means collidable here
     @property
     def inner_box_list( self ) :
         return cr.inner_box_list
@@ -166,79 +159,82 @@ class Game :
     @property
     def diamonds_text( self ) :
         return cr.font.render(
-            f"Diamonds: {self.player.acquired_diamonds}/{self.level.total_diamonds}",False,"black")
+            f"Diamonds: {self.player.acquired_diamonds}/{self.level.total_diamonds}", False,
+            "black")
 
 
     @property
-    def time_text( self ):
-        return cr.font.render(f"{round(pg.time.get_ticks()/1000-self.timer,1)}".zfill(5),False,(155,0,0))
+    def time_text( self ) :
+        return cr.font.render(f"{round(pg.time.get_ticks() / 1000 - self.timer, 1)}".zfill(5),
+            False, (155, 0, 0))
 
 
     @property
-    def lives_text( self ):
-        return cr.font.render(f"lives: {self.player.lives}/{self.player.max_lives}",False,(0,55,0))
+    def lives_text( self ) :
+        return cr.font.render(f"lives: {self.player.lives}/{self.player.max_lives}", False,
+            (0, 55, 0))
 
-    def check_dead_player( self ):
-        if K_p in cr.event_holder.released_keys or K_LCTRL in cr.event_holder.released_keys:
+
+    def check_dead_player( self ) :
+        if K_p in cr.event_holder.released_keys or K_LCTRL in cr.event_holder.released_keys :
             self.reset_player()
 
 
     def check_events( self ) :
-
-
         cr.inner_box_list = self.level.inner_box_list
         gravity = self.gravity
         gravity *= cr.event_holder.delta_time
         self.level.check_events()
         self.player.gravity_request(gravity)
 
-        if not self.player.is_dead:
+        if not self.player.is_dead :
             self.player.check_events()
-        else:
+        else :
             self.check_dead_player()
 
         self.inventory.check_events()
         self.check_particles()
         self.check_camera_and_peek()
 
-    @property
-    def dead_player_text( self ):
-        return cr.font.render("You are dead, press P to respawn!",True,"red")
 
-    def render_dead_player_text( self ):
-        if self.player.lives == 0:
+    @property
+    def dead_player_text( self ) :
+        return cr.font.render("You are dead, press P to respawn!", True, "red")
+
+
+    def render_dead_player_text( self ) :
+        if self.player.lives == 0 :
             return
 
         surface = self.dead_player_text
         rect = surface.get_rect()
         rect.center = cr.screen.get_rect().center
-        cr.screen.blit(surface,rect)
+        cr.screen.blit(surface, rect)
+
 
     def render( self ) :
         cr.screen.fill(self.bg)
-        # pg.draw.rect(cr.surface,BLACK,self.box,width=self.box_width)
-        # pg.draw.rect(cr.surface,BLACK.lerp(WHITE,0.9),self.inner_box)
+
         self.level.render()
         self.inventory.render()
 
         self.player.render()
-        if self.player.is_dead:
+        if self.player.is_dead :
             self.render_dead_player_text()
 
         text = self.diamonds_text
         rect = text.get_rect()
         rect.x = cr.screen.get_width() - rect.w
-        cr.screen.blit(text,rect)
+        cr.screen.blit(text, rect)
 
         time_text = self.time_text
         time_rect = time_text.get_rect()
         time_rect.x = cr.screen.get_width() - time_rect.w
-        time_rect.y += rect.h*1.3
-        cr.screen.blit(time_text,time_rect)
+        time_rect.y += rect.h * 1.3
+        cr.screen.blit(time_text, time_rect)
 
         lives_text = self.lives_text
         lives_rect = lives_text.get_rect()
         lives_rect.x = cr.screen.get_width() - lives_rect.w
         lives_rect.y += time_rect.y + time_rect.h * 1.3
-        cr.screen.blit(lives_text,lives_rect )
-                                              
+        cr.screen.blit(lives_text, lives_rect)
