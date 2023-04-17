@@ -30,7 +30,7 @@ def game_over_text() :
 
 def win_text() :
     return cr.little_font.render(
-        f"You all Diamonds in {last_time} seconds! Very nice! press X to replay", True, "red")
+        f"You gathered all Diamonds in {last_time} seconds! Very nice! press X to replay", True, "red")
 
 
 pg.mouse.set_visible(False)
