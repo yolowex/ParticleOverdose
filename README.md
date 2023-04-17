@@ -20,6 +20,7 @@ you need some of them to gather certain diamonds.
 
 ## Showcase
 
+https://user-images.githubusercontent.com/122750743/232397527-249b0a73-04fb-4f5d-8fb6-60794e6dca2c.mp4
 
 ## Requirements
 
