@@ -21,6 +21,12 @@ you need some of them to gather certain diamonds.
 ## Showcase
 
 
+## Requirements
+
+You need `pygame-ce` same as or above version `2.2`.
+
+The minimum `Python` version is `3.10`, but `3.11` is recommended for performance.
+
 ## How to Play
 
 ### *From Source*
