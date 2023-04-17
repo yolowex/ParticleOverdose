@@ -93,7 +93,8 @@ class Game :
 
         x = (self.player.sword.is_attacking and self.player.sword.name in ['light', 'evil'])
 
-        go_center = self.player.is_jumping or (x and self.player.sword.attack_key == ATTACK_SPECIAL)
+        go_center = self.player.is_jumping or \
+                    (x and self.player.sword.attack_key == ATTACK_SPECIAL) or self.player.is_falling
 
         h_keys = cr.event_holder.held_keys
 
