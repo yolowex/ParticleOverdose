@@ -33,7 +33,7 @@ class Sword :
 
         self.max_special_combo = 2
         self.total_combo = 0
-        self.cooldown = 1.7
+        self.cooldown = 3
         self.cooldown_timer = -100
 
 

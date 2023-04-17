@@ -108,8 +108,13 @@ async def main() :
         if IS_WEB and cr.event_holder.should_quit:
             cr.event_holder.should_quit = False
 
-        should = start_playing and not (just_lost or just_won) and cr.event_holder.window_focus \
-                and now() > cr.event_holder.focus_gain_timer + 1
+
+
+        win_focus = cr.event_holder.window_focus and cr.event_holder.focus_gain_timer + 1 < now()
+        mouse_focus = cr.event_holder.mouse_focus and cr.event_holder.mouse_focus_gain_timer + 1 < now()
+
+        should = start_playing and not (just_lost or just_won) and (win_focus and mouse_focus)
+
 
         if not should:
             cr.screen.fill([0,0,0,0])
