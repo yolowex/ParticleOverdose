@@ -69,4 +69,4 @@ granting users freedom to use, modify, and distribute the software without liabi
 
 We welcome contributions to our open source game project! Help us enhance the gameplay,
 add new features, fix bugs, and make it even better.
-See the CONTRIBUTING.md file for more details.
+See the [CONTRIBUTING.md](./CONTRIBUTING.md) file for more details.
